@@ -1,0 +1,7 @@
+venv/
+django stuff/
+.vscode/
+frontend/node_modules/
+__pycache__/
+*.swp
+db.sqlite3
