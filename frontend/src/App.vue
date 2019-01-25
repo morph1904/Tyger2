@@ -1,19 +1,25 @@
 <template>
-  <div id="app">
-    <navbar/>
-    <div class="container">
-      <router-view/>
-    </div>
-  </div>
+  <v-app>
+    <Navbar/>
+    <v-content>
+      <router-view></router-view>
+    </v-content>
+    <Footer/>
+  </v-app>
 </template>
 
 <script>
-  import Navbar from './components/partials/Navbar.vue';
+import Navbar from './views/partials/Navbar'
+import Footer from './views/partials/Footer'
 
-  export default {
-    name: 'app',
-    components: {
-      'navbar': Navbar,
-    },
-  };
+export default {
+  name: 'App',
+  components: {
+    Navbar,
+    Footer
+  },
+ data: () => ({
+    drawer: null
+  })
+}
 </script>
