@@ -1,5 +1,17 @@
 <template>
-  <h1>This is a header</h1>
+<v-container>
+  <v-layout row wrap>
+    <v-flex xs12>
+      <v-card>
+        <v-card-title primary-title>
+          This is the homepage
+        </v-card-title>
+      </v-card>
+    </v-flex>
+  </v-layout>
+  
+</v-container>
+  
 </template>
 
 <script>
