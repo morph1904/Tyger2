@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <v-navigation-drawer class="orange darken-1" clipped fixed v-model="drawer" app>
-            <v-toolbar flat class="grey darken-3">
+  <div>
+    <v-navigation-drawer dark class="blue-grey darken-3" clipped v-model="drawer" app>
+      <v-toolbar flat class="blue-grey darken-4">
         <v-list class="pa-0">
           <v-list-tile avatar>
             <v-list-tile-avatar>
@@ -9,48 +9,80 @@
             </v-list-tile-avatar>
 
             <v-list-tile-content>
-              <v-list-tile-title class="white--text">Welcome, Administrator</v-list-tile-title>
+              <v-list-tile-title class="white--text">Hi, Administrator</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
       </v-toolbar>
-            <v-list class="white--text" dense>
-                <v-list-tile router to="/">
-                <v-list-tile-action>
-                    <v-icon class="white--text">home</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                    <v-list-tile-title to="Home">Home</v-list-tile-title>
-                </v-list-tile-content>
-                </v-list-tile>
-                <v-list-tile router to="about">
-                <v-list-tile-action>
-                    <v-icon class="white--text">contact_mail</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                    <v-list-tile-title>About</v-list-tile-title>
-                </v-list-tile-content>
-                </v-list-tile>
-            </v-list>
-        </v-navigation-drawer>
+      <v-list class="pa-1" dense v-for="link in links" :key="link.text">
+        <v-layout row wrap>
+          <v-flex xs8 offset-xs2>
+            <div class="text-xs-center">
+              <v-btn class="accent" block round router :to="link.route">
+                <v-icon class="px-1">{{ link.icon }}</v-icon>
+                {{ link.text }}
+              </v-btn>
+            </div>
+          </v-flex>
+        </v-layout>
+      </v-list>
+      <v-divider></v-divider>
+      <v-layout row wrap>
+        <v-flex xs8 offset-xs2>
+          <div class="text-xs-center">
+            <v-btn class="accent" block round>
+              <v-icon class="px-1">timelapse</v-icon>Restart Proxy
+            </v-btn>
+          </div>
+        </v-flex>
+      </v-layout>
+      <v-divider></v-divider>
+    </v-navigation-drawer>
 
-        <v-toolbar color="orange darken-1" dark fixed app>
-            <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-            <v-toolbar-title>Tyger 2</v-toolbar-title>
-            <v-spacer></v-spacer>
-    <v-toolbar-items class="hidden-sm-and-down">
-      <v-btn flat>Link One</v-btn>
-      <v-btn flat>Link Two</v-btn>
-      <v-btn flat>Link Three</v-btn>
-    </v-toolbar-items>
-        </v-toolbar>
-    </div>
+    <v-toolbar color="deep-orange" dark fixed app>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-title>
+        <v-img :src="require('@/assets/TygerLogo.png')" height="47px" width="190px"></v-img>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-menu flat offset-y>
+          <v-btn flat slot="activator">
+            <v-icon>menu</v-icon>Menu
+          </v-btn>
+          <v-list>
+            <v-list-tile v-for="(link, index) in links" :key="index" :to="link.route">
+              <v-list-tile-title>
+                <v-icon>{{ link.icon }}</v-icon>
+                {{ link.text }}
+              </v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
+        <v-btn flat v-if="isLogged" @click="logout">
+          <v-icon>lock</v-icon>logout
+        </v-btn>
+      </v-toolbar-items>
+    </v-toolbar>
+  </div>
 </template>
 <script>
-
+import { mapGetters } from "vuex";
 export default {
-    data: () => ({
-    drawer: false
-  })
-}
+  data: () => ({
+    drawer: false,
+    links: [
+      { route: "/", text: "Home", icon: "home" },
+      { route: "apps", text: "Applications", icon: "apps" },
+      { route: "domains", text: "Domains", icon: "domain" }
+    ]
+  }),
+  computed: mapGetters(["isLogged", "user"]),
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+      this.$router.push({ name: "Login" });
+    }
+  }
+};
 </script>

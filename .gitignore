@@ -5,3 +5,5 @@ frontend/node_modules/
 __pycache__/
 *.swp
 db.sqlite3
+.jshintrc
+.eslintrc.js
