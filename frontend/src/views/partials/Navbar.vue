@@ -9,7 +9,11 @@
             </v-list-tile-avatar>
 
             <v-list-tile-content>
+<<<<<<< HEAD
               <v-list-tile-title class="white--text">Hi, {{username}}</v-list-tile-title>
+=======
+              <v-list-tile-title class="white--text">Hi, Administrator</v-list-tile-title>
+>>>>>>> 484501520473b429991d298f1fb7342d1a7606ae
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -59,7 +63,11 @@
             </v-list-tile>
           </v-list>
         </v-menu>
+<<<<<<< HEAD
         <v-btn flat @click="logout">
+=======
+        <v-btn flat v-if="isLogged" @click="logout">
+>>>>>>> 484501520473b429991d298f1fb7342d1a7606ae
           <v-icon>lock</v-icon>logout
         </v-btn>
       </v-toolbar-items>
@@ -67,17 +75,21 @@
   </div>
 </template>
 <script>
-
+import { mapGetters } from "vuex";
 export default {
   data: () => ({
     drawer: false,
+<<<<<<< HEAD
     username: localStorage.username,
+=======
+>>>>>>> 484501520473b429991d298f1fb7342d1a7606ae
     links: [
       { route: "/", text: "Home", icon: "home" },
       { route: "apps", text: "Applications", icon: "apps" },
       { route: "domains", text: "Domains", icon: "domain" }
     ]
   }),
+<<<<<<< HEAD
  // computed: mapGetters(["isAuthenticated", "user"]),
   methods: {
     logout() {
@@ -90,6 +102,14 @@ export default {
     // etc...
 });
             },
+=======
+  computed: mapGetters(["isLogged", "user"]),
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+      this.$router.push({ name: "Login" });
+    }
+>>>>>>> 484501520473b429991d298f1fb7342d1a7606ae
   }
 };
 </script>

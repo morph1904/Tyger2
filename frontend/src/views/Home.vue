@@ -1,5 +1,6 @@
 <template>
   <v-container>
+<<<<<<< HEAD
     
     <h2 class="blue-grey--text darken-5 pa-2">Dashboard
     </h2>
@@ -97,11 +98,20 @@
   </v-card>
       </v-flex>
     </v-layout>
+=======
+    <h2 class="blue-grey--text darken-5 pa-2">Dashboard</h2>
+>>>>>>> 484501520473b429991d298f1fb7342d1a7606ae
     <v-layout row wrap>
       <v-flex xs12 sm6 pa-3>
         <v-toolbar color="deep-orange" dark flat>
           <v-toolbar-title>Applications</v-toolbar-title>
           <v-spacer></v-spacer>
+<<<<<<< HEAD
+=======
+          <v-btn absolute top right fab dark icon color="accent" @click.stop="showWizardForm=true">
+            <v-icon>add</v-icon>
+          </v-btn>
+>>>>>>> 484501520473b429991d298f1fb7342d1a7606ae
           <Wizard v-model="showWizardForm"/>
         </v-toolbar>
         <v-card flat class="blue-grey lighten-5">
@@ -114,6 +124,12 @@
         <v-toolbar color="deep-orange" dark flat>
           <v-toolbar-title>Domains</v-toolbar-title>
           <v-spacer></v-spacer>
+<<<<<<< HEAD
+=======
+          <v-btn absolute top right fab dark icon color="accent">
+            <v-icon>add</v-icon>
+          </v-btn>
+>>>>>>> 484501520473b429991d298f1fb7342d1a7606ae
         </v-toolbar>
         <v-card flat class="blue-grey lighten-5">
           <v-card-title primary-title>
@@ -127,6 +143,7 @@
 
 <script>
 import Wizard from "@/components/forms/Wizard";
+<<<<<<< HEAD
 //import axios from 'axios'
 //import config from '../config'
 import RadialProgressBar from 'vue-radial-progress'
@@ -166,5 +183,16 @@ export default {
     this.interval = setInterval(() => this.getStats(), 1000);
 },
         
+=======
+export default {
+  data() {
+    return {
+      showWizardForm: false
+    };
+  },
+  components: {
+    Wizard
+  }
+>>>>>>> 484501520473b429991d298f1fb7342d1a7606ae
 };
 </script>

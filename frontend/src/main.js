@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import './plugins/vuetify';
+<<<<<<< HEAD
 import App from './App.vue';
 import 'vuetify/dist/vuetify.min.css';
 import axios from 'axios';
@@ -48,3 +49,22 @@ new Vue({
   VueAxios,
   render: h => h(App),
 }).$mount('#app');
+=======
+import './plugins/veevalidate';
+import App from './App.vue';
+import router from './router';
+import {
+    sync
+} from 'vuex-router-sync';
+import store from './store';
+
+Vue.config.productionTip = false;
+Vue.prototype.$eventHub = new Vue();
+sync(store, router);
+
+new Vue({
+    router,
+    store,
+    render: h => h(App)
+}).$mount('#app');
+>>>>>>> 484501520473b429991d298f1fb7342d1a7606ae
