@@ -13,17 +13,18 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import psutil
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers, serializers, viewsets
+
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
-from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token, refresh_jwt_token
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
-
 from django.contrib.auth.models import User
 
 # Serializers define the API representation.
@@ -51,6 +52,22 @@ class RestrictedView(APIView):
         }
         return Response(data)
 
+class StatsView(APIView):
+    permission_classes = (IsAuthenticated, )
+    authentication_classes = (JSONWebTokenAuthentication, )
+
+    def get(self, request):
+        memory = psutil.virtual_memory()
+        data = {
+            'mem_total': memory.total,
+            'mem_avail': memory.available,
+            'mem_percent': memory.percent,
+            'mem_used': memory.used,
+            'mem_free': memory.free,
+            'cpu_percent': psutil.cpu_percent(interval=None),
+        }
+        print(memory.total)
+        return Response(data)
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 
@@ -64,5 +81,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('api-token-auth/', obtain_jwt_token),
+    path('api-token-verify/', verify_jwt_token),
+    path('api-token-refresh/', refresh_jwt_token),
+    path('stats/', StatsView().as_view()),
     path('', include(router.urls))
 ]

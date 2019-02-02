@@ -5,11 +5,11 @@
         <v-list class="pa-0">
           <v-list-tile avatar>
             <v-list-tile-avatar>
-              <img src="https://randomuser.me/api/portraits/men/85.jpg">
+              <img :src="require('@/assets/users.png')">
             </v-list-tile-avatar>
 
             <v-list-tile-content>
-              <v-list-tile-title class="white--text">Hi, Administrator</v-list-tile-title>
+              <v-list-tile-title class="white--text">Hi, {{username}}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -59,7 +59,7 @@
             </v-list-tile>
           </v-list>
         </v-menu>
-        <v-btn flat v-if="isLogged" @click="logout">
+        <v-btn flat @click="logout">
           <v-icon>lock</v-icon>logout
         </v-btn>
       </v-toolbar-items>
@@ -67,22 +67,29 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+
 export default {
   data: () => ({
     drawer: false,
+    username: localStorage.username,
     links: [
       { route: "/", text: "Home", icon: "home" },
       { route: "apps", text: "Applications", icon: "apps" },
       { route: "domains", text: "Domains", icon: "domain" }
     ]
   }),
-  computed: mapGetters(["isLogged", "user"]),
+ // computed: mapGetters(["isAuthenticated", "user"]),
   methods: {
     logout() {
-      this.$store.dispatch("logout");
-      this.$router.push({ name: "Login" });
-    }
+                this.$auth.logout({
+    makeRequest: false,
+    data: {}, // data: {} in axios
+    success: function () {},
+    error: function () {},
+    redirect: '/login',
+    // etc...
+});
+            },
   }
 };
 </script>

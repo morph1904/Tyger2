@@ -8,3 +8,5 @@ db.sqlite3
 .jshintrc
 .eslintrc.js
 .DS_Store
+Archive.zip
+frontendBackup.zip

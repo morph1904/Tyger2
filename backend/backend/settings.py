@@ -120,6 +120,8 @@ JWT_AUTH = {
 
     'JWT_RESPONSE_PAYLOAD_HANDLER':
         'backend.jwt_payload_handler.jwt_response_payload_handler',
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(minutes=5),
+    'JWT_ALLOW_REFRESH': True,
 }
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/

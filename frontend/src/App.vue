@@ -1,12 +1,19 @@
 <template>
   <v-app class="blue-grey lighten-2">
-    <div >
-    <Navbar v-if="isLogged"/>
+    <div>
+        <div v-if="$auth.ready()">
+    <div>
+    <Navbar />
     <v-content>
       <Alert/>
       <router-view></router-view>
     </v-content>
     <Footer/>
+    </div>
+    <div v-if="!$auth.ready()">
+            Loading ...
+        </div>
+    </div>
     </div>
   </v-app>
 </template>
@@ -15,8 +22,6 @@
 import Navbar from './views/partials/Navbar'
 import Footer from './views/partials/Footer'
 import Alert from './views/partials/Alert'
-
-import { mapGetters } from 'vuex';
 
 export default {
   name: 'App',
@@ -29,7 +34,7 @@ export default {
     drawer: null,
   }),
   
-  computed: mapGetters(['isLogged', 'user']),
+  //computed: mapGetters(['isAuthenticated', 'user']),
   methods:{
     }
   
