@@ -1,0 +1,144 @@
+<template>
+<div>
+      <Wizard v-model="showWizardForm"/>
+        <v-layout row wrap hidden-sm-and-down>
+      <v-flex xs4 pa-3>
+        <v-card class="mx-auto" color="blue-grey darken-3" dark max-width="400">
+          <v-card-title>
+            <v-icon large left>dns</v-icon>
+            <span class="title font-weight-light">CPU Usage:</span>
+          </v-card-title>
+
+          <v-card-text class="headline font-weight-bold">
+            <v-layout row wrap class="justify-center">
+              <v-flex xs4>
+                <radial-progress-bar
+                  class="text-xs-center"
+                  :diameter="100"
+                  startColor="#ff5722"
+                  stopColor="#ff5722"
+                  :completed-steps="stats.cpu_percent"
+                  :total-steps="totalSteps"
+                >{{ stats.cpu_percent }}%</radial-progress-bar>
+              </v-flex>
+            </v-layout>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+      <v-flex xs4 pa-3>
+        <v-card class="mx-auto" color="blue-grey darken-3" dark max-width="400">
+          <v-card-title>
+            <v-icon large left>dns</v-icon>
+            <span class="title font-weight-light">Memory Usage:</span>
+          </v-card-title>
+
+          <v-card-text class="headline font-weight-bold">
+            <v-layout row wrap class="justify-center">
+              <v-flex xs4>
+                <radial-progress-bar
+                  class="text-xs-center"
+                  :diameter="100"
+                  startColor="#ff5722"
+                  stopColor="#ff5722"
+                  :completed-steps="stats.mem_percent"
+                  :total-steps="totalSteps"
+                >{{ stats.mem_percent }}%</radial-progress-bar>
+              </v-flex>
+            </v-layout>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+      <v-flex xs4 pa-3>
+        <v-card class="mx-auto full-height" color="blue-grey darken-3" dark max-width="400">
+          <v-btn absolute top right fab dark icon color="primary" @click.stop="showWizardForm=true">
+            <v-icon>add</v-icon>
+          </v-btn>
+          <v-card-title>
+            <v-icon large left>dns</v-icon>
+            <span class="title font-weight-light">Actions</span>
+          </v-card-title>
+
+          <v-card-text class="headline font-weight-bold">
+            <v-btn round color="primary" dark block>Reload Proxy</v-btn>
+            <v-btn round color="primary" dark block>text</v-btn>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
+        <v-layout row wrap hidden-md-and-up justify-center>
+      <v-flex xs12 pa-3>
+        <v-card class="mx-auto full-height" color="blue-grey darken-3" dark>
+          <v-btn absolute top right fab dark icon color="primary" @click.stop="showWizardForm=true">
+            <v-icon>add</v-icon>
+          </v-btn>
+          <v-card-title>
+            <v-icon large left>dns</v-icon>
+            <span class="title font-weight-light">Actions</span>
+          </v-card-title>
+
+          <v-card-text class="headline font-weight-bold">
+            <v-layout row wrap justify-center>
+              <v-flex xs6>
+                <v-btn round color="primary" dark block>text</v-btn>
+                <v-btn round color="primary" dark block>text</v-btn>
+              </v-flex>
+            </v-layout>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
+    </div>
+</template>
+
+
+<script>
+import RadialProgressBar from "vue-radial-progress";
+import Wizard from "@/components/forms/Wizard";
+export default {
+    data() {
+    return {
+        stats: {
+        cpu_percent: 100,
+        mem_percent: 100,
+        
+      },
+      showWizardForm: false,
+      totalSteps:100,
+    }
+    },
+    components: {
+        RadialProgressBar,
+        Wizard
+  },
+  methods:{
+          getStats() {
+      this.$http
+        .get("stats/")
+        .then(({ data }) => {
+          if (data) {
+            this.stats.cpu_percent = data.cpu_percent;
+            this.stats.mem_percent = data.mem_percent;
+          }
+        })
+        .catch(() => {
+          this.emitAlert("Error", "Could not communicate with the backend!");
+        });
+    },
+    emitAlert(type, message) {
+      const data = {
+        type: type,
+        message: message
+      };
+      this.$eventHub.$emit("new-alert", data);
+    }
+  },
+    created() {
+
+    //this.interval = setInterval(() => this.getStats(), 1000);
+  },
+  destroyed() {
+    clearInterval(this.interval);
+  }
+
+}
+</script>

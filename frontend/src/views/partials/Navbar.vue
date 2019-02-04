@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="$auth.check()">
     <v-navigation-drawer dark class="blue-grey darken-3" clipped v-model="drawer" app>
       <v-toolbar flat class="blue-grey darken-4">
         <v-list class="pa-0">

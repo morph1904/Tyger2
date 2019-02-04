@@ -64,6 +64,7 @@
           </v-stepper-content>
 
           <v-stepper-content step="2">
+            
             <v-text-field
               label="External URL"
               name="extURL"
@@ -94,6 +95,12 @@
           </v-stepper-content>
 
           <v-stepper-content step="3">
+            <v-switch
+              color="primary"
+              class="px-3"
+              label="Skip SSL Verification on Backend?"
+              v-model="formData.insecure_skip_verify"
+            ></v-switch>
             <v-switch
               color="primary"
               class="px-3"
@@ -136,11 +143,12 @@ export default {
         https: "",
         redirectHttps: "",
         websockets: "",
-        transparent: ""
+        transparent: "",
+        insecure_skip_verify: ""
       },
       step: 1,
       alert: false,
-      success: false
+      success: false,
     };
   },
   methods: {
@@ -151,31 +159,81 @@ export default {
       };
       this.$eventHub.$emit("new-alert", data);
     },
+    resetForm(){
+this.formData = {
+              appName: "",
+              appURL: "",
+              extURL: "",
+              https: "",
+              redirectHttps: "",
+              websockets: "",
+              transparent: ""
+            }
+    },
+    createAddress(url) { 
+      let data = {
+        address: this.formData.extURL,
+        tls: this.formData.https,
+        staging: this.formData.staging,
+        app: url
+      };
+      this.$http
+        .post("addresses/", data)
+        .then(({ data }) => {
+          this.success = true;
+            this.emitAlert(
+              "success",
+              "New proxy created from " +
+                this.formData.extURL +
+                " to " +
+                this.formData.appURL
+            );
+            this.show = false;
+            this.resetForm();
+            this.step = 1;
+            
+            this.$eventHub.$emit('newProxy')
+        })
+        .catch(() => {
+          this.emitAlert("error", "Could not save the proxy! Please check your data and try again");
+          this.status = "error"
+          this.alert = true;
+        });
+    },
+    createApp() { 
+      let data = {
+        name: this.formData.appName,
+        url: this.formData.appURL,
+        insecure_skip_verify: this.formData.insecure_skip_verify,
+        websocket: this.formData.websockets,
+        transparent: this.formData.transparent
+      };
+      this.$http
+        .post("apps/", data)
+        .then(({ data }) => {
+          //this.success = true;
+/*             this.emitAlert(
+              "success",
+              "New proxy created from " +
+                this.formData.extURL +
+                " to " +
+                this.formData.appURL
+            ); */
+            //this.show = false;
+            //this.resetForm();
+            //this.step = 1;
+            this.createAddress(data.url)
+        })
+        .catch(() => {
+          this.emitAlert("error", "Could not save the proxy! Please check your data and try again");
+          this.status = "error"
+          this.alert = true;
+        });
+    },
     submit() {
       this.$validator.validate().then(result => {
         if (result) {
-          this.success = true;
-          this.emitAlert(
-            "success",
-            "New proxy created from " +
-              this.formData.extURL +
-              " to " +
-              this.formData.appURL
-          );
-          this.show = false;
-          (this.formData = {
-            appName: "",
-            appURL: "",
-            extURL: "",
-            https: "",
-            redirectHttps: "",
-            websockets: "",
-            transparent: ""
-          }),
-            (this.step = 1);
-        } else {
-          this.alert = true;
-          this.emitAlert("error", "It worked!, but the form is not filled in.");
+            this.createApp();
         }
       });
     }

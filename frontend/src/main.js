@@ -14,40 +14,61 @@ Vue.router = router;
 Vue.config.productionTip = false;
 Vue.prototype.$eventHub = new Vue();
 Vue.use(VueAxios, axios);
-Vue.axios.defaults.baseURL = 'http://localhost:8000/';
+Vue.axios.defaults.baseURL = 'http://192.168.1.141:8000/';
 Vue.use(VueAuth, {
-  //auth: require('./plugins/auth.js'),
-  auth: {
-    request: function (req, token) {
-      if (req.url.endsWith('api-token-refresh/')) {
-        req.data = {'token': localStorage.token}
-      }
-      this.options.http._setHeaders.call(this, req, { Authorization: 'JWT ' + token });
+    auth: {
+        request: function(req, token) {
+            if (req.url.endsWith('api-token-refresh/')) {
+                req.data = {
+                    'token': localStorage.token
+                }
+            }
+            this.options.http._setHeaders.call(this, req, {
+                Authorization: 'JWT ' + token
+            });
+        },
+        response: function(res) {
+            if (res.request.responseURL.endsWith('api-token-auth/')) {
+                localStorage.username = res.data.user.username
+            }
+            if (res.data.non_field_errors) {
+                if (res.data.non_field_errors[0] === 'Signature has expired.') {
+                    localStorage.removeItem('token')
+                    this.$router.push('login')
+                }
+            }
+
+            return res.data.token
+
+        }
     },
-    response: function (res) {
-      if (res.request.responseURL.endsWith('api-token-auth/')){
-        localStorage.username = res.data.user.username
-      }
-      if (res.data.non_field_errors === 'Signature has expired.'){
-        localStorage.removeItem('token') 
-        router.push('login')
-      }
-        return res.data.token
-      
-    }
-  },
-  http: require('@websanova/vue-auth/drivers/http/axios.1.x.js'),
-  router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js'),
-  loginData: {url: 'api-token-auth/', method: 'POST', redirect: 'home', fetchUser: false},
-  tokenDefaultName: 'token',
-  refreshData: {url: 'api-token-refresh/', method: 'POST', enabled: true, interval: 2, data:{'token':localStorage.token}},
-  fetchData: { enabled: false},
-  
+    http: require('@websanova/vue-auth/drivers/http/axios.1.x.js'),
+    router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js'),
+    loginData: {
+        url: 'api-token-auth/',
+        method: 'POST',
+        redirect: 'home',
+        fetchUser: false
+    },
+    tokenDefaultName: 'token',
+    refreshData: {
+        url: 'api-token-refresh/',
+        method: 'POST',
+        enabled: true,
+        interval: 2,
+        data: {
+            'token': localStorage.token
+        }
+    },
+    fetchData: {
+        enabled: false
+    },
+
 });
 
 
 new Vue({
-  router,
-  VueAxios,
-  render: h => h(App),
+    router,
+    VueAxios,
+    render: h => h(App),
 }).$mount('#app');

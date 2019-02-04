@@ -26,7 +26,11 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from django.contrib.auth.models import User
 
 from apps.views import CountApps
+from apps.views import AppsViewset
+
 from addresses.views import CountAddresses
+from addresses.views import AddressViewset
+
 # Serializers define the API representation.
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -73,7 +77,8 @@ router = routers.DefaultRouter()
 
 # This was used for unauthorized access before implementing JWT:
 router.register(r'users', UserViewSet)
-# router.register(r'apps', CountApps, base_name='apps')
+router.register(r'addresses', AddressViewset)
+router.register(r'apps', AppsViewset)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

@@ -28,11 +28,14 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '192.168.50.11',
+    '0.0.0.0',
+    '192.168.1.141'
 ]
 
 CORS_ORIGIN_WHITELIST = (
     'localhost:8081',
-    'localhost:8080'
+    'localhost:8080',
+    '192.168.1.141:8080'
 )
 
 
@@ -61,7 +64,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 25
+}
 ROOT_URLCONF = 'backend.urls'
 
 TEMPLATES = [
@@ -111,6 +117,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
 def jwt_response_payload_handler(token, user=None, request=None):
     return {
         'token': token,
@@ -118,6 +126,8 @@ def jwt_response_payload_handler(token, user=None, request=None):
             'username': user.username, 'id': user.id,
         }
     }
+
+
 JWT_AUTH = {
 
     'JWT_RESPONSE_PAYLOAD_HANDLER':

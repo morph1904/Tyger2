@@ -3,12 +3,12 @@
     <div>
         <div v-if="$auth.ready()">
     <div>
-    <Navbar />
+    <Navbar v-if="$auth.check()"/>
     <v-content>
       <Alert/>
       <router-view></router-view>
     </v-content>
-    <Footer/>
+    <Footer v-if="$auth.check()"/>
     </div>
     <div v-if="!$auth.ready()">
             Loading ...
