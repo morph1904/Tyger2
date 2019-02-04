@@ -11,11 +11,7 @@
         <v-text-field label="Username" append-icon="face" placeholder="Username" v-model="username"></v-text-field>
         <v-text-field label="Password" append-icon="lock" placeholder="Password" type="password" v-model="password"></v-text-field>
         <div class="has-text-danger has-text-centered">{{error}}</div>
-<<<<<<< HEAD
         <v-btn @click="login">Login</v-btn>
-=======
-        <v-btn @click="makeLogin">Login</v-btn>
->>>>>>> 484501520473b429991d298f1fb7342d1a7606ae
       </v-form>
         </v-flex>
         </v-layout>
@@ -27,11 +23,7 @@
 
 <script>
  
-<<<<<<< HEAD
 //import {AUTH_REQUEST} from '../store/actions/auth'
-=======
-
->>>>>>> 484501520473b429991d298f1fb7342d1a7606ae
   export default {
     data: function () {
       return {
@@ -42,7 +34,6 @@
       };
     },
     methods: {
-<<<<<<< HEAD
       login: function(){
         const password = this.password
         const username = this.username
@@ -52,21 +43,6 @@
     redirect:'/'
 });
       }
-=======
-      makeLogin (e) {
-        e.preventDefault();
-        this.pending = true;
-        this.$store.dispatch('login', this)
-          .then(() => {
-            this.pending = false;
-            this.$router.push({name: 'home'});
-          })
-          .catch(err => {
-            this.pending = false;
-            this.error = err;
-          });
-      },
->>>>>>> 484501520473b429991d298f1fb7342d1a7606ae
     },
     
   };

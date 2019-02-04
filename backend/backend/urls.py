@@ -17,16 +17,16 @@ import psutil
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers, serializers, viewsets
-
-
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-
 from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token, refresh_jwt_token
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+
 from django.contrib.auth.models import User
 
+from apps.views import CountApps
+from addresses.views import CountAddresses
 # Serializers define the API representation.
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -73,10 +73,8 @@ router = routers.DefaultRouter()
 
 # This was used for unauthorized access before implementing JWT:
 router.register(r'users', UserViewSet)
+# router.register(r'apps', CountApps, base_name='apps')
 
-# This is used for authorized access, but not working, maybe I can use the
-# above
-# router.register(r'users', RestrictedView)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
@@ -84,5 +82,7 @@ urlpatterns = [
     path('api-token-verify/', verify_jwt_token),
     path('api-token-refresh/', refresh_jwt_token),
     path('stats/', StatsView().as_view()),
+    path('apps/', include('apps.urls')),
+    path('addresses/', include('addresses.urls')),
     path('', include(router.urls))
 ]

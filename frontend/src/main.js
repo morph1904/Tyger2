@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import './plugins/vuetify';
-<<<<<<< HEAD
 import App from './App.vue';
 import 'vuetify/dist/vuetify.min.css';
 import axios from 'axios';
@@ -29,7 +28,10 @@ Vue.use(VueAuth, {
       if (res.request.responseURL.endsWith('api-token-auth/')){
         localStorage.username = res.data.user.username
       }
-      
+      if (res.data.non_field_errors === 'Signature has expired.'){
+        localStorage.removeItem('token') 
+        router.push('login')
+      }
         return res.data.token
       
     }
@@ -49,22 +51,3 @@ new Vue({
   VueAxios,
   render: h => h(App),
 }).$mount('#app');
-=======
-import './plugins/veevalidate';
-import App from './App.vue';
-import router from './router';
-import {
-    sync
-} from 'vuex-router-sync';
-import store from './store';
-
-Vue.config.productionTip = false;
-Vue.prototype.$eventHub = new Vue();
-sync(store, router);
-
-new Vue({
-    router,
-    store,
-    render: h => h(App)
-}).$mount('#app');
->>>>>>> 484501520473b429991d298f1fb7342d1a7606ae

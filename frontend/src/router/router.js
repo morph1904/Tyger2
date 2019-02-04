@@ -3,7 +3,7 @@ import Router from 'vue-router';
 import Home from '../views/Home.vue';
 import Login from '../views/Login.vue';
 import Apps from '../views/Apps.vue';
-import Domains from '../views/Domains.vue';
+import Addresses from '../views/Addresses.vue';
 
 Vue.use(Router);
 
@@ -26,9 +26,9 @@ const router = new Router({
       meta: {auth: true}
     },
     {
-      path: '/domains',
-      name: 'Domains',
-      component: Domains,
+      path: '/addresses',
+      name: 'Addresses',
+      component: Addresses,
       meta: {auth: true}
     },
     {

@@ -1,10 +1,9 @@
 <template>
   <v-container>
-<<<<<<< HEAD
     
     <h2 class="blue-grey--text darken-5 pa-2">Dashboard
     </h2>
-    <v-layout row wrap>
+    <v-layout row wrap hidden-sm-and-down>
       <v-flex xs4 pa-3>
         <v-card
     class="mx-auto"
@@ -73,7 +72,7 @@
       </v-flex>
       <v-flex xs4 pa-3>
               <v-card
-    class="mx-auto"
+    class="mx-auto full-height"
     color="blue-grey darken-3"
     dark
     max-width="400"
@@ -89,30 +88,71 @@
       >
         dns
       </v-icon>
-      <span class="title font-weight-light">Activity</span>
+      <span class="title font-weight-light">Actions</span>
     </v-card-title>
 
     <v-card-text class="headline font-weight-bold">
-      
+      <v-btn round color="primary" dark block>text</v-btn>
+      <v-btn round color="primary" dark block>text</v-btn>
     </v-card-text>
   </v-card>
       </v-flex>
     </v-layout>
-=======
-    <h2 class="blue-grey--text darken-5 pa-2">Dashboard</h2>
->>>>>>> 484501520473b429991d298f1fb7342d1a7606ae
+
+
+<v-layout row wrap hidden-md-and-up justify-center>
+  <v-flex xs12 pa-3 >
+              <v-card
+    class="mx-auto full-height"
+    color="blue-grey darken-3"
+    dark
+    
+  >
+  <v-btn absolute top right fab dark icon color="primary" @click.stop="showWizardForm=true">
+            <v-icon>add</v-icon>
+          </v-btn>
+    <v-card-title>
+      <v-icon
+        large
+        left
+      >
+        dns
+      </v-icon>
+      <span class="title font-weight-light">Actions</span>
+    </v-card-title>
+
+    <v-card-text class="headline font-weight-bold">
+      <v-layout row wrap justify-center>
+        <v-flex xs6>
+          <v-btn round color="primary" dark block>text</v-btn>
+      <v-btn round color="primary" dark block>text</v-btn>
+        </v-flex>
+      </v-layout>
+    </v-card-text>
+  </v-card>
+      </v-flex>
+</v-layout>
+
+
+
+
+
+
+    <Wizard v-model="showWizardForm"/>
     <v-layout row wrap>
       <v-flex xs12 sm6 pa-3>
         <v-toolbar color="deep-orange" dark flat>
           <v-toolbar-title>Applications</v-toolbar-title>
           <v-spacer></v-spacer>
-<<<<<<< HEAD
-=======
-          <v-btn absolute top right fab dark icon color="accent" @click.stop="showWizardForm=true">
-            <v-icon>add</v-icon>
-          </v-btn>
->>>>>>> 484501520473b429991d298f1fb7342d1a7606ae
-          <Wizard v-model="showWizardForm"/>
+              <v-badge color="blue-grey darken-4">
+      <span slot="badge">{{ stats.appCount }}</span>
+      <v-icon
+        large
+        color="white"
+      >
+        apps
+      </v-icon>
+    </v-badge>
         </v-toolbar>
         <v-card flat class="blue-grey lighten-5">
           <v-card-title primary-title>
@@ -122,18 +162,21 @@
       </v-flex>
       <v-flex xs12 sm6 pa-3>
         <v-toolbar color="deep-orange" dark flat>
-          <v-toolbar-title>Domains</v-toolbar-title>
+          <v-toolbar-title>Addresses</v-toolbar-title>
           <v-spacer></v-spacer>
-<<<<<<< HEAD
-=======
-          <v-btn absolute top right fab dark icon color="accent">
-            <v-icon>add</v-icon>
-          </v-btn>
->>>>>>> 484501520473b429991d298f1fb7342d1a7606ae
+          <v-badge color="blue-grey darken-4">
+      <span slot="badge">{{ stats.addressCount }}</span>
+      <v-icon
+        large
+        color="white"
+      >
+        domain
+      </v-icon>
+    </v-badge>
         </v-toolbar>
         <v-card flat class="blue-grey lighten-5">
           <v-card-title primary-title>
-            <h2 class="blue-grey--text darken-4">Domains</h2>
+            <h2 class="blue-grey--text darken-4">Addresses</h2>
           </v-card-title>
         </v-card>
       </v-flex>
@@ -143,7 +186,6 @@
 
 <script>
 import Wizard from "@/components/forms/Wizard";
-<<<<<<< HEAD
 //import axios from 'axios'
 //import config from '../config'
 import RadialProgressBar from 'vue-radial-progress'
@@ -153,7 +195,9 @@ export default {
       showWizardForm: false,
       stats: { 
         cpu_percent: 100, 
-        mem_percent: 100
+        mem_percent: 100,
+        appCount: null,
+        addressCount: null
         },
         totalSteps: 100,
     };
@@ -163,36 +207,51 @@ export default {
     RadialProgressBar
   },
     methods:{
-       getStats () {
-    
-      this.$http.get('stats/')
-      .then(({ data }) => {
-        if (data) {
-          //console.log(data);
-          this.stats.cpu_percent = data.cpu_percent
-          this.stats.mem_percent = data.mem_percent
+      getStats () {
+        this.$http.get('stats/')
+          .then(({ data }) => {
+            if (data) {
+              //console.log(data);
+              this.stats.cpu_percent = data.cpu_percent
+              this.stats.mem_percent = data.mem_percent
 
-        } else {
-         console.log('Something went wrong!');
-        }
-      })
-      .catch(() => { console.log('Something went wrong!') })
-  }, 
+            }
+          })
+          .catch(() => { console.log('Something went wrong!') })
+      },
+      appCount () {
+        this.$http.get('apps/count/')
+          .then(({ data }) => {
+            if (data) {
+              this.stats.appCount = data.appcount
+            }
+          })
+          .catch(() => {console.log('Error communicating with backend!') })
+      },
+      addressCount () {
+        this.$http.get('addresses/count/')
+          .then(({ data }) => {
+            if (data) {
+              this.stats.addressCount = data.addresscount
+            }
+          })
+          .catch(() => {console.log('Error communicating with backend!') })
+      } 
     },
    mounted() {
+    this.appCount()
+    this.addressCount()
     this.interval = setInterval(() => this.getStats(), 1000);
+
 },
         
-=======
-export default {
-  data() {
-    return {
-      showWizardForm: false
-    };
-  },
-  components: {
-    Wizard
-  }
->>>>>>> 484501520473b429991d298f1fb7342d1a7606ae
 };
 </script>
+<style>
+ .full-height{
+  min-height:100%
+ }
+    
+
+  
+</style>
