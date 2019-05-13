@@ -4,7 +4,7 @@
       <v-toolbar-title>Applications</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-badge color="blue-grey darken-4">
-        <span slot="badge">{{ stats.appCount }}</span>
+        <span slot="badge">{{ appCount }}</span>
         <v-icon large color="white">apps</v-icon>
       </v-badge>
     </v-toolbar>
@@ -20,23 +20,31 @@
           </v-card-title>
 
           <v-card-text>
-            <v-container grid-list-md>
-              <v-layout wrap>
-                <v-flex xs12 sm6 md4>
+            <v-container fluid>
+              <v-layout row justify-space-between>
+                <v-flex xs12>
                   <v-text-field v-model="editedItem.name" label="Name"></v-text-field>
                 </v-flex>
-                <v-flex xs12 sm6 md4>
+              </v-layout>
+              <v-layout row justify-space-between>
+                <v-flex xs12>
                   <v-text-field v-model="editedItem.url" label="URL"></v-text-field>
                 </v-flex>
-                <v-flex xs12 sm6 md4>
+              </v-layout>
+              <v-layout row justify-space-between>
+                <v-flex xs12>
                   <v-switch
               color="primary" v-model="editedItem.insecure_skip_verify" label="Skip SSL Verification on Backend?"></v-switch>
                 </v-flex>
-                <v-flex xs12 sm6 md4>
+              </v-layout>
+              <v-layout row justify-space-between>
+                <v-flex xs12>
                   <v-switch
               color="primary" v-model="editedItem.websocket" label="Enable Websockets?"></v-switch>
                 </v-flex>
-                <v-flex xs12 sm6 md4>
+              </v-layout>
+              <v-layout row justify-space-between>
+                <v-flex xs12>
                   <v-switch
               color="primary" v-model="editedItem.transparent" label="Transparent Mode?"></v-switch>
                 </v-flex>
@@ -48,6 +56,30 @@
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
             <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+      <v-dialog v-model="deletedialog" max-width="500px">
+        <v-card>
+          <v-card-title>
+            <span class="headline">Delete Application</span>
+          </v-card-title>
+
+          <v-card-text>
+            <v-container grid-list-md>
+              <v-layout wrap>
+                Are you sure you want to delete {{ editedItem.name }}?
+
+                This will also delete any associated addresses.....
+              </v-layout>
+            </v-container>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" flat @click="deleteclose">Cancel</v-btn>
+            <v-btn color="error darken-1" flat @click="deleteapp">Delete</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -86,15 +118,14 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
+
 export default {
   data() {
     return {
-      stats: {
-        appCount: null
-      },
-      apps: [],
         loading: true,
         dialog: false,
+        deletedialog: false,
         pagination: {},
         headers: [
           {
@@ -129,12 +160,22 @@ export default {
       },
        dialog (val) {
         val || this.close()
-      }
+      },
+      deletedialog (val) {
+        val || this.deleteclose()
+      },
     },
   methods: {
-          close () {
+      close () {
         this.dialog = false
         setTimeout(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        }, 300)
+      },
+      deleteclose (){
+        this.deletedialog = false
+                setTimeout(() => {
           this.editedItem = Object.assign({}, this.defaultItem)
           this.editedIndex = -1
         }, 300)
@@ -142,37 +183,39 @@ export default {
 
       save () {
         console.log(this.editedItem)
+        this.$store.commit('UPDATE_APPS', this.editedItem)
         this.close()
       },
-     emitAlert(type, message) {
-      const data = {
-        type: type,
-        message: message
-      };
-      this.$eventHub.$emit("new-alert", data);
-    },
 
-    appList(){
-      this.$http.get("apps/").then(({ data }) => {
-        if (data){
-          this.apps = data.results;
-          this.stats.appCount = data.count;
-          this.loading = false
-        }
-       
-      })
-      .catch(() =>{
-        this.emitAlert("error", "Could not communicate with the backend!");
-      })
-    },
-     editItem (item) {
+      deleteapp () {
+        console.log(this.editedItem)
+        this.$store.commit('DELETE_APP', this.editedItem)
+        this.deleteclose()
+        //this.emitAlert("warning", "The application " + this.editedItem.name + " was deleted successfully!");
+      },
+      
+    editItem (item) {
         this.editedIndex = this.apps.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true
       },
+    deleteItem (item) {
+      this.editedIndex = this.apps.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.deletedialog = true
+    },
   },
+  computed: mapState({
+     apps: 'apps',
+     appCount: 'appCount',
+     alert: 'alert',
+     alertmessage: 'alertmessage'
+    }),
+  //},
   mounted() {
-    this.appList();
+    //this.appList();
+    this.$store.dispatch('getApps')
+    this.loading = false
     this.$eventHub.$on("newProxy", this.appList)
   }
 };

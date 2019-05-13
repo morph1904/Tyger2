@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import './plugins/vuetify'
 import './plugins/vuetify';
 import App from './App.vue';
 import 'vuetify/dist/vuetify.min.css';
@@ -8,13 +9,13 @@ import VueAuth from '@websanova/vue-auth';
 
 import router from './router/router';
 import VeeValidate from 'vee-validate';
-
+import { store } from './store/store'
 Vue.use(VeeValidate);
 Vue.router = router;
 Vue.config.productionTip = false;
 Vue.prototype.$eventHub = new Vue();
 Vue.use(VueAxios, axios);
-Vue.axios.defaults.baseURL = 'http://192.168.1.141:8000/';
+Vue.axios.defaults.baseURL = 'http://localhost:8000/';
 Vue.use(VueAuth, {
     auth: {
         request: function(req, token) {
@@ -70,5 +71,7 @@ Vue.use(VueAuth, {
 new Vue({
     router,
     VueAxios,
+    store,
+
     render: h => h(App),
 }).$mount('#app');

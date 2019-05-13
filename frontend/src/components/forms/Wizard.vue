@@ -152,15 +152,8 @@ export default {
     };
   },
   methods: {
-    emitAlert(type, message) {
-      const data = {
-        type: type,
-        message: message
-      };
-      this.$eventHub.$emit("new-alert", data);
-    },
     resetForm(){
-this.formData = {
+            this.formData = {
               appName: "",
               appURL: "",
               extURL: "",
@@ -169,66 +162,29 @@ this.formData = {
               websockets: "",
               transparent: ""
             }
-    },
-    createAddress(url) { 
-      let data = {
-        address: this.formData.extURL,
-        tls: this.formData.https,
-        staging: this.formData.staging,
-        app: url
-      };
-      this.$http
-        .post("addresses/", data)
-        .then(({ data }) => {
-          this.success = true;
-            this.emitAlert(
-              "success",
-              "New proxy created from " +
-                this.formData.extURL +
-                " to " +
-                this.formData.appURL
-            );
-            this.show = false;
-            this.resetForm();
-            this.step = 1;
-            
-            this.$eventHub.$emit('newProxy')
-        })
-        .catch(() => {
-          this.emitAlert("error", "Could not save the proxy! Please check your data and try again");
-          this.status = "error"
-          this.alert = true;
-        });
+            this.errors.clear()
     },
     createApp() { 
       let data = {
-        name: this.formData.appName,
-        url: this.formData.appURL,
-        insecure_skip_verify: this.formData.insecure_skip_verify,
-        websocket: this.formData.websockets,
-        transparent: this.formData.transparent
-      };
-      this.$http
-        .post("apps/", data)
-        .then(({ data }) => {
-          //this.success = true;
-/*             this.emitAlert(
-              "success",
-              "New proxy created from " +
-                this.formData.extURL +
-                " to " +
-                this.formData.appURL
-            ); */
-            //this.show = false;
-            //this.resetForm();
-            //this.step = 1;
-            this.createAddress(data.url)
-        })
-        .catch(() => {
-          this.emitAlert("error", "Could not save the proxy! Please check your data and try again");
-          this.status = "error"
-          this.alert = true;
-        });
+        app:{
+          name: this.formData.appName,
+          url: this.formData.appURL,
+          insecure_skip_verify: this.formData.insecure_skip_verify,
+          websocket: this.formData.websockets,
+          transparent: this.formData.transparent
+        },
+        address:{
+          address: this.formData.extURL,
+          tls: this.formData.https,
+          staging: this.formData.staging,
+          app: this.formData.appURL,
+        }
+      }
+      
+      this.$store.commit('ADD_APP', data)
+            this.show = false;
+            this.step = 1;
+            this.resetForm();
     },
     submit() {
       this.$validator.validate().then(result => {

@@ -54,6 +54,11 @@ export default {
         ]
     };
   },
+  //watch:{
+   // addresses: function(){
+   //   this.addressList()
+  //  }
+  //},
   methods: {
         addressList(){
       this.$http.get("addresses/").then(({ data }) => {
