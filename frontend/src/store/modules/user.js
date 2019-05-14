@@ -5,6 +5,8 @@ import { USER_LOGOUT, USER_AUTH_SUCCESS } from '../mutation-types';
 const state = {
   token: sessionStorage.getItem('token') || '',
   user: JSON.parse(sessionStorage.getItem('user')) || {},
+  alertmessage:'',
+  alerttype:''
 };
 
 const getters = {
@@ -51,7 +53,7 @@ const actions = {
   },
   logout (store) {
     store.commit(USER_LOGOUT);
-  }
+  },
 };
 
 const mutations = {
@@ -66,7 +68,7 @@ const mutations = {
     store.user = {};
     store.token = '';
     sessionStorage.clear();
-  }
+  },
 };
 
 export default {

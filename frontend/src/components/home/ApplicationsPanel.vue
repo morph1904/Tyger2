@@ -11,8 +11,10 @@
     <v-card flat class="blue-grey lighten-5">
       <v-card-title primary-title>
         <h2 class="blue-grey--text darken-4">Apps</h2>
+        <v-spacer></v-spacer> 
+        <v-btn round color="primary" dark @click.stop="AddAppDialog=true"><v-icon>add</v-icon> Add App</v-btn>
       </v-card-title>
-
+<!--EDIT DIALOG-->
       <v-dialog v-model="dialog" max-width="500px">
         <v-card>
           <v-card-title>
@@ -59,7 +61,7 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-
+<!--DELETE DIALOG-->
       <v-dialog v-model="deletedialog" max-width="500px">
         <v-card>
           <v-card-title>
@@ -93,9 +95,24 @@
         <td>{{ props.item.id }}</td>
         <td>{{ props.item.name }}</td>
         <td><a target="_blank" :href="props.item.url">{{ props.item.url }}</a></td>
-        <td>{{ props.item.insecure_skip_verify }}</td>
-        <td>{{ props.item.websocket }}</td>
-        <td>{{ props.item.transparent }}</td>
+        <td>
+          
+            <v-icon medium v-if="props.item.insecure_skip_verify">check</v-icon>
+            <v-icon medium v-else>close</v-icon>
+          
+        </td>
+        <td>
+          
+          <v-icon medium v-if="props.item.websocket">check</v-icon>
+          <v-icon medium v-else>close</v-icon>
+          
+        </td>
+        <td>
+          
+          <v-icon medium v-if="props.item.transparent">check</v-icon>
+          <v-icon medium v-else>close</v-icon>
+          
+        </td>
         <td class="justify-center layout px-0">
           <v-icon
             small
@@ -118,13 +135,14 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   data() {
     return {
         loading: true,
         dialog: false,
+        AddAppDialog: false,
         deletedialog: false,
         pagination: {},
         headers: [
@@ -191,7 +209,6 @@ export default {
         console.log(this.editedItem)
         this.$store.commit('DELETE_APP', this.editedItem)
         this.deleteclose()
-        //this.emitAlert("warning", "The application " + this.editedItem.name + " was deleted successfully!");
       },
       
     editItem (item) {
@@ -211,9 +228,7 @@ export default {
      alert: 'alert',
      alertmessage: 'alertmessage'
     }),
-  //},
   mounted() {
-    //this.appList();
     this.$store.dispatch('getApps')
     this.loading = false
     this.$eventHub.$on("newProxy", this.appList)

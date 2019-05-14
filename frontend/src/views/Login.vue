@@ -1,5 +1,7 @@
 <template>
+
   <v-container>
+
     <v-flex xs12 md6 offset-md3>
       <v-card>
         <v-card-title primary-title>
@@ -32,21 +34,48 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   data: function() {
     return {
       username: "",
       password: "",
       error: "",
-      pending: false
+      pending: false,
+      alert: false
     };
   },
+  created() {
+    this.$store.subscribe((mutation, state) => {
+      let msg = state.alertmessage;
+      switch(mutation.type){
+      case 'SET_ALERT':
+        if (msg !== ''){
+          this.alert = true
+          //this.message = this.$store.state.alert.message
+          //this.type = this.$store.state.alert.type
+          //this.$store.commit('SET_ALERT', {message:'', type:''})
+      }
+      break;
+    }
+  }
+    )},
+  computed: mapState({
+     alertmessage: 'alertmessage',
+     alerttype: 'alerttype'
+    }),
   methods: {
     login: function() {
       const password = this.password;
       const username = this.username;
       this.$auth.login({
         data: { username: username, password: password },
+        error: function () {
+          this.$store.commit('SET_ALERT', {message:"Error, please check your username and password.", type: "error"})
+        },
+        success: function () {
+          this.$store.commit('SET_ALERT', {message:"", type: ""})
+        },
         rememberMe: true,
         redirect: "/"
       });
