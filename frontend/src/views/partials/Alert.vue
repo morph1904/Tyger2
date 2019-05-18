@@ -22,14 +22,14 @@ export default {
   },
   created() {
     this.$store.subscribe((mutation, state) => {
+      const msg = state.alertmessage;
       switch(mutation.type){
       case 'SET_ALERT':
-        const msg = state.alertmessage;
+        
         if (msg !== ''){
           this.alert = true
-          //this.message = this.$store.state.alert.message
-          //this.type = this.$store.state.alert.type
-          //this.$store.commit('SET_ALERT', {message:'', type:''})
+      } if (msg == ''){
+        this.alert = false
       }
       break;
     }

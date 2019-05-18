@@ -9,7 +9,7 @@ export default {
     response(res) {
       if (res.request.responseURL.endsWith('api-token-auth/')) {
         
-        console.log(res.data)
+        //console.log(res.data)
         return res.data;
       }
     }

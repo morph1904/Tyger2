@@ -31,13 +31,7 @@ export default {
     LargeStatsPanel
   },
   methods: {
-    emitAlert(type, message) {
-      const data = {
-        type: type,
-        message: message
-      };
-      this.$eventHub.$emit("new-alert", data);
-    }
+   
   }
 };
 </script>

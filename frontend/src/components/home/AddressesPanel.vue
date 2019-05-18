@@ -1,8 +1,12 @@
 <template>
   <div>
+    <AddAddress v-model="addAddressForm"/>
+    <AddressDelete v-model="deletedialog" :item="deleteid"/>
+    <AddressEdit v-model="editdialog" :item="editedItem"/>
     <v-toolbar color="deep-orange" dark flat>
       <v-toolbar-title>Addresses</v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-btn round color="accent" dark @click.stop="addAddressForm=true">Add Address</v-btn>
       <v-badge color="blue-grey darken-4">
         <span slot="badge">{{ stats.addressCount }}</span>
         <v-icon large color="white">domain</v-icon>
@@ -23,13 +27,20 @@
         <td><a target="_blank" :href="props.item.address">{{ props.item.address }}</a></td>
         <td>{{ props.item.tls }}</td>
         <td>{{ props.item.staging }}</td>
-        <td>{{ props.item.app }}</td>
+        <td><a target="_blank" :href="props.item.app">{{ props.item.app }}</a></td>
+        <td class="justify-center layout px-0">
+            <v-icon small class="mr-2" @click="editItem(props.item)">edit</v-icon>
+            <v-icon small @click="deleteItem(props.item)">delete</v-icon>
+          </td>
       </template>
 </v-data-table>
     </v-card>
   </div>
 </template>
 <script>
+import AddAddress from "@/components/forms/AddAddress";
+import AddressDelete from "@/components/Addresses/AddressDelete";
+import AddressEdit from "@/components/Addresses/AddressEdit";
 export default {
   data() {
     return {
@@ -37,6 +48,10 @@ export default {
         addressCount: null
       },
       addresses: [],
+      addAddressForm: false,
+      deletedialog: false,
+      deleteid: {},
+      editdialog: false,
         loading: true,
         pagination: {},
         headers: [
@@ -51,14 +66,24 @@ export default {
           { text: 'Staging', value: 'staging' },
           { text: 'Application', value: 'app' },
           { text: 'Actions', value: 'name', sortable: false }
-        ]
+        ],
+        editedItem: {
+        id: 0,
+        address: "",
+        tls: "",
+        staging: false,
+        websocket: false,
+        transparent: false
+      }
     };
+    
   },
-  //watch:{
-   // addresses: function(){
-   //   this.addressList()
-  //  }
-  //},
+  components:{
+    AddAddress,
+    AddressDelete,
+    AddressEdit
+  },
+
   methods: {
         addressList(){
       this.$http.get("addresses/").then(({ data }) => {
@@ -76,7 +101,8 @@ export default {
     
   },
   mounted() {
-    this.$eventHub.$on("newProxy", this.addressList);
+        this.$store.dispatch("getAdds");
+    this.loading = false;
   },
   created() {
     this.addressList();
