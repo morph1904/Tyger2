@@ -15,6 +15,8 @@
     <v-card flat class="blue-grey lighten-5">
       <v-card-title primary-title>
         <h2 class="blue-grey--text darken-4">Apps</h2>
+        <v-spacer></v-spacer> 
+        <v-btn round color="primary" dark @click.stop="AddAppDialog=true"><v-icon>add</v-icon> Add App</v-btn>
       </v-card-title>
 
       <v-data-table :headers="headers" :items="apps" :loading="loading" class="elevation-1">

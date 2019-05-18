@@ -1,5 +1,7 @@
 <template>
+
   <v-container>
+
     <v-flex xs12 md6 offset-md3>
       <v-card>
         <v-card-title primary-title>
@@ -39,7 +41,8 @@ export default {
       username: "",
       password: "",
       error: "",
-      pending: false
+      pending: false,
+      alert: false
     };
   },
   created() {
@@ -49,7 +52,6 @@ export default {
       case 'SET_ALERT':
         if (msg !== ''){
           this.alert = true
-
       }
       break;
     }

@@ -60,7 +60,7 @@
 
           <v-card-text class="headline font-weight-bold">
             <v-btn round color="primary" dark block>Reload Proxy</v-btn>
-            <v-btn round color="primary" dark block>text</v-btn>
+            <v-btn round color="primary" dark block>View Logs</v-btn>
           </v-card-text>
         </v-card>
       </v-flex>

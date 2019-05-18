@@ -28,7 +28,10 @@ export default {
         
         if (msg !== ''){
           this.alert = true
-      } if (msg == ''){
+          //this.message = this.$store.state.alert.message
+          //this.type = this.$store.state.alert.type
+          //this.$store.commit('SET_ALERT', {message:'', type:''})
+      }else{
         this.alert = false
       }
       break;

@@ -29,7 +29,7 @@ Vue.use(VueAuth, {
             });
         },
         response: function(res) {
-            if (res.request.responseURL.endsWith('api-token-auth/')) {
+            if (res.request.responseURL.endsWith('api-token-auth/') && res.request.response.status === 200) {
                 localStorage.username = res.data.user.username
             }
             if (res.data.non_field_errors) {
@@ -38,6 +38,7 @@ Vue.use(VueAuth, {
                     this.$router.push('login')
                 }
             }
+            
 
             return res.data.token
 
