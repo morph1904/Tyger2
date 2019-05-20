@@ -1,4 +1,5 @@
 venv/
+env/
 django stuff/
 .vscode/
 frontend/node_modules/
