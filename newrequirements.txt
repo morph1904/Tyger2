@@ -7,3 +7,4 @@ Markdown==3.0.1
 PyJWT==1.7.1
 pytz==2018.9
 psutil==5.5.0
+uwsgi==2.0.18
