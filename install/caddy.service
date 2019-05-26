@@ -12,7 +12,7 @@ User=www-data
 Group=www-data
 
 ; Letsencrypt-issued certificates will be written to this directory.
-Environment=/Tyger2/certs
+Environment=/apps/Tyger2/certs
 ; Always set "-root" to something safe in case it gets forgotten in the Caddyfile.
 
 ExecStart=/usr/local/bin/caddy -log /Tyger2/logs/caddy.txt -agree=true -conf=/Tyger2/data/caddyfile.conf -root=/var/tmp

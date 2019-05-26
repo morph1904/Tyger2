@@ -10,7 +10,7 @@ Group=www-data
 RuntimeDirectory=gunicorn3
 WorkingDirectory=/apps/Tyger2/backend
 ExecStart=/usr/bin/gunicorn3 --pid /run/gunicorn/pid   \
-          --bind unix:/run/gunicorn/socket backend.wsgi
+          --bind 0.0.0.0:8000 backend.wsgi
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s TERM $MAINPID
 PrivateTmp=true
