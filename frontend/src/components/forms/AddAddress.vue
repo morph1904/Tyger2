@@ -62,7 +62,6 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 export default {
     
     data() {
@@ -93,14 +92,11 @@ export default {
       }
     },
     apps(){
-        //this.appslist = this.$store.state.apps
-        //console.log(this.$store.state.apps)
         return this.$store.state.apps
     } 
   },
   methods: {
       close () {
-        //this.value = false
         this.show=false
         this.resetForm()
       },

@@ -26,9 +26,12 @@
           <td>
             <a target="_blank" :href="props.item.url">{{ props.item.url }}</a>
           </td>
-          <td>{{ props.item.insecure_skip_verify }}</td>
-          <td>{{ props.item.websocket }}</td>
-          <td>{{ props.item.transparent }}</td>
+          <td><v-icon medium v-if="props.item.insecure_skip_verify">check</v-icon>
+          <v-icon medium v-else>close</v-icon></td>
+          <td><v-icon medium v-if="props.item.websocket">check</v-icon>
+          <v-icon medium v-else>close</v-icon></td>
+          <td><v-icon medium v-if="props.item.transparent">check</v-icon>
+          <v-icon medium v-else>close</v-icon></td>
           <td class="justify-center layout px-0">
             <v-icon small class="mr-2" @click="editItem(props.item)">edit</v-icon>
             <v-icon small @click="deleteItem(props.item)">delete</v-icon>
@@ -40,7 +43,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState } from "vuex";
 import AppsDelete from "@/components/Apps/AppsDelete";
 import AppsEdit from "@/components/Apps/AppsEdit";
 import AddApp from "@/components/forms/AddApp";

@@ -134,7 +134,6 @@ export default {
       editdialog: false,
         loading: true,
         dialog: false,
-        deletedialog: false,
         pagination: {},
         headers: [
           {

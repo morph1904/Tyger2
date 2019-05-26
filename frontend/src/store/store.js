@@ -18,7 +18,6 @@ export const store = new Vuex.Store({
         addresCount: null,
         appCount: null,
         addressCount: null, 
-        addresses:[],
     },
     actions:{
         getApps ({ commit }) {
@@ -119,27 +118,6 @@ export const store = new Vuex.Store({
                         type: "error"
                     })
                 })
-        },
-        addAddress({
-            commit
-        }, data) {
-            let address = data
-            axios.post("addresses/", data)
-                .then(({
-                    data
-                }) => {
-                    store.commit('GET_ADDRESSES')
-                    store.commit('SET_ALERT', {
-                        message: "New proxy created from " + address.address + " to " + address.app,
-                        type: "success"
-                    })
-                })
-                .catch(() => {
-                    store.commit('SET_ALERT', {
-                        message: "Could not save the proxy! Please check your data and try again",
-                        type: "error"
-                    })
-                });
         },
 
         updateAddress({
