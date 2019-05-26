@@ -96,10 +96,10 @@ systemctl enable caddy.service
 systemctl enable gunicorn.socket
 
 printf "${GREEN}Setting up initial install...${NORMAL}\n"
-pip3 install -r $TYGER_DIR/requirements.txt
+pip3 install -r $TYGER_ROOT/newrequirements.txt
 
 printf "${GREEN}Starting TygerCaddy... Almost there!${NORMAL}\n"
-systemctl start uwsgi
+systemctl start gunicorn
 systemctl start caddy
 
 printf "${GREEN}Install complete! Enter the server IP in your chosen browser complete the install wizard.${NORMAL}\n"

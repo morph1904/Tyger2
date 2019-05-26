@@ -1,0 +1,8 @@
+[Unit]
+Description = Reload Caddy on CaddyFile Change
+
+[Path]
+PathChanged=/apps/TygerCaddy/TygerCaddy/data/caddyfile.conf
+
+[Install]
+WantedBy=multi-user.target

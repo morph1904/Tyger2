@@ -1,0 +1,6 @@
+[Unit]
+Description=Reload Caddy
+
+[Service]
+Type=oneshot
+ExecStart=/bin/systemctl try-reload-or-restart caddy.service
