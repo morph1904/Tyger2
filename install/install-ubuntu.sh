@@ -97,4 +97,9 @@ printf "${GREEN}Starting TygerCaddy... Almost there!${NORMAL}\n"
 systemctl start uwsgi
 systemctl start caddy
 
+cd /apps/Tyger2/backend/
+python3 manage.py migrate
+python3 manage.py createsuperuser admin admin
+
+
 printf "${GREEN}Install complete! Enter the server IP in your chosen browser complete the install wizard.${NORMAL}\n"
