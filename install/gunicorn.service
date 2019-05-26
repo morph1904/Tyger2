@@ -1,16 +1,16 @@
 [Unit]
-Description=gunicorn daemon
-Requires=gunicorn.socket
+Description=gunicorn3 daemon
+Requires=gunicorn3.socket
 After=network.target
 
 [Service]
-PIDFile=/run/gunicorn/pid
+PIDFile=/run/gunicorn3/pid
 User=www-data
 Group=www-data
-RuntimeDirectory=gunicorn
+RuntimeDirectory=gunicorn3
 WorkingDirectory=/apps/Tyger2/backend
-ExecStart=/usr/bin/gunicorn --pid /run/gunicorn/pid   \
-          --bind unix:/run/gunicorn/socket backend.wsgi
+ExecStart=/usr/bin/gunicorn3 --pid /run/gunicorn3/pid   \
+          --bind unix:/run/gunicorn3/socket backend.wsgi
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s TERM $MAINPID
 PrivateTmp=true

@@ -40,7 +40,7 @@ apt-get update && apt-get -y upgrade && apt-get -y install --no-install-recommen
   libffi-dev \
   git \
   curl \
-  gunicorn
+  gunicorn3
 
 printf "${GREEN}Cloning repository...${NORMAL}\n"
 mkdir $APPS_DIR

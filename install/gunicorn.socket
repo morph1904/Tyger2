@@ -1,8 +1,8 @@
 [Unit]
-Description=gunicorn socket
+Description=gunicorn3 socket
 
 [Socket]
-ListenStream=/run/gunicorn/socket
+ListenStream=/run/gunicorn3/socket
 
 [Install]
 WantedBy=sockets.target
