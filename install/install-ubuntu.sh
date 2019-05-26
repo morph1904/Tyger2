@@ -67,8 +67,7 @@ cp $TYGER_ROOT/install/gunicorn.conf        /etc/tmpfiles.d/gunicorn.conf
 cp $TYGER_ROOT/install/caddy-reload.path    /etc/systemd/system/caddy-reload.path
 cp $TYGER_ROOT/install/caddy-reload.service /etc/systemd/system/caddy-reload.service
 
-chown -R www-data:root /etc/caddy \
-                       /Tyger2/certs
+chown -R www-data:root /apps/Tyger2/certs
 chown -R www-data:www-data $TYGER_ROOT
 chown root:root /etc/systemd/system/caddy.service \
                 /etc/systemd/system/gunicorn.service \
@@ -78,7 +77,7 @@ chown root:root /etc/systemd/system/caddy.service \
                 /etc/systemd/system/caddy-reload.service \
                 /usr/local/bin/caddy
 
-chmod -R 700 /Tyger2/certs
+chmod -R 700 /apps/Tyger2/certs
 chmod -R 755 $TYGER_ROOT \
              /usr/local/bin/caddy \
              /etc/systemd/system/caddy.service \
