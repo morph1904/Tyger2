@@ -14,7 +14,7 @@ Vue.router = router;
 Vue.config.productionTip = false;
 Vue.prototype.$eventHub = new Vue();
 Vue.use(VueAxios, axios);
-Vue.axios.defaults.baseURL = window.settings.root;
+Vue.axios.defaults.baseURL = window.root;
 Vue.use(VueAuth, {
     auth: {
         request: function(req, token) {
