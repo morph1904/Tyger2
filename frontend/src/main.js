@@ -9,12 +9,6 @@ import VueAuth from '@websanova/vue-auth';
 import router from './router/router';
 import VeeValidate from 'vee-validate';
 import { store } from './store/store';
-
-//const root = window.settings.root;
-const LOGIN = window.settings.API.LOGIN;
-const REGISTER = window.settings.API.REGISTER;
-const APIREFRESH = root + 'api-token-refresh/';
-const APIAUTH = root + 'api-token-auth/';
 Vue.use(VeeValidate);
 Vue.router = router;
 Vue.config.productionTip = false;
