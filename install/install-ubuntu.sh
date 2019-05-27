@@ -20,7 +20,7 @@ if [ "$(whoami)" != 'root' ]; then
   exit 1
 fi
 
-printf "${GREEN}You are about to install TygerCaddy.${NORMAL}\n"
+printf "${GREEN}You are about to install Tyger2 BETA.${NORMAL}\n"
 read -p "${LIME_YELLOW}Proceed? (y/N)${NORMAL} " -r
 printf "\n"
 if [[ ! $REPLY =~ ^[Yy*] ]]

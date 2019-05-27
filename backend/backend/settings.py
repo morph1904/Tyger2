@@ -23,16 +23,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0zk_@lk&+su2&347_-^6u4zq$oeal995v!a03tpo=qdd%9qn6w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '*'
 ]
 
 CORS_ORIGIN_WHITELIST = (
-    'localhost:8081',
-    'localhost:8080',
-    '192.168.1.141:8080'
+    'localhost:9091'
 )
 
 
@@ -92,7 +90,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': '/apps/Tyger2/data/db.sqlite3'
     }
 }
 
