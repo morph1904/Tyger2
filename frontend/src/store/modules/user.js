@@ -17,7 +17,7 @@ const getters = {
 const actions = {
   login (store, { username, password }) {
     return new Promise((resolve, reject) => {
-      axios.post(config.API.LOGIN, {
+      axios.post(window.settings.API.LOGIN, {
         username,
         password,
       }).then(({ data }) => {
@@ -35,7 +35,7 @@ const actions = {
   register (store, { first_name, last_name, email, password, cpassword }) {
     return new Promise((resolve, reject) => {
       if (password !== cpassword) reject(new Error('Passwords do not match'));
-      axios.post(config.API.REGISTER, {
+      axios.post(window.settings.API.REGISTER, {
         first_name,
         last_name,
         email,
