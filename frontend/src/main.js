@@ -8,13 +8,15 @@ import VueAuth from '@websanova/vue-auth';
 import router from './router/router';
 import VeeValidate from 'vee-validate';
 import { store } from './store/store';
+
+const root = '/api/';
 console.log(window.settings);
 Vue.use(VeeValidate);
 Vue.router = router;
 Vue.config.productionTip = false;
 Vue.prototype.$eventHub = new Vue();
 Vue.use(VueAxios, axios);
-Vue.axios.defaults.baseURL = window.settings.root;
+Vue.axios.defaults.baseURL = root;
 Vue.use(VueAuth, {
     auth: {
         request: function(req, token) {
@@ -46,14 +48,14 @@ Vue.use(VueAuth, {
     http: require('@websanova/vue-auth/drivers/http/axios.1.x.js'),
     router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js'),
     loginData: {
-        url: Settings.API.LOGIN,
+        url: root + 'api-token-login/',
         method: 'POST',
         redirect: 'home',
         fetchUser: false
     },
     tokenDefaultName: 'token',
     refreshData: {
-        url: Settings.API.REFRESH,
+        url: root + 'api-token-refresh/',
         method: 'POST',
         enabled: true,
         interval: 2,
