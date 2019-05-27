@@ -10,7 +10,6 @@ import VeeValidate from 'vee-validate';
 import { store } from './store/store';
 
 const root = '/api/';
-console.log(window.settings);
 Vue.use(VeeValidate);
 Vue.router = router;
 Vue.config.productionTip = false;
