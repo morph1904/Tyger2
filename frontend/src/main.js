@@ -9,6 +9,12 @@ import VueAuth from '@websanova/vue-auth';
 import router from './router/router';
 import VeeValidate from 'vee-validate';
 import { store } from './store/store';
+
+const root = window.settings.root;
+const LOGIN = window.settings.API.LOGIN;
+const REGISTER = window.settings.API.REGISTER;
+const APIREFRESH = root + 'api-token-refresh/';
+const APIAUTH = root + 'api-token-auth/';
 Vue.use(VeeValidate);
 Vue.router = router;
 Vue.config.productionTip = false;
@@ -46,14 +52,14 @@ Vue.use(VueAuth, {
     http: require('@websanova/vue-auth/drivers/http/axios.1.x.js'),
     router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js'),
     loginData: {
-        url: window.settings.root + 'api-token-auth/',
+        url: APIAUTH,
         method: 'POST',
         redirect: 'home',
         fetchUser: false
     },
     tokenDefaultName: 'token',
     refreshData: {
-        url: window.settings.root + 'api-token-refresh/',
+        url: APIREFRESH,
         method: 'POST',
         enabled: true,
         interval: 2,
