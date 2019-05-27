@@ -54,7 +54,7 @@ Vue.use(VueAuth, {
     },
     tokenDefaultName: 'token',
     refreshData: {
-        url: root + 'api-token-refresh/',
+        url: 'api-token-refresh/',
         method: 'POST',
         enabled: true,
         interval: 2,
