@@ -5,16 +5,16 @@ import 'vuetify/dist/vuetify.min.css';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import VueAuth from '@websanova/vue-auth';
-import {Settings} from '../public/settings';
 import router from './router/router';
 import VeeValidate from 'vee-validate';
 import { store } from './store/store';
+console.log(window.settings);
 Vue.use(VeeValidate);
 Vue.router = router;
 Vue.config.productionTip = false;
 Vue.prototype.$eventHub = new Vue();
 Vue.use(VueAxios, axios);
-Vue.axios.defaults.baseURL = Settings.root;
+Vue.axios.defaults.baseURL = window.settings.root;
 Vue.use(VueAuth, {
     auth: {
         request: function(req, token) {
