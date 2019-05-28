@@ -74,8 +74,23 @@
               :error-messages="errors.collect('extURL')"
               v-validate="'required'"
             ></v-text-field>
-
+              
+                
+                  <v-combobox
+          v-model="formData.provider"
+          :items="dns"
+          item-text="provider_name"
+          item-value="id"
+          label="Select your DNS provider for this domain:"
+        ></v-combobox>
+             
             <v-switch color="primary" class="px-3" label="Use HTTPS?" v-model="formData.https"></v-switch>
+                        <v-switch
+              color="primary"
+              class="px-3"
+              label="Use DNS Challenge for HTTPS?"
+              v-model="formData.dns_challenge"
+            ></v-switch>
             <v-switch
               color="primary"
               class="px-3"
@@ -144,7 +159,9 @@ export default {
         redirectHttps: "",
         websockets: "",
         transparent: "",
-        insecure_skip_verify: ""
+        insecure_skip_verify: "",
+        provider:"",
+        dns_challenge:""
       },
       step: 1,
       alert: false,
@@ -160,7 +177,9 @@ export default {
               https: "",
               redirectHttps: "",
               websockets: "",
-              transparent: ""
+              transparent: "",
+              provider:"",
+              dns_challenge:""
             }
             this.errors.clear()
     },
@@ -178,6 +197,8 @@ export default {
           tls: this.formData.https,
           staging: this.formData.staging,
           app: this.formData.appURL,
+          provider:this.formData.provider.id,
+          dns_challenge:this.formData.dns_challenge
         }
       }
       
@@ -205,7 +226,15 @@ export default {
       set(value) {
         this.$emit("input", value);
       }
-    }
-  }
+    },
+    dns(){
+        //this.appslist = this.$store.state.apps
+        //console.log(this.$store.state.apps)
+        return this.$store.state.dns
+    } 
+  },
+  created() {
+    this.$store.dispatch('getDNS')
+  },
 };
 </script>

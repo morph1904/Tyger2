@@ -97,6 +97,11 @@
           <v-icon medium v-else>close</v-icon>
         </td>
         <td>{{ props.item.app }}</td>
+        <td>{{ props.item.provider }}</td>
+        <td>
+          <v-icon medium v-if="props.item.dns_challenge">check</v-icon>
+          <v-icon medium v-else>close</v-icon>
+        </td>
         <td class="justify-center layout px-0">
           <v-icon
             small
@@ -146,6 +151,8 @@ export default {
           { text: 'TLS', value: 'tls' },
           { text: 'Staging', value: 'staging' },
           { text: 'Application', value: 'app' },
+          { text: 'Provider', value: 'provider' },
+          { text: 'DNS Verification', value: 'dns_challenge' },
           { text: 'Actions', value: 'name', sortable: false }
         ],
         editedItem: {

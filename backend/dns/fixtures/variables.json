@@ -1,0 +1,170 @@
+[
+    {
+      "model": "dns.evariables",
+      "fields": {
+        "id": 1,
+        "dns_provider_id": 1,
+        "variable": "AZURE_CLIENT_ID"
+      }
+    },
+    {
+      "model": "dns.evariables",
+      "fields": {
+        "id": 2,
+        "dns_provider_id": 1,
+        "variable": "AZURE_CLIENT_SECRET"
+      }
+    },
+    {
+      "model": "dns.evariables",
+      "fields": {
+        "id": 3,
+        "dns_provider_id": 1,
+        "variable": "AZURE_SUBSCRIPTION_ID"
+      }
+    },
+    {
+      "model": "dns.evariables",
+      "fields": {
+        "id": 4,
+        "dns_provider_id": 1,
+        "variable": "AZURE_TENANT_ID"
+      }
+    },
+    {
+      "model": "dns.evariables",
+      "fields": {
+        "id": 5,
+        "dns_provider_id": 2,
+        "variable": "CLOUDFLARE_EMAIL"
+      }
+    },
+    {
+      "model": "dns.evariables",
+      "fields": {
+        "id": 6,
+        "dns_provider_id": 2,
+        "variable": "CLOUDFLARE_API_KEY"
+      }
+    },
+    {
+      "model": "dns.evariables",
+      "fields": {
+        "id": 7,
+        "dns_provider_id": 3,
+        "variable": "DO_AUTH_TOKEN"
+      }
+    },
+    {
+      "model": "dns.evariables",
+      "fields": {
+        "id": 8,
+        "dns_provider_id": 4,
+        "variable": "DYN_CUSTOMER_NAME"
+      }
+    },
+    {
+      "model": "dns.evariables",
+      "fields": {
+        "id": 9,
+        "dns_provider_id": 4,
+        "variable": "DYN_USER_NAME"
+      }
+    },
+    {
+      "model": "dns.evariables",
+      "fields": {
+        "id": 10,
+        "dns_provider_id": 4,
+        "variable": "DYN_PASSWORD"
+      }
+    },
+    {
+      "model": "dns.evariables",
+      "fields": {
+        "id": 11,
+        "dns_provider_id": 5,
+        "variable": "GODADDY_API_KEY"
+      }
+    },
+    {
+      "model": "dns.evariables",
+      "fields": {
+        "id": 12,
+        "dns_provider_id": 5,
+        "variable": "GODADDY_API_SECRET"
+      }
+    },
+    {
+      "model": "dns.evariables",
+      "fields": {
+        "id": 13,
+        "dns_provider_id": 6,
+        "variable": "GCE_PROJECT"
+      }
+    },
+    {
+      "model": "dns.evariables",
+      "fields": {
+        "id": 14,
+        "dns_provider_id": 6,
+        "variable": "GCE_DOMAIN"
+      }
+    },
+    {
+      "model": "dns.evariables",
+      "fields": {
+        "id": 15,
+        "dns_provider_id": 6,
+        "variable": "GOOGLE_APPLICATION_CREDENTIALS"
+      }
+    },
+    {
+      "model": "dns.evariables",
+      "fields": {
+        "id": 16,
+        "dns_provider_id": 6,
+        "variable": "(or GCE_SERVICE_ACCOUNT_FILE)"
+      }
+    },
+    {
+      "model": "dns.evariables",
+      "fields": {
+        "id": 17,
+        "dns_provider_id": 7,
+        "variable": "LINODE_API_KEY"
+      }
+    },
+    {
+      "model": "dns.evariables",
+      "fields": {
+        "id": 18,
+        "dns_provider_id": 8,
+        "variable": "NAMECHEAP_API_USER"
+      }
+    },
+    {
+      "model": "dns.evariables",
+      "fields": {
+        "id": 19,
+        "dns_provider_id": 8,
+        "variable": "NAMECHEAP_API_KEY"
+      }
+    },
+    {
+      "model": "dns.evariables",
+      "fields": {
+        "id": 20,
+        "dns_provider_id": 9,
+        "variable": "RACKSPACE_USER"
+      }
+    },
+    {
+      "model": "dns.evariables",
+      "fields": {
+        "id": 21,
+        "dns_provider_id": 9,
+        "variable": "RACKSPACE_API_KEY"
+      }
+    }
+  ]

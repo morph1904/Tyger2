@@ -31,6 +31,7 @@ from apps.views import AppsViewset
 from addresses.views import CountAddresses
 from addresses.views import AddressViewset
 
+from dns.views import DNSViewset
 # Serializers define the API representation.
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -79,6 +80,7 @@ router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'addresses', AddressViewset)
 router.register(r'apps', AppsViewset)
+router.register(r'dns', DNSViewset)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

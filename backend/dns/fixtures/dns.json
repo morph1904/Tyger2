@@ -1,0 +1,66 @@
+[
+    {
+      "model": "dns.dns",
+      "fields": {
+        "provider_name": "Azure DNS",
+        "caddy_name": "azure"
+      }
+    },
+    {
+      "model": "dns.dns",
+      "fields": {
+        "provider_name": "Cloudflare",
+        "caddy_name": "cloudflare"
+      }
+    },
+    {
+      "model": "dns.dns",
+      "fields": {
+        "provider_name": "DigitalOcean",
+        "caddy_name": "digitalocean"
+      }
+    },
+    {
+      "model": "dns.dns",
+      "fields": {
+        "provider_name": "DynDNS",
+        "caddy_name": "dyn"
+      }
+    },
+    {
+      "model": "dns.dns",
+      "fields": {
+        "provider_name": "GoDaddy",
+        "caddy_name": "godaddy"
+      }
+    },
+    {
+      "model": "dns.dns",
+      "fields": {
+        "provider_name": "Google Cloud DNS",
+        "caddy_name": "googlecloud"
+      }
+    },
+    {
+      "model": "dns.dns",
+      "fields": {
+        "provider_name": "Linode",
+        "caddy_name": "linode"
+      }
+    },
+    {
+      "model": "dns.dns",
+      "fields": {
+        "provider_name": "Namecheap",
+        "caddy_name": "namecheap"
+      }
+    },
+    
+    {
+      "model": "dns.dns",
+      "fields": {
+        "provider_name": "Rackspace",
+        "caddy_name": "rackspace"
+      }
+    }
+  ]

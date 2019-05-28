@@ -17,7 +17,8 @@ export const store = new Vuex.Store({
         addresses: [],
         addresCount: null,
         appCount: null,
-        addressCount: null, 
+        addressCount: null,
+        dns:[],
     },
     actions:{
         getApps ({ commit }) {
@@ -100,6 +101,24 @@ export const store = new Vuex.Store({
         },
         //END APPS ACTIONS
 
+        //START DNS ACTIONS
+        getDNS({
+          commit
+      }) {
+          axios.get("dns/").then(({
+                  data
+              }) => {
+                  if (data) {
+                      this.state.dns = data.results;
+                  }
+              })
+              .catch(() => {
+                  store.commit('SET_ALERT', {
+                      message: "Could not communicate with the backend!",
+                      type: "error"
+                  })
+              })
+      },
         //START ADDRESS ACTIONS
         getAddresses({
             commit
@@ -180,6 +199,10 @@ export const store = new Vuex.Store({
             store.dispatch('deleteAddress', data)
         },
 
+        //START ADDRESS MUTATIONS
+        GET_DNS(state) {
+          store.dispatch('getDNS')
+      },
 
         //START UTILITY MUTATIONS
         SET_ALERT(state, data) {
