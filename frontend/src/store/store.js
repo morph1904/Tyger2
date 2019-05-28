@@ -161,11 +161,14 @@ export const store = new Vuex.Store({
     },
     deleteAdd({ commit }, data) {
       const add = data
-      axios.delete("apps/" + data.id + "/", data)
+      axios.delete("addresses/" + data.id + "/", data)
         .then(({ data }) => {
-          store.commit('GET_APPS')
+          store.commit('GET_ADDS')
           store.commit('SET_ALERT', { message: "Address " + add.address + " (" + add.app + ")" + " was deleted!", type: "warning" })
         })
+        .catch(() => {
+          store.commit('SET_ALERT', { message: "There was an error! Please check your data and try again", type: "error" })
+        });
     },
 
     //START UTILITY ACTIONS
@@ -214,7 +217,7 @@ export const store = new Vuex.Store({
       store.dispatch('updateAddress', data)
     },
     DELETE_ADDRESS(state, data) {
-      store.dispatch('deleteAddress', data)
+      store.dispatch('deleteAdd', data)
     },
 
     //START ADDRESS MUTATIONS

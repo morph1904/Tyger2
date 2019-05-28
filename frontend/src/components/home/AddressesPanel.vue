@@ -6,9 +6,9 @@
     <v-toolbar color="deep-orange" dark flat>
       <v-toolbar-title>Addresses</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn round color="accent" dark @click.stop="addAddressForm=true">Add Address</v-btn>
+
       <v-badge color="blue-grey darken-4">
-        <span slot="badge">{{ stats.addressCount }}</span>
+        <span slot="badge">{{ addressCount }}</span>
         <v-icon large color="white">domain</v-icon>
       </v-badge>
     </v-toolbar>
@@ -16,11 +16,11 @@
       <v-card-title primary-title>
         <h2 class="blue-grey--text darken-4">Addresses</h2> 
         <v-spacer></v-spacer> 
-        <v-btn round color="primary" dark ><v-icon>add</v-icon> Add Address</v-btn>
+        <v-btn round color="primary" dark @click.stop="addAddressForm=true"><v-icon>add</v-icon> Add Address</v-btn>
       </v-card-title>
 
       <!--EDIT DIALOG-->
-      <v-dialog v-model="dialog" max-width="500px">
+<!--       <v-dialog v-model="dialog" max-width="500px">
         <v-card>
           <v-card-title>
             <span class="headline">Edit Address</span>
@@ -56,7 +56,7 @@
         </v-card>
       </v-dialog>
 <!--DELETE DIALOG-->
-      <v-dialog v-model="deletedialog" max-width="500px">
+      <!-- <v-dialog v-model="deletedialog" max-width="500px">
         <v-card>
           <v-card-title>
             <span class="headline">Delete Address</span>
@@ -67,7 +67,6 @@
               <v-layout wrap>
                 Are you sure you want to delete {{ editedItem.URL }}?
 
-                This will also delete any associated addresses.....
               </v-layout>
             </v-container>
           </v-card-text>
@@ -75,10 +74,10 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" flat @click="deleteclose">Cancel</v-btn>
-            <v-btn color="error darken-1" flat @click="deleteapp">Delete</v-btn>
+            <v-btn color="error darken-1" flat @click="deleteadd">Delete</v-btn>
           </v-card-actions>
         </v-card>
-      </v-dialog>
+      </v-dialog> -->
       <v-data-table
       :headers="headers"
       :items="addresses"
@@ -123,22 +122,19 @@
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
 import AddAddress from "@/components/forms/AddAddress";
 import AddressDelete from "@/components/Addresses/AddressDelete";
 import AddressEdit from "@/components/Addresses/AddressEdit";
 export default {
   data() {
     return {
-      stats: {
-        addressCount: null
-      },
-      addresses: [],
+
       addAddressForm: false,
       deletedialog: false,
       deleteid: {},
       editdialog: false,
         loading: true,
-        dialog: false,
         pagination: {},
         headers: [
           {
@@ -172,19 +168,7 @@ export default {
     AddressEdit
   },
   methods: {
-        addressList(){
-      this.$http.get("addresses/").then(({ data }) => {
-        if (data){
-          this.addresses = data.results;
-          this.stats.addressCount = data.count
-          this.loading = false
-        }
-       
-      })
-      .catch(() =>{
-        this.emitAlert("error", "Could not communicate with the backend!");
-      })
-    },
+    
     close () {
         this.dialog = false
         setTimeout(() => {
@@ -206,7 +190,7 @@ export default {
         this.close()
       },
 
-      deleteapp () {
+      deleteadd () {
         console.log(this.editedItem)
         this.$store.commit('DELETE_ADDRESS', this.editedItem)
         this.deleteclose()
@@ -215,20 +199,23 @@ export default {
     editItem (item) {
         this.editedIndex = this.addresses.indexOf(item)
         this.editedItem = Object.assign({}, item)
-        this.dialog = true
+        this.editdialog = true
       },
     deleteItem (item) {
-      this.editedIndex = this.addresses.indexOf(item)
-      this.editedItem = Object.assign({}, item)
-      this.deletedialog = true
+      this.deleteid = this.editedItem = Object.assign({}, item);
+      this.deletedialog = true;
     },
   },
+  computed: mapState({
+    addresses: "addresses",
+    addressCount: "addressCount",
+    alert: "alert",
+    alertmessage: "alertmessage"
+  }),
+
   mounted() {
-        this.$store.dispatch("getAdds");
+    this.$store.dispatch("getAdds");
     this.loading = false;
   },
-  created() {
-    this.addressList();
-  }
 };
 </script>

@@ -1,39 +1,72 @@
-<template>
-    <v-dialog v-model="show" max-width="500px">
-        <v-card>
-           <v-card-title class="primary" dark flat>
-            <span class="headline white--text">Edit Application</span>
+<<template>
+<v-dialog v-model="show" max-width="700px">
+     <v-card>
+          <v-card-title class="primary" dark flat>
+            <span class="headline white--text">Add Address</span>
           </v-card-title>
 
           <v-card-text>
             <v-container fluid>
               <v-layout row justify-space-between>
-                <v-flex xs12>
-                  <v-text-field v-model="item.name" label="Name"></v-text-field>
-                </v-flex>
+
+                  <v-text-field 
+                  name="address" 
+                  label="External Address"  
+                  v-model="item.address"
+                  :error-messages="errors.collect('address')"
+                  v-validate="'required'">
+                </v-text-field>
+
               </v-layout>
               <v-layout row justify-space-between>
-                <v-flex xs12>
-                  <v-text-field v-model="item.url" label="URL"></v-text-field>
-                </v-flex>
+             
+                   <v-switch
+              color="primary"
+              class="px-3"
+              label="Default to HTTPS?"
+              v-model="item.tls"
+            ></v-switch>
+               
               </v-layout>
               <v-layout row justify-space-between>
-                <v-flex xs12>
+                
                   <v-switch
-              color="primary" v-model="item.insecure_skip_verify" label="Skip SSL Verification on Backend?"></v-switch>
-                </v-flex>
+              color="primary"
+              class="px-3"
+              label="Use HTTPS Staging?"
+              v-model="item.staging"
+            ></v-switch>
+            
               </v-layout>
               <v-layout row justify-space-between>
-                <v-flex xs12>
-                  <v-switch
-              color="primary" v-model="item.websocket" label="Enable Websockets?"></v-switch>
-                </v-flex>
+                
+                  <v-combobox
+          v-model="item.app"
+          :items="apps"
+          item-text="name"
+          item-value="url"
+          label="Select a app to proxy to:"
+        ></v-combobox>
               </v-layout>
               <v-layout row justify-space-between>
-                <v-flex xs12>
-                  <v-switch
-              color="primary" v-model="item.transparent" label="Transparent Mode?"></v-switch>
-                </v-flex>
+                
+                  <v-combobox
+          v-model="item.provider"
+          :items="providers"
+          item-text="provider_name"
+          item-value="provider_name"
+          label="Select your DNS provider:"
+        ></v-combobox>
+              </v-layout>
+              <v-layout row justify-space-between>
+             
+                   <v-switch
+              color="primary"
+              class="px-3"
+              label="Use DNS Challenge?"
+              v-model="item.dns_challenge"
+            ></v-switch>
+               
               </v-layout>
             </v-container>
           </v-card-text>
@@ -44,7 +77,8 @@
             <v-btn color="primary" flat @click="save">Save</v-btn>
           </v-card-actions>
         </v-card>
-      </v-dialog>
+</v-dialog>
+
 </template>
 
 <script>
@@ -65,8 +99,15 @@ export default {
       },
       set: function(value) {
         this.$emit("showhide", value);
-      }
+      },
+    },
+      apps(){
+        return this.$store.state.apps
+    },
+    providers() {
+      return this.$store.state.dns
     }
+    
   },
      methods: {
           close (){

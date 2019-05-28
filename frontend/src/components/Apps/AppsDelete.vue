@@ -3,14 +3,14 @@
     <v-dialog v-model="show" max-width="500px">
         <v-card>
           <v-card-title class="primary" dark flat>
-            <span class="headline white--text">Delete Application</span>
+            <span class="headline white--text">Delete Application - {{ item.name }}</span>
           </v-card-title>
 
           <v-card-text>
             <v-container grid-list-md>
               <v-layout wrap>
-                Are you sure you want to delete {{ editedItem.name }}?
-
+                Are you sure you want to delete this application?
+                </br>
                 This will also delete any associated addresses.....
               </v-layout>
             </v-container>

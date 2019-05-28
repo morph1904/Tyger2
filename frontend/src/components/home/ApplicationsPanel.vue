@@ -6,7 +6,7 @@
     <v-toolbar color="deep-orange" dark flat>
       <v-toolbar-title>Applications</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn round color="accent" dark @click.stop="addAppForm=true">Add App</v-btn>
+
       <v-badge color="blue-grey darken-4">
         <span slot="badge">{{ appCount }}</span>
         <v-icon large color="white">apps</v-icon>
@@ -16,7 +16,7 @@
       <v-card-title primary-title>
         <h2 class="blue-grey--text darken-4">Apps</h2>
         <v-spacer></v-spacer> 
-        <v-btn round color="primary" dark @click.stop="AddAppDialog=true"><v-icon>add</v-icon> Add App</v-btn>
+        <v-btn round color="primary" dark @click.stop="addAppForm=true"><v-icon>add</v-icon> Add App</v-btn>
       </v-card-title>
 
       <v-data-table :headers="headers" :items="apps" :loading="loading" class="elevation-1">

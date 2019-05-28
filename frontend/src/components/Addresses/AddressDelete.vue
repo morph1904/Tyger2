@@ -3,15 +3,13 @@
     <v-dialog v-model="show" max-width="500px">
         <v-card>
           <v-card-title class="primary" dark flat>
-            <span class="headline white--text">Delete Application</span>
+            <span class="headline white--text">Delete Address - {{ item.address }}</span>
           </v-card-title>
 
           <v-card-text>
             <v-container grid-list-md>
               <v-layout wrap>
-                Are you sure you want to delete {{ editedItem.name }}?
-
-                This will also delete any associated addresses.....
+                Are you sure you want to delete this address?
               </v-layout>
             </v-container>
           </v-card-text>
@@ -19,7 +17,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="accent darken-1" flat @click="deleteclose">Cancel</v-btn>
-            <v-btn color="error darken-1" flat @click="deleteapp">Delete</v-btn>
+            <v-btn color="error darken-1" flat @click="deleteaddress">Delete</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -55,9 +53,9 @@ export default {
           deleteclose (){
             this.show = false
       },
-      deleteapp () {
+      deleteaddress () {
         //console.log(this.item)
-        this.$store.commit('DELETE_APP', this.item)
+        this.$store.commit('DELETE_ADDRESS', this.item)
         this.deleteclose()
         //this.emitAlert("warning", "The application " + this.editedItem.name + " was deleted successfully!");
       },
