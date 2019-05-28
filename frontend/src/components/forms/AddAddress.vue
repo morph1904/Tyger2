@@ -43,10 +43,30 @@
                   <v-combobox
           v-model="formData.app"
           :items="apps"
-          item-text="url"
+          item-text="name"
           item-value="url"
           label="Select a app to proxy to:"
         ></v-combobox>
+              </v-layout>
+              <v-layout row justify-space-between>
+                
+                  <v-combobox
+          v-model="formData.provider"
+          :items="providers"
+          item-text="provider_name"
+          item-value="provider_name"
+          label="Select your DNS provider:"
+        ></v-combobox>
+              </v-layout>
+              <v-layout row justify-space-between>
+             
+                   <v-switch
+              color="primary"
+              class="px-3"
+              label="Use DNS Challenge?"
+              v-model="formData.dns_challenge"
+            ></v-switch>
+               
               </v-layout>
             </v-container>
           </v-card-text>
@@ -71,6 +91,8 @@ export default {
         tls: false,
         staging: false,
         app: "",
+        provider: "",
+        dns_challenge: false
       },
       
     };
@@ -93,7 +115,10 @@ export default {
     },
     apps(){
         return this.$store.state.apps
-    } 
+    },
+    providers() {
+      return this.$store.state.dns
+    }
   },
   methods: {
       close () {
@@ -117,7 +142,9 @@ export default {
           address: this.formData.address,
           tls: this.formData.tls,
           staging: this.formData.staging,
-          app: this.formData.app.url
+          app: this.formData.app.url,
+          provider: this.formData.provider.provider_name,
+          dns_challenge: this.formData.dns_challenge
       }
       
       this.$store.commit('ADD_ADDSTD', data)

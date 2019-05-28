@@ -8,8 +8,13 @@ import VueAuth from '@websanova/vue-auth';
 import router from './router/router';
 import VeeValidate from 'vee-validate';
 import { store } from './store/store';
+let root = ""
+if(process.env.NODE_ENV == "development"){
+    root = "http://localhost:8000";
+} else {
+    root = '/api/';
+}
 
-const root = '/api/';
 Vue.use(VeeValidate);
 Vue.router = router;
 Vue.config.productionTip = false;
