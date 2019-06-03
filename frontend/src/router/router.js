@@ -4,6 +4,8 @@ import Home from '../views/Home.vue';
 import Login from '../views/Login.vue';
 import Apps from '../views/Apps.vue';
 import Addresses from '../views/Addresses.vue';
+import PageNotFound from '../components/Utility/PageNotFound.vue';
+
 
 Vue.use(Router);
 
@@ -36,6 +38,10 @@ const router = new Router({
       name: 'Login',
       component: Login
     },
+    { 
+      path: "*", 
+      component: PageNotFound 
+    }
   ]
 });
 export default router;

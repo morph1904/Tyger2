@@ -68,7 +68,7 @@ Vue.use(VueAuth, {
         }
     },
     fetchData: {
-        enabled: false
+        enabled: true
     },
 
 });
@@ -78,6 +78,5 @@ new Vue({
     router,
     VueAxios,
     store,
-
     render: h => h(App),
 }).$mount('#app');

@@ -1,7 +1,8 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
+import { router } from '../router/router';
 Vue.use(VueAxios, axios);
 Vue.axios.defaults.baseURL = 'http://localhost:8000/';
 
@@ -21,6 +22,12 @@ export const store = new Vuex.Store({
     dns: [],
   },
   actions: {
+    // START UTILITY ACTIONS
+
+    //END UTILITY ACTIONS
+
+
+    // START APPS ACTIONS
     getApps({ commit }) {
       axios.get("apps/").then(({ data }) => {
         if (data) {
@@ -183,6 +190,10 @@ export const store = new Vuex.Store({
   },
 
   mutations: {
+    //START UTILITY MUTATIONS
+
+    //END UTILITY MUTATIONS
+
     //START APP MUTATIONS
     GET_APPS(state) {
       store.dispatch('getApps')

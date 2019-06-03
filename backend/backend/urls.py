@@ -28,6 +28,8 @@ from django.contrib.auth.models import User
 from apps.views import CountApps
 from apps.views import AppsViewset
 
+from install.views import status
+
 from addresses.views import CountAddresses
 from addresses.views import AddressViewset
 
@@ -82,6 +84,7 @@ router.register(r'addresses', AddressViewset)
 router.register(r'apps', AppsViewset)
 router.register(r'dns', DNSViewset)
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
@@ -91,5 +94,6 @@ urlpatterns = [
     path('stats/', StatsView().as_view()),
     path('apps/', include('apps.urls')),
     path('addresses/', include('addresses.urls')),
+    path('install/', include('install.urls')),
     path('', include(router.urls))
 ]

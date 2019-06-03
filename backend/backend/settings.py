@@ -24,7 +24,7 @@ DB_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__))) + '/data/db
 SECRET_KEY = '0zk_@lk&+su2&347_-^6u4zq$oeal995v!a03tpo=qdd%9qn6w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     '*'
@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'apps',
     'addresses',
-    'dns'
+    'dns',
+    'install'
 ]
 
 MIDDLEWARE = [
