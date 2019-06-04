@@ -6,10 +6,7 @@ const state = {
     appCount: null
   };
   
-  const getters = {
-    isLogged: state => !!state.token,
-    user: state => state.user
-  };
+
   
   const actions = {
     getApps ({ commit }) {
@@ -46,7 +43,6 @@ const state = {
   
   export default {
     state,
-    getters,
     actions,
     mutations
   };

@@ -18,66 +18,6 @@
         <v-spacer></v-spacer> 
         <v-btn round color="primary" dark @click.stop="addAddressForm=true"><v-icon>add</v-icon> Add Address</v-btn>
       </v-card-title>
-
-      <!--EDIT DIALOG-->
-<!--       <v-dialog v-model="dialog" max-width="500px">
-        <v-card>
-          <v-card-title>
-            <span class="headline">Edit Address</span>
-          </v-card-title>
-
-          <v-card-text>
-            <v-container fluid>
-              <v-layout row justify-space-between>
-                <v-flex xs12>
-                  <v-text-field v-model="editedItem.address" label="Address"></v-text-field>
-                </v-flex>
-              </v-layout>
-              <v-layout row justify-space-between>
-                <v-flex xs12>
-                  <v-switch
-              color="primary" v-model="editedItem.tls" label="TLS"></v-switch>
-                </v-flex>
-              </v-layout>
-              <v-layout row justify-space-between>
-                <v-flex xs12>
-                  <v-switch
-              color="primary" v-model="editedItem.staging" label="Staging?"></v-switch>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card-text>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-            <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-<!--DELETE DIALOG-->
-      <!-- <v-dialog v-model="deletedialog" max-width="500px">
-        <v-card>
-          <v-card-title>
-            <span class="headline">Delete Address</span>
-          </v-card-title>
-
-          <v-card-text>
-            <v-container grid-list-md>
-              <v-layout wrap>
-                Are you sure you want to delete {{ editedItem.URL }}?
-
-              </v-layout>
-            </v-container>
-          </v-card-text>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click="deleteclose">Cancel</v-btn>
-            <v-btn color="error darken-1" flat @click="deleteadd">Delete</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog> -->
       <v-data-table
       :headers="headers"
       :items="addresses"
@@ -123,6 +63,7 @@
 </template>
 <script>
 import { mapState } from "vuex";
+import { mapGetters,  mapActions} from 'vuex'
 import AddAddress from "@/components/forms/AddAddress";
 import AddressDelete from "@/components/Addresses/AddressDelete";
 import AddressEdit from "@/components/Addresses/AddressEdit";
@@ -168,7 +109,7 @@ export default {
     AddressEdit
   },
   methods: {
-    
+    ...mapActions(['getAddresses']),
     close () {
         this.dialog = false
         setTimeout(() => {
@@ -214,7 +155,9 @@ export default {
   }),
 
   mounted() {
-    this.$store.dispatch("getAdds");
+     this['getAddresses']();
+    //this.$store.dispatch('main/getAddresses', null, {root:true})
+    //this.$store.modules.main.dispatch('getAddresses')
     this.loading = false;
   },
 };

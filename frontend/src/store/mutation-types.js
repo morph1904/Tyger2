@@ -1,2 +1,15 @@
 export const USER_AUTH_SUCCESS = 'USER_AUTH_SUCCESS';
 export const USER_LOGOUT = 'USER_LOGOUT';
+export const GET_APPS ='GET_APPS';
+export const GET_ADDS ='GET_ADDS';
+export const ADD_APP ='ADD_APP';
+export const ADD_APPSTD ='ADD_APPSTD';
+export const ADD_ADDSTD ='ADD_ADDSTD';
+export const UPDATE_APPS ='UPDATE_APPS';
+export const DELETE_APP ='DELETE_APP';
+export const GET_ADDRESSES ='GET_ADDRESSES';
+export const ADD_ADDRESS ='ADD_ADDRESS';
+export const UPDATE_ADDRESS ='UPDATE_ADDRESS';
+export const DELETE_ADDRESS ='DELETE_ADDRESS';
+export const GET_DNS ='GET_DNS';
+export const SET_ALERT ='SET_ALERT';

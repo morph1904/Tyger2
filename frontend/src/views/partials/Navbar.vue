@@ -9,7 +9,7 @@
             </v-list-tile-avatar>
 
             <v-list-tile-content>
-              <v-list-tile-title class="white--text">Hi, {{username}}</v-list-tile-title>
+              <v-list-tile-title class="white--text">Hi, {{ user }}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -71,13 +71,18 @@
 export default {
   data: () => ({
     drawer: false,
-    username: localStorage.username,
+    
     links: [
       { route: "/", text: "Home", icon: "home" },
       { route: "apps", text: "Applications", icon: "apps" },
       { route: "addresses", text: "Addresses", icon: "domain" }
     ]
   }),
+  computed: {
+   user () {
+    return this.$store.state.user.username
+  }
+  },
   methods: {
     logout() {
                 this.$auth.logout({

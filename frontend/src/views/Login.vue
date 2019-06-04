@@ -61,6 +61,7 @@ export default {
         },
         success: function () {
           this.$store.commit('SET_ALERT', {message: "", type: ""})
+          this.$store.commit('SET_USERNAME', {username: this.username })
         },
         rememberMe: true,
         redirect: "/"

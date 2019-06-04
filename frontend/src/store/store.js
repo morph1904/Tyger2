@@ -1,8 +1,7 @@
-import Vue from 'vue';
+/* import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
-import { router } from '../router/router';
 Vue.use(VueAxios, axios);
 Vue.axios.defaults.baseURL = 'http://localhost:8000/';
 
@@ -12,6 +11,7 @@ export const store = new Vuex.Store({
 
 
   state: {
+    username:'',
     alertmessage: '',
     alerttype: '',
     apps: [],
@@ -23,7 +23,9 @@ export const store = new Vuex.Store({
   },
   actions: {
     // START UTILITY ACTIONS
-
+    setUsername({ commit }, data) {
+      localStorage.setItem('username', data)
+    },
     //END UTILITY ACTIONS
 
 
@@ -242,4 +244,4 @@ export const store = new Vuex.Store({
     },
 
   }
-})
+}) */

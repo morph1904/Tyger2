@@ -4,7 +4,8 @@ import { USER_LOGOUT, USER_AUTH_SUCCESS } from '../mutation-types';
 
 const state = {
   token: sessionStorage.getItem('token') || '',
-  user: JSON.parse(sessionStorage.getItem('user')) || {},
+  user: '',
+  username:'',
   alertmessage:'',
   alerttype:''
 };
@@ -22,7 +23,7 @@ const actions = {
         password,
       }).then(({ data }) => {
         if (data.token) {
-          store.commit(USER_AUTH_SUCCESS, { user: data.user, token: data.token });
+          store.commit(USER_AUTH_SUCCESS, { user: data.user.username, token: data.token });
           resolve();
         } else {
           reject(data.message);
@@ -58,7 +59,9 @@ const actions = {
 
 const mutations = {
   [USER_AUTH_SUCCESS] (store, { user, token }) {
+    console.log(user)
     store.user = user;
+    store.username = user;
     store.error = '';
     store.token = token;
     sessionStorage.setItem('token', token);
@@ -68,6 +71,7 @@ const mutations = {
     store.user = {};
     store.token = '';
     sessionStorage.clear();
+    localStorage.clear();
   },
 };
 
