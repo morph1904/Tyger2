@@ -5,7 +5,8 @@
     <div>
     <Navbar v-if="$auth.check()"/>
     <v-content>
-      <Alert/>
+      
+      <Snackbar/>
       <router-view></router-view>
     </v-content>
     <Footer v-if="$auth.check()"/>
@@ -21,14 +22,13 @@
 <script>
 import Navbar from './views/partials/Navbar'
 import Footer from './views/partials/Footer'
-import Alert from './views/partials/Alert'
-
+import Snackbar from './components/utility/Snackbar'
 export default {
   name: 'App',
   components: {
     Navbar,
     Footer,
-    Alert
+    Snackbar
   },
  data: () => ({
     drawer: null,

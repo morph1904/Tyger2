@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import AppsDelete from "@/components/Apps/AppsDelete";
 import AppsEdit from "@/components/Apps/AppsEdit";
 import AddApp from "@/components/forms/AddApp";
@@ -117,13 +117,12 @@ export default {
       this.deletedialog = true;
     }
   },
-  computed: mapState({
-    apps: "apps",
-    appCount: "appCount",
-    alert: "alert",
-    alertmessage: "alertmessage"
-  }),
-
+  computed: {
+    ...mapGetters({
+      apps: 'showApps', 
+      appCount: 'showAppCount'
+    })
+  },
   mounted() {
     this.$store.dispatch("getApps");
     this.loading = false;

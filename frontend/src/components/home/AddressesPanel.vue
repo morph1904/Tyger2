@@ -62,8 +62,7 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
-import { mapGetters,  mapActions} from 'vuex'
+import { mapGetters, mapActions, mapState} from 'vuex'
 import AddAddress from "@/components/forms/AddAddress";
 import AddressDelete from "@/components/Addresses/AddressDelete";
 import AddressEdit from "@/components/Addresses/AddressEdit";
@@ -109,7 +108,6 @@ export default {
     AddressEdit
   },
   methods: {
-    ...mapActions(['getAddresses']),
     close () {
         this.dialog = false
         setTimeout(() => {
@@ -147,18 +145,21 @@ export default {
       this.deletedialog = true;
     },
   },
-  computed: mapState({
-    addresses: "addresses",
-    addressCount: "addressCount",
-    alert: "alert",
-    alertmessage: "alertmessage"
-  }),
+  computed: {
+
+    ...mapGetters({
+      addresses: 'showAddresses', 
+      addressCount: 'showAddressCount',
+      apps: 'showApps',
+    })
+  },
 
   mounted() {
-     this['getAddresses']();
-    //this.$store.dispatch('main/getAddresses', null, {root:true})
-    //this.$store.modules.main.dispatch('getAddresses')
+    this.$store.dispatch('getAddresses')
+    this.$store.dispatch('getDNS')
+    
     this.loading = false;
+    
   },
 };
 </script>

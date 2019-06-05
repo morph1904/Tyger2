@@ -74,7 +74,7 @@ export default {
       },
       save () {
              //   console.log(this.item)
-        this.$store.commit('UPDATE_APPS', this.item)
+        this.$store.dispatch('updateApp', this.item)
         this.close()
       },
      },

@@ -132,7 +132,7 @@ export default {
         },
       }
       
-      this.$store.commit('ADD_APPSTD', data)
+      this.$store.dispatch('addApp', data)
             this.show = false;
             this.step = 1;
             this.resetForm();

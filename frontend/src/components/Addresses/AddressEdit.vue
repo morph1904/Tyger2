@@ -82,6 +82,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
 
     props: {
@@ -101,12 +102,11 @@ export default {
         this.$emit("showhide", value);
       },
     },
-      apps(){
-        return this.$store.state.apps
-    },
-    providers() {
-      return this.$store.state.dns
-    }
+    ...mapGetters({
+      providers: 'showDNS',
+      apps:'showApps' 
+    })
+      
     
   },
      methods: {
@@ -115,7 +115,7 @@ export default {
       },
       save () {
                 //console.log(this.item)
-        this.$store.commit('UPDATE_APPS', this.item)
+        this.$store.dispatch('updateAddress', this.item)
         this.close()
       },
      },

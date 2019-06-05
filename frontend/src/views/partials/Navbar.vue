@@ -9,7 +9,7 @@
             </v-list-tile-avatar>
 
             <v-list-tile-content>
-              <v-list-tile-title class="white--text">Hi, {{ user }}</v-list-tile-title>
+              <v-list-tile-title class="white--text">Hi, {{ username }}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -67,6 +67,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex';
 
 export default {
   data: () => ({
@@ -79,16 +80,21 @@ export default {
     ]
   }),
   computed: {
-   user () {
-    return this.$store.state.user.username
-  }
+   ...mapGetters({
+     username: 'getUser'
+   })
+  },
+  created(){
+
   },
   methods: {
     logout() {
                 this.$auth.logout({
     makeRequest: false,
     data: {}, // data: {} in axios
-    success: function () {},
+    success: function () {
+      this.$store.dispatch('logout')
+    },
     error: function () {},
     redirect: '/login',
     // etc...

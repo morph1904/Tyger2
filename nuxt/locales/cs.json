@@ -1,0 +1,48 @@
+{
+	"error": {
+		"401": "Nemáte dostatečná oprávnění pro tuto akci",
+		"404": "Požadovaný záznam nebyl nalezen",
+		"unknown": "Vyskytla se chyba"
+	},
+	"user": {
+		"panel": {
+			"register": "Registrovat se",
+			"logout": "Odhlásit se"
+		},
+		"form": {
+			"login": {
+				"username": "E-mail",
+				"password": "Heslo",
+				"submit": "Přihlásit se"
+			},
+			"register": {
+				"password": {
+					"hint": "Heslo musí obsahovat minimálně 8 znaků"
+				},
+				"submit": "Provést registraci"
+			},
+			"validation": {
+				"username": {
+					"required": "Email je povinný",
+					"invalid": "Email je neplatný"
+				},
+				"password": {
+					"required": "Heslo je povinné",
+					"short": "Heslo je krátké (minimum 8 znaků)"
+				}
+			}
+		}
+	},
+	"link":{
+		"homepage":"Úvodní stránka"
+	},
+	"page": {
+		"login": {
+			"headline": "Přihlášení"
+		},
+		"register": {
+			"header": "Registrujte se ještě dnes",
+			"subHeader": "Super vychytávky"
+		}
+	}
+}

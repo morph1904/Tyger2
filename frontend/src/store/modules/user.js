@@ -1,83 +1,85 @@
+import Vue from 'vue';
 import axios from 'axios';
-import config from '../../config';
-import { USER_LOGOUT, USER_AUTH_SUCCESS } from '../mutation-types';
+import VueAxios from 'vue-axios';
+Vue.use(VueAxios, axios);
+Vue.axios.defaults.baseURL = 'http://localhost:8000/';
 
-const state = {
-  token: sessionStorage.getItem('token') || '',
-  user: '',
-  username:'',
-  alertmessage:'',
-  alerttype:''
-};
+export const user = {
+  state: {
+    token: sessionStorage.getItem('token') || '',
+    username:'',
+  },
+  getters: {
+    isLogged: state => !!state.token,
+    getUser ( state ){
+      return state.username
+    }
+  },
+  actions: {
+    setUsername({commit}, username){
+      commit('SET_USERNAME', username.username)
+    },
 
-const getters = {
-  isLogged: state => !!state.token,
-  user: state => state.user
-};
-
-const actions = {
-  login (store, { username, password }) {
-    return new Promise((resolve, reject) => {
-      axios.post(window.settings.API.LOGIN, {
-        username,
-        password,
-      }).then(({ data }) => {
-        if (data.token) {
-          store.commit(USER_AUTH_SUCCESS, { user: data.user.username, token: data.token });
-          resolve();
-        } else {
-          reject(data.message);
-        }
-      }).catch(() => {
-        reject('Error sending request to server!');
+    login ({ commit }, { username, password }) {
+      return new Promise((resolve, reject) => {
+        axios.post(window.settings.API.LOGIN, {
+          username,
+          password,
+        }).then(({ data }) => {
+          console.log(data)
+          if (data.token) {
+            console.log(data)
+            commit(USER_AUTH_SUCCESS, { user: username, token: data.token });
+            resolve();
+          } else {
+            reject(data.message);
+          }
+        }).catch(() => {
+          commit('setSnack', {snack: "Could not communicate with the backend!", color: 'error'})
+        });
       });
-    });
-  },
-  register (store, { first_name, last_name, email, password, cpassword }) {
-    return new Promise((resolve, reject) => {
-      if (password !== cpassword) reject(new Error('Passwords do not match'));
-      axios.post(window.settings.API.REGISTER, {
-        first_name,
-        last_name,
-        email,
-        password,
-      }).then(({ data }) => {
-        if (data.success) {
-          store.commit(USER_AUTH_SUCCESS);
-        } else {
-          reject(data.message);
-        }
-      }).catch(err => {
-        reject(err);
+    },
+    register (store, { first_name, last_name, email, password, cpassword }) {
+      return new Promise((resolve, reject) => {
+        if (password !== cpassword) reject(new Error('Passwords do not match'));
+        axios.post(window.settings.API.REGISTER, {
+          first_name,
+          last_name,
+          email,
+          password,
+        }).then(({ data }) => {
+          if (data.success) {
+            store.commit(USER_AUTH_SUCCESS);
+          } else {
+            reject(data.message);
+          }
+        }).catch(err => {
+          reject(err);
+        });
       });
-    });
+    },
+    logout ({ commit }) {
+      commit('setSnack', {snack: "You have been logged out.", color: 'warning'})
+      commit('USER_LOGOUT');
+      commit('reset')
+    },
   },
-  logout (store) {
-    store.commit(USER_LOGOUT);
-  },
-};
-
-const mutations = {
-  [USER_AUTH_SUCCESS] (store, { user, token }) {
-    console.log(user)
-    store.user = user;
-    store.username = user;
-    store.error = '';
-    store.token = token;
-    sessionStorage.setItem('token', token);
-    sessionStorage.setItem('user', JSON.stringify(user));
-  },
-  [USER_LOGOUT] (store) {
-    store.user = {};
-    store.token = '';
-    sessionStorage.clear();
-    localStorage.clear();
-  },
-};
-
-export default {
-  state,
-  getters,
-  actions,
-  mutations
-};
+  mutations: {
+    USER_AUTH_SUCCESS(state, { user, token }) {
+      state.error = '';
+      state.token = token;
+      sessionStorage.setItem('token', token);
+      sessionStorage.setItem('user', JSON.stringify(user));
+    },
+    USER_LOGOUT(state) {
+      
+      state.username = {};
+      state.token = '';
+      sessionStorage.clear();
+      localStorage.clear();
+    },
+    SET_USERNAME(state, username) {
+      state.username = username
+    }
+  }
+}

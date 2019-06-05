@@ -82,6 +82,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
     
     data() {
@@ -113,12 +114,11 @@ export default {
         this.$emit("showhide", value);
       }
     },
-    apps(){
-        return this.$store.state.apps
-    },
-    providers() {
-      return this.$store.state.dns
-    }
+
+    ...mapGetters({
+      providers: 'showDNS',
+      apps:'showApps' 
+    })
   },
   methods: {
       close () {
@@ -147,7 +147,7 @@ export default {
           dns_challenge: this.formData.dns_challenge
       }
       
-      this.$store.commit('ADD_ADDSTD', data)
+      this.$store.dispatch('addAddress', data)
             this.show = false;
             this.resetForm();
             this.close()

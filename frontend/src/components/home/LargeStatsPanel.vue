@@ -1,6 +1,5 @@
 <template>
 <div>
-      <Wizard v-model="showWizardForm"/>
         <v-layout row wrap hidden-sm-and-down>
       <v-flex xs4 pa-3>
         <v-card class="mx-auto" color="blue-grey darken-3" dark max-width="400">
@@ -50,9 +49,6 @@
       </v-flex>
       <v-flex xs4 pa-3>
         <v-card class="mx-auto full-height" color="blue-grey darken-3" dark max-width="400">
-          <v-btn absolute top right fab dark icon color="primary" @click.stop="showWizardForm=true">
-            <v-icon>add</v-icon>
-          </v-btn>
           <v-card-title>
             <v-icon large left>dns</v-icon>
             <span class="title font-weight-light">Actions</span>
@@ -68,9 +64,6 @@
         <v-layout row wrap hidden-md-and-up justify-center>
       <v-flex xs12 pa-3>
         <v-card class="mx-auto full-height" color="blue-grey darken-3" dark>
-          <v-btn absolute top right fab dark icon color="primary" @click.stop="showWizardForm=true">
-            <v-icon>add</v-icon>
-          </v-btn>
           <v-card-title>
             <v-icon large left>dns</v-icon>
             <span class="title font-weight-light">Actions</span>
@@ -79,8 +72,8 @@
           <v-card-text class="headline font-weight-bold">
             <v-layout row wrap justify-center>
               <v-flex xs6>
-                <v-btn round color="primary" dark block>text</v-btn>
-                <v-btn round color="primary" dark block>text</v-btn>
+            <v-btn round color="primary" dark block>Reload Proxy</v-btn>
+            <v-btn round color="primary" dark block>View Logs</v-btn>
               </v-flex>
             </v-layout>
           </v-card-text>
@@ -93,7 +86,6 @@
 
 <script>
 import RadialProgressBar from "vue-radial-progress";
-import Wizard from "@/components/forms/Wizard";
 export default {
     data() {
     return {
@@ -108,7 +100,6 @@ export default {
     },
     components: {
         RadialProgressBar,
-        Wizard
   },
   methods:{
           getStats() {

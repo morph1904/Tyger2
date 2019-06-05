@@ -16,6 +16,7 @@
     "vue-radial-progress": "^0.2.10",
     "vue-router": "^3.0.6",
     "vuetify": "^1.5.14",
+    "vuetify-toast-snackbar": "^0.2.4",
     "vuex": "^3.1.1"
   },
   "devDependencies": {

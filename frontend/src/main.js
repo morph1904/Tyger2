@@ -7,7 +7,7 @@ import VueAxios from 'vue-axios';
 import VueAuth from '@websanova/vue-auth';
 import router from './router/router';
 import VeeValidate from 'vee-validate';
-import storePlugin from './storePlugin';
+import store from './store/index';
 let root = ""
 if(process.env.NODE_ENV == "development"){
     root = "http://localhost:8000";
@@ -16,7 +16,6 @@ if(process.env.NODE_ENV == "development"){
 }
 
 Vue.use(VeeValidate);
-Vue.use(storePlugin);
 Vue.router = router;
 Vue.config.productionTip = false;
 Vue.prototype.$eventHub = new Vue();
@@ -78,5 +77,6 @@ Vue.use(VueAuth, {
 new Vue({
     router,
     VueAxios,
+    store,
     render: h => h(App),
 }).$mount('#app');

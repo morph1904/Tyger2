@@ -54,8 +54,7 @@ export default {
             this.show = false
       },
       deleteaddress () {
-        //console.log(this.item)
-        this.$store.commit('DELETE_ADDRESS', this.item)
+        this.$store.dispatch('deleteAddress', this.item)
         this.deleteclose()
         //this.emitAlert("warning", "The application " + this.editedItem.name + " was deleted successfully!");
       },

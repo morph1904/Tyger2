@@ -148,6 +148,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
@@ -227,11 +228,9 @@ export default {
         this.$emit("input", value);
       }
     },
-    dns(){
-        //this.appslist = this.$store.state.apps
-        //console.log(this.$store.state.apps)
-        return this.$store.state.dns
-    } 
+    ...mapGetters({
+      dns: 'showDNS',
+    })
   },
   created() {
     this.$store.dispatch('getDNS')

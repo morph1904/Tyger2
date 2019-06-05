@@ -46,10 +46,7 @@ export default {
     };
   },
   
-  computed: mapState({
-     alertmessage: 'alertmessage',
-     alerttype: 'alerttype'
-    }),
+  computed: {},
   methods: {
     login: function() {
       const password = this.password;
@@ -57,11 +54,13 @@ export default {
       this.$auth.login({
         data: { username: username, password: password },
         error: function () {
-          this.$store.commit('SET_ALERT', {message:"Error, please check your username and password.", type: "error"})
-        },
+           this.$store.commit('setSnack', {snack: "Error! Please check your username and password and try again. ", color: 'error'})
+           },
         success: function () {
-          this.$store.commit('SET_ALERT', {message: "", type: ""})
-          this.$store.commit('SET_USERNAME', {username: this.username })
+         // this.$store.commit('SET_ALERT', {message: "", type: ""})
+          this.$store.dispatch('setUsername', {username: this.username })
+          this.$store.commit('setSnack', {snack: "Success! You are now logged in as " + this.username , color: 'success'})
+           
         },
         rememberMe: true,
         redirect: "/"

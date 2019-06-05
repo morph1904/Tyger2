@@ -18,7 +18,6 @@
 import LargeStatsPanel from "@/components/home/LargeStatsPanel";
 import ApplicationsPanel from "@/components/home/ApplicationsPanel";
 import AddressesPanel from "@/components/home/AddressesPanel";
-
 export default {
   data() {
     return {

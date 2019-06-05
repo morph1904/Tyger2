@@ -57,7 +57,7 @@ export default {
       },
       deleteapp () {
         //console.log(this.item)
-        this.$store.commit('DELETE_APP', this.item)
+        this.$store.dispatch('deleteApp', this.item)
         this.deleteclose()
         //this.emitAlert("warning", "The application " + this.editedItem.name + " was deleted successfully!");
       },
