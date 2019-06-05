@@ -40,12 +40,12 @@ class Install(TemplateView):
     template_name = "install.html"
 
     def get(self, request, *args, **kwargs):
-        settingsRecord = 'install_settings' in db.connection.introspection.table_names()
-        if(settingsRecord):
-            return render(request, 'installerror.html')
+        #settingsRecord = 'install_settings' in db.connection.introspection.table_names()
+        #if(settingsRecord):
+        #return render(request, 'installerror.html')
             #alert  = '<div class="alert alert-danger" role="alert">WARNING! The system is already installed. Completeing this form will destroy your system and rebuild a new environment! Proceed with caution!</div>'
-        else:
-            return render(request, self.template_name)
+       # else:
+        return render(request, self.template_name)
     
     def post(self, request, *args, **kwargs):
         data = request.POST.copy()
