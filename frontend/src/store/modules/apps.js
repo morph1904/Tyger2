@@ -29,7 +29,7 @@ export const apps = {
   },
 
   actions: {
-    getApps({ commit, dispatch }) {
+    getApps({ commit }) {
       axios.get("apps/").then(({ data }) => {
         if (data) {
           commit('GET_APPS', data)
