@@ -15,7 +15,7 @@ Group=www-data
 Environment=CADDYPATH=/apps/Tyger2/certs
 ; Always set "-root" to something safe in case it gets forgotten in the Caddyfile.
 
-ExecStart=/usr/local/bin/caddy -log /apps/Tyger2/logs/caddy.log -agree=true -conf=/apps/Tyger2/data/caddyfile.conf -root=/var/tmp
+ExecStart=/usr/local/bin/caddy -log /apps/Tyger2/data/logs/caddy.log -agree=true -conf=/apps/Tyger2/data/caddyfile.conf -root=/var/tmp
 
 ExecReload=/bin/kill -USR1 $MAINPID
 
