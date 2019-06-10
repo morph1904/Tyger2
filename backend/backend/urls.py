@@ -33,6 +33,7 @@ from install.views import status
 from addresses.views import CountAddresses
 from addresses.views import AddressViewset
 from dns.views import DNSViewset
+from stats.views import GetStats
 
 from . import caddy
 # Serializers define the API representation.
@@ -85,7 +86,6 @@ router.register(r'addresses', AddressViewset)
 router.register(r'apps', AppsViewset)
 router.register(r'dns', DNSViewset)
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
@@ -96,5 +96,6 @@ urlpatterns = [
     path('apps/', include('apps.urls')),
     path('addresses/', include('addresses.urls')),
     path('install/', include('install.urls')),
+    path('stats/', include('stats.urls')),
     path('', include(router.urls)),
 ]

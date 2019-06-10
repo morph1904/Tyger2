@@ -16,9 +16,9 @@
                   :diameter="100"
                   startColor="#ff5722"
                   stopColor="#ff5722"
-                  :completed-steps="stats.cpu_percent"
+                  :completed-steps="cpu_percent"
                   :total-steps="totalSteps"
-                >{{ stats.cpu_percent }}%</radial-progress-bar>
+                >{{ cpu_percent }}%</radial-progress-bar>
               </v-flex>
             </v-layout>
           </v-card-text>
@@ -39,9 +39,9 @@
                   :diameter="100"
                   startColor="#ff5722"
                   stopColor="#ff5722"
-                  :completed-steps="stats.mem_percent"
+                  :completed-steps="mem_percent"
                   :total-steps="totalSteps"
-                >{{ stats.mem_percent }}%</radial-progress-bar>
+                >{{ mem_percent }}%</radial-progress-bar>
               </v-flex>
             </v-layout>
           </v-card-text>
@@ -86,26 +86,33 @@
 
 <script>
 import RadialProgressBar from "vue-radial-progress";
+import { mapState, mapGetters, mapActions } from "vuex"
 export default {
     data() {
     return {
-        stats: {
-        cpu_percent: 100,
-        mem_percent: 100,
-        
-      },
-      showWizardForm: false,
+      interval: null,
       totalSteps:100,
     }
     },
     components: {
         RadialProgressBar,
   },
+  computed: {
+     ...mapGetters({
+      cpu_percent: 'getCPU', 
+      mem_percent: 'getMEM'
+    })
+  },
   methods:{
           ReloadProxy() {
             this.$store.dispatch('reloadProxy')
+          },
+          loadStats(){
+            this.$store.dispatch('getStats')
           }
   },
-
+beforeCreate(){
+   this.interval = setInterval(() => this.loadStats(), 1000)
+  }
 }
 </script>
