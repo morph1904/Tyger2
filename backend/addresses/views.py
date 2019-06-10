@@ -10,6 +10,7 @@ from rest_framework.renderers import JSONRenderer
 from .models import Address
 from .serializers import AddressSerializer
 
+from backend import caddy
 # Create your views here.
 class CountAddresses(APIView):
     permission_classes = (IsAuthenticated, )
@@ -26,3 +27,8 @@ class CountAddresses(APIView):
 class AddressViewset(viewsets.ModelViewSet):
     queryset = Address.objects.all()
     serializer_class = AddressSerializer
+
+class ReloadProxy(APIView):
+    def get(self, request, format=None):
+        caddy.reload_config()
+        return Response(self, ,status=200)

@@ -32,7 +32,7 @@ from install.views import status
 
 from addresses.views import CountAddresses
 from addresses.views import AddressViewset
-
+from addresses.views import ReloadProxy
 from dns.views import DNSViewset
 
 from . import caddy
@@ -98,5 +98,5 @@ urlpatterns = [
     path('addresses/', include('addresses.urls')),
     path('install/', include('install.urls')),
     path('', include(router.urls)),
-    path('generate/', caddy.build_caddyfile)
+    path('generate/', ReloadProxy.as_view())
 ]
