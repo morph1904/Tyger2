@@ -31,4 +31,4 @@ class AddressViewset(viewsets.ModelViewSet):
 class ReloadProxy(APIView):
     def get(self, request, format=None):
         caddy.reload_config()
-        return Response(self, ,status=200)
+        return Response(self, status=200)
