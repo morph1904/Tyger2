@@ -16,6 +16,7 @@ if(process.env.NODE_ENV == "development"){
 }
 
 Vue.use(VeeValidate);
+
 Vue.router = router;
 Vue.config.productionTip = false;
 Vue.prototype.$eventHub = new Vue();

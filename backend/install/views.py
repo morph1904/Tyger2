@@ -17,6 +17,7 @@ from .serializers import SettingsSerializer
 from django.core.management import call_command
 from django import db
 
+import os
 # Create your views here.
 class status(APIView):
     renderer_classes = (JSONRenderer, )
@@ -62,3 +63,16 @@ class Install(TemplateView):
         setup.save()
         user = User.objects.create_superuser(username, email, password)
         return render(request, 'installsuccess.html', {'serverip': serverip})
+
+class ShowPaths(TemplateView):
+
+    def get(self, request, *args, **kwargs):
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) + '/data/db.sqlite3'
+        CURRENT_DIR = os.path.dirname(__file__)
+        data = {
+            'base': BASE_DIR,
+            'current':  CURRENT_DIR,
+            'test': 'test'
+        }
+        
+        return render(request, 'installdirectories.html', data)

@@ -9,3 +9,4 @@ db.sqlite3
 .jshintrc
 .eslintrc.js
 .DS_Store
+data/db.sqlite3

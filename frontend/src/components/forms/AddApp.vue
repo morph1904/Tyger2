@@ -24,7 +24,7 @@
                   name="appURL"  
                   v-model="formData.appURL"
                   :error-messages="errors.collect('appURL')"
-                  v-validate="{url: {require_protocol: true }, required: true}"
+                  v-validate="{url: {require_protocol: true,require_tld: false,}, required: true}"
                   label="URL">
                   </v-text-field>
            

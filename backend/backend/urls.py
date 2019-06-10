@@ -34,6 +34,8 @@ from addresses.views import CountAddresses
 from addresses.views import AddressViewset
 
 from dns.views import DNSViewset
+
+from . import caddy
 # Serializers define the API representation.
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -95,5 +97,6 @@ urlpatterns = [
     path('apps/', include('apps.urls')),
     path('addresses/', include('addresses.urls')),
     path('install/', include('install.urls')),
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    path('generate/', caddy.build_caddyfile)
 ]

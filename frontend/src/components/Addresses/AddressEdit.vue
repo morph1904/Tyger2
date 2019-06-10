@@ -61,7 +61,7 @@
               <v-layout row justify-space-between>
              
                    <v-switch
-              color="primary"
+              color="primary" 
               class="px-3"
               label="Use DNS Challenge?"
               v-model="item.dns_challenge"

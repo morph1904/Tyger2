@@ -44,7 +44,7 @@
           v-model="formData.app"
           :items="apps"
           item-text="name"
-          item-value="url"
+          item-value="name"
           label="Select a app to proxy to:"
         ></v-combobox>
               </v-layout>
@@ -142,7 +142,7 @@ export default {
           address: this.formData.address,
           tls: this.formData.tls,
           staging: this.formData.staging,
-          app: this.formData.app.url,
+          app: this.formData.app.name,
           provider: this.formData.provider.provider_name,
           dns_challenge: this.formData.dns_challenge
       }
