@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.renderers import JSONRenderer
-
+from rest_framework.decorators import action
 
 from .models import Address
 from .serializers import AddressSerializer
@@ -28,7 +28,7 @@ class AddressViewset(viewsets.ModelViewSet):
     queryset = Address.objects.all()
     serializer_class = AddressSerializer
 
-class ReloadProxy(APIView):
-    def get(self, request, format=None):
+    @action(detail=False)
+    def reload(self, request, *args, **kwargs):
         caddy.reload_config()
-        return Response(self, status=200)
+        return Response()
