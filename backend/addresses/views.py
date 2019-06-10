@@ -31,4 +31,7 @@ class AddressViewset(viewsets.ModelViewSet):
     @action(detail=False)
     def reload(self, request, *args, **kwargs):
         caddy.reload_config()
-        return Response(status=200)
+        data = {
+            'message': "Proxy Reloaded"
+        }
+        return Response(data=data, status=200)
