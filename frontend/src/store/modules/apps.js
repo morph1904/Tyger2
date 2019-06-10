@@ -3,25 +3,7 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 Vue.use(VueAxios, axios);
 Vue.axios.defaults.baseURL = 'http://localhost:8000/';
-import VuetifyToast from 'vuetify-toast-snackbar'
 
-Vue.use(VuetifyToast, {
-	x: 'right', // default
-	y: 'bottom', // default
-	color: 'info', // default
-	icon: 'info',
-	timeout: 3000, // default
-	dismissable: true, // default
-	autoHeight: false, // default
-	multiLine: false, // default
-	vertical: false, // default
-	shorts: {
-		custom: {
-			color: 'purple'
-		}
-	},
-	property: '$toast' // default
-});
 export const apps = {
   state:{
     apps: [],

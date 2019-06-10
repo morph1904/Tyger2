@@ -55,7 +55,7 @@
           </v-card-title>
 
           <v-card-text class="headline font-weight-bold">
-            <v-btn round color="primary" dark block>Reload Proxy</v-btn>
+            <v-btn round color="primary" dark block @click="ReloadProxy()">Reload Proxy</v-btn>
             <v-btn round color="primary" dark block>View Logs</v-btn>
           </v-card-text>
         </v-card>
@@ -102,34 +102,10 @@ export default {
         RadialProgressBar,
   },
   methods:{
-          getStats() {
-      this.$http
-        .get("stats/")
-        .then(({ data }) => {
-          if (data) {
-            this.stats.cpu_percent = data.cpu_percent;
-            this.stats.mem_percent = data.mem_percent;
+          ReloadProxy() {
+            this.$store.dispatch('reloadProxy')
           }
-        })
-        .catch(() => {
-          this.emitAlert("Error", "Could not communicate with the backend!");
-        });
-    },
-    emitAlert(type, message) {
-      const data = {
-        type: type,
-        message: message
-      };
-      this.$eventHub.$emit("new-alert", data);
-    }
   },
-    created() {
-
-    //this.interval = setInterval(() => this.getStats(), 1000);
-  },
-  destroyed() {
-    clearInterval(this.interval);
-  }
 
 }
 </script>

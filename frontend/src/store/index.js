@@ -8,7 +8,8 @@ import { addresses } from './modules/addresses';
 import { user } from './modules/user';
 import { apps } from './modules/apps';
 import { dns } from './modules/dns';
-import { snackbar } from './modules/snackbar'
+import { utility } from './modules/utility';
+import { snackbar } from './modules/snackbar';
 
 let initialState = {
   user: { ...user.state },
@@ -25,6 +26,7 @@ export default new Vuex.Store({
     addresses,
     apps,
     dns,
+    utility,
     snackbar
 },
 mutations: {
