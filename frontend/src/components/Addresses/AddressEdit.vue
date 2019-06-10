@@ -1,4 +1,4 @@
-<<template>
+<template>
 <v-dialog v-model="show" max-width="700px">
      <v-card>
           <v-card-title class="primary" dark flat>
