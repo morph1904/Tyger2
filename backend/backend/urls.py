@@ -98,4 +98,5 @@ urlpatterns = [
     path('install/', include('install.urls')),
     path('stats/', include('stats.urls')),
     path('', include(router.urls)),
+    path('generate/', caddy.build_caddyfile.as_view())
 ]
