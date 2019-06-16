@@ -112,7 +112,7 @@ export default {
           }
   },
 beforeCreate(){
-   //this.interval = setInterval(() => this.loadStats(), 1000)
+   this.interval = setInterval(() => this.loadStats(), 1000)
   }
 }
 </script>

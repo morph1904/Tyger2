@@ -36,6 +36,11 @@ def generate_block(add):
 
     user = User.objects.get(pk=1)
     logfile = os.path.join(root_path, os.path.join(add.app.name, add.app.name + '.log'))
+    logfolder = os.path.join(root_path, add.app.name)
+    if not os.path.exists(logfile):
+        subprocess.call('mkdir ' + logfolder, shell=True)
+        subprocess.call('touch ' + logfile, shell=True)
+
     caddytext += add.address + ' { \n\n' + '\troot ' + root_path + '\n\n' + '\tlog ' + logfile + '\n\n' + '\tproxy / ' + add.app.url + ' { \n'
 
     if add.app.insecure_skip_verify:
