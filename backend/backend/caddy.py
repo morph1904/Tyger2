@@ -68,7 +68,7 @@ def generate_block(add):
 
 
 
-def build_caddyfile():
+def build_caddyfile(request):
     global caddytext
     global caddyfileconf
 

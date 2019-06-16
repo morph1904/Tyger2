@@ -35,7 +35,7 @@ from addresses.views import AddressViewset
 from dns.views import DNSViewset
 from stats.views import GetStats
 
-from caddy import build_caddyfile
+from .caddy import build_caddyfile
 # Serializers define the API representation.
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
