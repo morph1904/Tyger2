@@ -7,4 +7,4 @@ docker build:
   stage: Build image
   script:  
   - docker info
-  - docker build -t myimage .
+  - docker build -t tyger2:dev .
