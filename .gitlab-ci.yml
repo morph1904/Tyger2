@@ -5,7 +5,6 @@ stages:
 
 docker build:
   stage: Build image
-  script:
-  - DOCKER_HOST=tcp://localhost:2375  
+  script:  
   - docker info
   - docker build -t myimage .
