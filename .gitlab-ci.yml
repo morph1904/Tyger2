@@ -1,51 +1,94 @@
-# Official framework image. Look for the different tagged releases at:
-# https://hub.docker.com/r/library/python
-image: python:latest
+stages:
+  - build
+  - test
 
-# Pick zero or more services to be used on all builds.
-# Only needed when using a docker container to run your tests in.
-# Check out: http://docs.gitlab.com/ce/ci/docker/using_docker_images.html#what-is-a-service
-#services:
-#  - mysql:latest
-#  - postgres:latest
+##########
+# Docker #
+##########
 
-#variables:
-#  POSTGRES_DB: database_name
+docker-build:
+  stage: build
+  tags: [docker]
+  image: docker:stable
 
-# This folder is cached between builds
-# http://docs.gitlab.com/ce/ci/yaml/README.html#cache
-cache:
-  paths:
-    - ~/.cache/pip/
+  variables:
+    DOCKER_DRIVER: overlay2
 
-# This is a basic example for a gem or script which doesn't use
-# services such as redis or postgres
-before_script:
-  - python -V  # Print out python version for debugging
-  # Uncomment next line if your Django app needs a JS runtime:
-  - apt-get update -q && apt-get install nodejs -yqq
-  - pip install -r newrequirements.txt
-include:
-  template: Dependency-Scanning.gitlab-ci.yml
+  services:
+    - docker:dind
 
-# To get Django tests to work you may need to create a settings file using
-# the following DATABASES:
-#
-# DATABASES = {
-#     'default': {
-#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#        'NAME': 'ci',
-#        'USER': 'postgres',
-#        'PASSWORD': 'postgres',
-#        'HOST': 'postgres',
-#        'PORT': '5432',
-#    },
-# }
-#
-# and then adding `--settings app.settings.ci` (or similar) to the test command
+  before_script:
+    - docker info
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
-test:
-#  variables:
-#    DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/$POSTGRES_DB"
   script:
-    - python /backend/manage.py test
+    - BRANCH_LOWER=$(echo "$CI_COMMIT_REF_NAME" | awk '{print tolower($0)}')
+    - docker build --build-arg CI_REPOSITORY_URL=$CI_REPOSITORY_URL --build-arg CI_COMMIT_REF_NAME=$CI_COMMIT_REF_NAME --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg VERSION=`cat VERSION.txt` -t registry.gitlab.com/tygercaddy/tygercaddy/$BRANCH_LOWER/tygertest:ci-docker -f gitlab/build/docker/Dockerfile .
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com/tygercaddy/tygercaddy
+    - docker push registry.gitlab.com/tygercaddy/tygercaddy/$BRANCH_LOWER/tygertest:ci-docker
+
+docker-test:
+  stage: test
+  tags: [docker]
+  image: docker:stable
+
+  variables:
+    DOCKER_DRIVER: overlay2
+
+  services:
+    - docker:dind
+
+  before_script:
+    - docker info
+    - BRANCH_LOWER=$(echo "$CI_COMMIT_REF_NAME" | awk '{print tolower($0)}')
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com/tygercaddy/tygercaddy
+    - docker run -d -p 80:80 -p 443:443 -p 9090:9090 --name tygertest registry.gitlab.com/tygercaddy/tygercaddy/$BRANCH_LOWER/tygertest:ci-docker
+
+  script:
+    - docker exec tygertest /bin/bash /test/shared/check-response.sh
+
+##########
+# Ubuntu #
+##########
+
+ubuntu-build:
+  stage: build
+  tags: [linux]
+  image: docker:stable
+
+  variables:
+    DOCKER_DRIVER: overlay2
+
+  services:
+    - docker:dind
+
+  before_script:
+    - docker info
+
+  script:
+    - BRANCH_LOWER=$(echo "$CI_COMMIT_REF_NAME" | awk '{print tolower($0)}')
+    - docker build -t registry.gitlab.com/tygercaddy/tygercaddy/$BRANCH_LOWER/tygertest:ci-ubuntu -f gitlab/build/ubuntu/Dockerfile .
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com/tygercaddy/tygercaddy
+    - docker push registry.gitlab.com/tygercaddy/tygercaddy/$BRANCH_LOWER/tygertest:ci-ubuntu
+
+ubuntu-test:
+  stage: test
+  tags: [linux]
+  image: docker:stable
+
+  variables:
+    DOCKER_DRIVER: overlay2
+
+  services:
+    - docker:dind
+
+  before_script:
+    - docker info
+    - BRANCH_LOWER=$(echo "$CI_COMMIT_REF_NAME" | awk '{print tolower($0)}')
+    - docker run --rm --privileged -v /:/host solita/ubuntu-systemd:16.04 setup
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com/tygercaddy/tygercaddy
+    - docker run -e CI_REPOSITORY_URL=$CI_REPOSITORY_URL -e CI_COMMIT_REF_NAME=$CI_COMMIT_REF_NAME --security-opt seccomp=unconfined -t -v /sys/fs/cgroup:/sys/fs/cgroup:ro --tmpfs /run --tmpfs /run/lock -p 80:80 -p 443:443 -p 9090:9090 --name tygertest registry.gitlab.com/tygercaddy/tygercaddy/$BRANCH_LOWER/tygertest:ci-ubuntu
+
+  script:
+    - docker start tygertest
+    - docker exec tygertest /bin/bash /test/shared/check-response.sh
