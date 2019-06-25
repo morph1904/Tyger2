@@ -87,5 +87,5 @@ def build_caddyfile(request):
 
     caddyfile.write(caddytext)
     caddyfile.close()
-
+    reload_config()
     return HttpResponse(caddytext)

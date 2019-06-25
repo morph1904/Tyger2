@@ -21,8 +21,8 @@ class AddressSerializer(serializers.ModelSerializer):
         instance.dns_challenge = validated_data.get('dns_challenge', instance.dns_challenge)
 
         instance.save()
-        
         caddy.build_caddyfile(self)
+        
 
         return instance
 
