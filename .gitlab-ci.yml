@@ -25,6 +25,8 @@ before_script:
   # Uncomment next line if your Django app needs a JS runtime:
   - apt-get update -q && apt-get install nodejs -yqq
   - pip install -r newrequirements.txt
+include:
+  template: Dependency-Scanning.gitlab-ci.yml
 
 # To get Django tests to work you may need to create a settings file using
 # the following DATABASES:
@@ -46,4 +48,4 @@ test:
 #  variables:
 #    DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/$POSTGRES_DB"
   script:
-    - python manage.py test
+    - python /backend/manage.py test
