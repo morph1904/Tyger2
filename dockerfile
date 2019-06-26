@@ -23,11 +23,11 @@ CMD ["/bin/sh", "/usr/bin/caddyinstall.sh"]
 #/go/src/github.com/mholt/caddy/caddyhttp/service.go
 
 # build
-RUN go get github.com/mholt/caddy \
-    && go get github.com/caddyserver/builds \
-    && cd $GOPATH/src/github.com/mholt/caddy/caddy \
-    && git checkout tags/v0.11.5 \
-    && go run build.go
+#RUN go get github.com/mholt/caddy \
+ #   && go get github.com/caddyserver/builds \
+#    && cd $GOPATH/src/github.com/mholt/caddy/caddy \
+#    && git checkout tags/v0.11.5 \
+ #   && go run build.go
 
 
 #
