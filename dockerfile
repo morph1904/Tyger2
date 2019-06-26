@@ -77,15 +77,8 @@ COPY --from=builder /go/bin/parent /bin/parent
 ENTRYPOINT ["/bin/parent", "caddy"]
 CMD ["--conf", "/apps/Tyger2/data/caddyfile.conf", "--log", "stdout", "--agree=$ACME_AGREE"]
 
-# validate install
-RUN /usr/bin/caddy -version
-RUN /usr/bin/caddy -plugins | grep hook.service
-
-
-
-COPY builder/entrypoint.sh /entrypoint.sh
 ######################
-ADD builder/test /test
+COPY builder/checkresponse.sh /test/checkresponse.sh
 ######################
 
 ARG BUILD_DATE
