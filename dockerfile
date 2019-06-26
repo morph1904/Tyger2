@@ -20,11 +20,9 @@ RUN printf 'package caddyhttp\nimport _ "github.com/hacdias/caddy-service"' > \
 /go/src/github.com/mholt/caddy/caddyhttp/service.go
 
 # build
-RUN export GO111MODULES=on \
-    && go get github.com/mholt/caddy \
-    && go get github.com/caddyserver/builds \
-    && cd $GOPATH/src/github.com/mholt/caddy/caddy \
-    && go run build.go
+RUN git clone https://github.com/mholt/caddy \
+    && cd caddy/caddy \
+    && go run build.go \
 
 #
 # Final stage
