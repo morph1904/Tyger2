@@ -10,10 +10,10 @@ RUN git clone https://github.com/mholt/caddy /go/src/github.com/mholt/caddy \
     && cd /go/src/github.com/mholt/caddy
 
 # builder dependency
-RUN git clone https://github.com/caddyserver/builds /go/src/github.com/caddyserver/builds
+# RUN git clone https://github.com/caddyserver/builds /go/src/github.com/caddyserver/builds
 
 # service plugin
-RUN go get github.com/hacdias/caddy-service
+# RUN go get github.com/hacdias/caddy-service
 
 # integrate service plugin
 RUN printf 'package caddyhttp\nimport _ "github.com/hacdias/caddy-service"' > \
