@@ -15,9 +15,10 @@ docker build:
   script:  
   - docker info
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-  - docker build -t $CI_REGISTRY/morph1904/tyger2:dev .
+  - docker build -t $CI_REGISTRY/morph1904/tyger2:dev -t morph1904/tyger2:dev .
   - docker push $CI_REGISTRY/morph1904/tyger2:dev
-  - docker build -t morph1904/tyger2:dev .
+  - docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD $DOCKERHUB_REGISTRY
+  #- docker build -t morph1904/tyger2:dev .
   - docker push morph1904/tyger2:dev
 
 test:
