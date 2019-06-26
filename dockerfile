@@ -6,8 +6,8 @@ FROM golang:1.12.6-alpine3.10 as builder
 RUN apk add --no-cache curl git
 
 # caddy
-RUN git clone https://github.com/mholt/caddy /go/src/github.com/mholt/caddy \
-    && cd /go/src/github.com/mholt/caddy
+# RUN git clone https://github.com/mholt/caddy /go/src/github.com/mholt/caddy \
+#    && cd /go/src/github.com/mholt/caddy
 
 # builder dependency
 # RUN git clone https://github.com/caddyserver/builds /go/src/github.com/caddyserver/builds
@@ -16,8 +16,8 @@ RUN git clone https://github.com/mholt/caddy /go/src/github.com/mholt/caddy \
 # RUN go get github.com/hacdias/caddy-service
 
 # integrate service plugin
-RUN printf 'package caddyhttp\nimport _ "github.com/hacdias/caddy-service"' > \
-/go/src/github.com/mholt/caddy/caddyhttp/service.go
+#RUN printf 'package caddyhttp\nimport _ "github.com/hacdias/caddy-service"' > \
+#/go/src/github.com/mholt/caddy/caddyhttp/service.go
 
 # build
 RUN go get github.com/mholt/caddy \
