@@ -23,7 +23,8 @@ RUN printf 'package caddyhttp\nimport _ "github.com/hacdias/caddy-service"' > \
 RUN cd /go/src/github.com/mholt/caddy/caddy \
     && ls \
     && git checkout -f \
-    && go run build.go \
+    && go build \
+    && ls \
     && mv caddy /go/bin
 
 #
