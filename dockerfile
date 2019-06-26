@@ -46,7 +46,6 @@ VOLUME /root/.caddy /srv
 WORKDIR /srv
 
 COPY . /apps/Tyger2/
-COPY index.html /srv/index.html
 
 # install process wrapper
 COPY --from=builder /go/bin/parent /bin/parent
