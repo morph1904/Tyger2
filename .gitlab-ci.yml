@@ -27,7 +27,7 @@ test:
     - docker info
     - BRANCH_LOWER=$(echo "$CI_COMMIT_REF_NAME" | awk '{print tolower($0)}')
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker run -d -p 80:80 -p 443:443 -p 9090:9090 --name tyger2test $CONTAINER_TEST_IMAGE
+    - docker run -d -p 80:80 -p 443:443 -p 9001:9001 --name tyger2test $CONTAINER_TEST_IMAGE
 
   script:
     - docker exec tyger2test /bin/bash /test/check-response.sh

@@ -61,7 +61,7 @@ COPY --from=builder /install/caddy /usr/bin/caddy
 # validate install
 RUN /usr/bin/caddy -version
 
-EXPOSE 80 443 2015
+EXPOSE 80 443 9001
 VOLUME /root/.caddy
 
 # Add any additional folders required, correct file permissions
