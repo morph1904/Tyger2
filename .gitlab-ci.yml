@@ -24,6 +24,5 @@ docker build:
 test:
   stage: Test Dev Image
   script:
-    - docker run $CONTAINER_TEST_IMAGE nosetests --with-coverage --cover-erase --cover-package=${CI_PROJECT_NAME} --cover-html
-
-
+    - docker pull $CONTAINER_TEST_IMAGE
+    - docker run $CONTAINER_TEST_IMAGE python /apps/Tyger2/backend/manage.py test
