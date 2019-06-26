@@ -32,7 +32,22 @@ RUN apk add --no-cache \
     git \
     mailcap \
     openssh-client \
-    tzdata
+    tzdata \
+    --no-cache \
+    curl \
+    python3 \
+    python3-dev \
+    bash \
+    gcc \
+    libc-dev \
+    linux-headers \
+    openssl-dev \
+    libffi \
+    ca-certificates && \
+    python3 -m ensurepip && \
+    rm -r /usr/lib/python*/ensurepip && \
+    pip3 install --upgrade pip setuptools && \
+    pip3 install uwsgi
 
 # install caddy
 COPY --from=builder /install/caddy /usr/bin/caddy
@@ -42,13 +57,38 @@ RUN /usr/bin/caddy -version
 RUN /usr/bin/caddy -plugins
 
 EXPOSE 80 443 2015
-VOLUME /root/.caddy /srv
-WORKDIR /srv
+VOLUME /root/.caddy
+
+# Add any additional folders required, correct file permissions
+RUN mkdir -p $TYGER_DATA && \
+    chmod -R 0775 $TYGER_ROOT
 
 COPY . /apps/Tyger2/
 
 # install process wrapper
 COPY --from=builder /go/bin/parent /bin/parent
 
+
 ENTRYPOINT ["/bin/parent", "caddy"]
 CMD ["--conf", "/apps/Tyger2/data/caddyfile.conf", "--log", "stdout", "--agree=$ACME_AGREE"]
+
+# validate install
+RUN /usr/bin/caddy -version
+RUN /usr/bin/caddy -plugins | grep hook.service
+
+
+
+COPY builder/entrypoint.sh /entrypoint.sh
+######################
+ADD builder/test /test
+######################
+
+ARG BUILD_DATE
+ARG VCS_REF
+ARG VERSION
+LABEL org.label-schema.build-date=$BUILD_DATE \
+      org.label-schema.name="TygerCaddy" \
+      org.label-schema.description="Caddy based reverse proxy app with web GUI " \
+      org.label-schema.vcs-ref=$VCS_REF \
+      org.label-schema.version=$VERSION \
+      org.label-schema.vcs-url="https://github.com/morph1904/TygerCaddy"
