@@ -62,7 +62,8 @@ RUN apk add --no-cache \
     pip3 install uwsgi
 
 # Install application
-RUN mkdir -p $APPS_DIR && cd $APPS_DIR && \
+RUN mkdir -p $APPS_DIR && cd $APPS_DIR 
+#&& \
     #git clone --single-branch https://github.com/morph1904/Tyger2 --depth 1 && \
     #pip3 install -r $TYGER_DIR/newrequirements.txt
 # install caddy
