@@ -24,5 +24,6 @@ docker build:
 test:
   stage: Test Dev Image
   script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker pull $CONTAINER_TEST_IMAGE
     - docker run $CONTAINER_TEST_IMAGE python /apps/Tyger2/backend/manage.py test
