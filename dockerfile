@@ -63,8 +63,8 @@ RUN apk add --no-cache \
 
 # Install application
 RUN mkdir -p $APPS_DIR && cd $APPS_DIR && \
-    git clone --single-branch https://github.com/morph1904/TygerCaddy.git --depth 1 && \
-    pip3 install -r $TYGER_DIR/requirements.txt
+    #git clone --single-branch https://github.com/morph1904/Tyger2 --depth 1 && \
+    #pip3 install -r $TYGER_DIR/newrequirements.txt
 
 # install caddy
 COPY --from=builder /install/caddy /usr/bin/caddy
