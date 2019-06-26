@@ -3,8 +3,11 @@
 #
 FROM golang:1.12.6-alpine3.10 as builder
 
-RUN apk add --no-cache curl git
+RUN apk add --no-cache git gcc musl-dev
 
+COPY ./docker/caddyinstall.sh /usr/bin/caddyinstall.sh
+
+CMD ["/bin/sh", "/usr/bin/caddyinstall.sh"]
 # caddy
 # RUN git clone https://github.com/mholt/caddy /go/src/github.com/mholt/caddy \
 #    && cd /go/src/github.com/mholt/caddy
@@ -64,7 +67,7 @@ RUN mkdir -p $APPS_DIR && cd $APPS_DIR && \
     pip3 install -r $TYGER_DIR/requirements.txt
 
 # install caddy
-COPY --from=builder /go/bin/caddy /usr/bin/caddy
+COPY --from=builder /install/caddy /usr/bin/caddy
 
 # validate install
 RUN /usr/bin/caddy -version
