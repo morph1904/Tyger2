@@ -1,12 +1,27 @@
-image: docker:stable
+image: docker:latest
+
+services:
+  - docker:dind
 
 stages:
-  - Build image
+  - Build Image
+  - Test Dev Image
+
+variables:
+  CONTAINER_TEST_IMAGE: $CI_REGISTRY/morph1904/tyger2:dev
 
 docker build:
-  stage: Build image
+  stage: Build Image
   script:  
   - docker info
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   - docker build -t $CI_REGISTRY/morph1904/tyger2:dev .
   - docker push $CI_REGISTRY/morph1904/tyger2:dev
+  - docker push morph1904/tyger2:dev
+
+test:
+  stage: Test Dev Image
+  script:
+    - docker run $CONTAINER_TEST_IMAGE nosetests --with-coverage --cover-erase --cover-package=${CI_PROJECT_NAME} --cover-html
+
+
