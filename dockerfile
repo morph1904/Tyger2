@@ -20,12 +20,7 @@ RUN printf 'package caddyhttp\nimport _ "github.com/hacdias/caddy-service"' > \
 /go/src/github.com/mholt/caddy/caddyhttp/service.go
 
 # build
-RUN cd /go/src/github.com/mholt/caddy/caddy \
-    && ls \
-    && git checkout -f \
-    && go build \
-    && ls \
-    && mv caddy /go/bin
+RUN go get github.com/mholt/caddy/caddy
 
 #
 # Final stage
