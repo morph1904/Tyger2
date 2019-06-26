@@ -1,7 +1,7 @@
 #
 # Builder
 #
-FROM golang:1.9-alpine as builder
+FROM golang:1.12.6-alpine3.10 as builder
 
 RUN apk add --no-cache curl git
 
@@ -20,9 +20,12 @@ RUN printf 'package caddyhttp\nimport _ "github.com/hacdias/caddy-service"' > \
 /go/src/github.com/mholt/caddy/caddyhttp/service.go
 
 # build
-RUN git clone https://github.com/mholt/caddy \
-    && cd caddy/caddy \
-    && go run build.go \
+RUN go get github.com/mholt/caddy \
+    && go get github.com/caddyserver/builds \
+    && cd $GOPATH/src/github.com/mholt/caddy/caddy \
+    && git checkout tags/v0.11.5 \
+    && go run build.go
+
 
 #
 # Final stage
