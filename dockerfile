@@ -16,7 +16,7 @@ RUN VERSION=${version} PLUGINS=${plugins} ENABLE_TELEMETRY=${enable_telemetry} /
 # Final stage
 #
 FROM alpine:3.10
-LABEL maintainer "Abiola Ibrahim <abiola89@gmail.com>"
+LABEL maintainer "Morph1904 <Morph1904@gmail.com>"
 
 ARG version="1.0.0"
 LABEL caddy_version="$version"
@@ -45,11 +45,11 @@ EXPOSE 80 443 2015
 VOLUME /root/.caddy /srv
 WORKDIR /srv
 
-COPY Caddyfile /etc/Caddyfile
+COPY . /apps/Tyger2/
 COPY index.html /srv/index.html
 
 # install process wrapper
 COPY --from=builder /go/bin/parent /bin/parent
 
 ENTRYPOINT ["/bin/parent", "caddy"]
-CMD ["--conf", "/etc/Caddyfile", "--log", "stdout", "--agree=$ACME_AGREE"]
+CMD ["--conf", "/apps/Tyger2/data/caddyfile.conf", "--log", "stdout", "--agree=$ACME_AGREE"]
