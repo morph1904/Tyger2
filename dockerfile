@@ -18,6 +18,12 @@ RUN VERSION=${version} PLUGINS=${plugins} ENABLE_TELEMETRY=${enable_telemetry} /
 FROM alpine:3.10
 LABEL maintainer "Morph1904 <Morph1904@gmail.com>"
 
+ENV APPS_DIR=/apps
+ENV TYGER_ROOT=$APPS_DIR/Tyger2
+ENV TYGER_DIR=$TYGER_ROOT/backend
+ENV TYGER_DATA=$TYGER_ROOT/data
+ENV TYGER_LOGS=$TYGER_ROOT/logs
+
 ARG version="1.0.0"
 LABEL caddy_version="$version"
 
