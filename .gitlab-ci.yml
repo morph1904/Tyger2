@@ -6,6 +6,7 @@ services:
 stages:
   - Build Image
   - Test Dev Image
+  - Deploy Dev Build
 
 variables:
   CONTAINER_TEST_IMAGE: $CI_REGISTRY/morph1904/tyger2:dev
@@ -17,9 +18,7 @@ docker build:
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   - docker build -t $CI_REGISTRY/morph1904/tyger2:dev -t morph1904/tyger2:dev .
   - docker push $CI_REGISTRY/morph1904/tyger2:dev
-  - docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD $DOCKERHUB_REGISTRY
-  #- docker build -t morph1904/tyger2:dev .
-  - docker push morph1904/tyger2:dev
+  
 
 test:
   stage: Test Dev Image
@@ -34,3 +33,9 @@ test:
 
   script:
     - docker exec tyger2test /bin/bash /test/check-response.sh
+  
+  deploy dev build:
+    stage: Deploy Dev Build
+    script:
+      - docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD $DOCKERHUB_REGISTRY
+      - docker push morph1904/tyger2:dev
