@@ -44,6 +44,7 @@ EXPOSE 80 443 9090 2015
 
 #VOLUME ["/apps/Tyger2/data", "/root/.caddy"]
 COPY builder/entrypoint.sh /entrypoint.sh
+RUN chmod +r /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["run"]
 ARG BUILD_DATE
