@@ -12,10 +12,13 @@ RUN export GO111MODULE=auto
 #RUN go run build.go
 
 RUN curl -L https://github.com/mholt/caddy/releases/download/v1.0.0/caddy_v1.0.0_linux_amd64.tar.gz --output caddy.tar.gz
-RUN mkdir -p /go/bin/caddy && tar -zxf caddy.tar.gz --directory /go/bin/caddy
+RUN mkdir -p /go/bin/caddy && mkdir -p /go/bin/caddyextract 
+RUN tar -zxf caddy.tar.gz --directory /go/bin/caddyextract
+RUN cp /go/bin/caddyextract/caddy/* /go/bin/caddy
 RUN rm caddy.tar.gz
+RUN rm -R /go/bin/caddyextract 
 RUN cd /go/bin/caddy && ls
-
+RUN chmod -R 0775 /go/bin/caddy_v1
 FROM alpine:3.10
 LABEL maintainer "Morph1904 <morph1904@gmail.com>"
 
