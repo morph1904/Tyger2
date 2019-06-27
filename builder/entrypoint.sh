@@ -20,5 +20,5 @@ TYGER_LOGS=$TYGER_ROOT/logs
 #  cp $TYGER_DIR/caddyfile.conf $TYGER_DATA
 #fi
 
-uwsgi --emperor $TYGER_ROOT/uwsgi.ini &
-caddy -log $TYGER_LOGS/caddy.txt -pidfile=$TYGER_DATA/caddypid.txt -agree=true -conf=$TYGER_DATA/caddyfile.conf -root=/var/tmp
+uwsgi --emperor $TYGER_ROOT/install/uwsgi.ini &
+caddy -log $TYGER_LOGS/caddyservice.log -pidfile=$TYGER_DATA/caddypid.txt -agree=true -conf=$TYGER_DATA/caddyfile.conf -root=/var/tmp
