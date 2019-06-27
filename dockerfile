@@ -74,9 +74,11 @@ COPY . /apps/Tyger2/
 COPY --from=builder /go/bin/parent /bin/parent
 
 
-ENTRYPOINT ["/bin/parent", "caddy"]
-CMD ["--conf", "/apps/Tyger2/data/caddyfile.conf", "--log", "stdout", "--agree=$ACME_AGREE"]
-
+#ENTRYPOINT ["/bin/parent", "caddy"]
+#CMD ["--conf", "/apps/Tyger2/data/caddyfile.conf", "--log", "stdout", "--agree=$ACME_AGREE"]
+ENTRYPOINT ["/apps/Tyger2/builder/entrypoint.sh"]
+#uwsgi --emperor $TYGER_ROOT/uwsgi.ini &
+#caddy -log $TYGER_LOGS/caddy.txt -pidfile=$TYGER_DATA/caddypid.txt -agree=true -conf=$TYGER_DATA/caddyfile.conf -root=/var/tmp
 ######################
 COPY builder/checkresponse.sh /test/checkresponse.sh
 ######################
