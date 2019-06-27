@@ -35,7 +35,7 @@ LABEL maintainer "Morph1904 <morph1904@gmail.com>"
 #RUN mkdir -p $APPS_DIR 
 #COPY . $TYGER_ROOT
 #RUN pip3 install -r $TYGER_ROOT/newrequirements.txt
-COPY --from=builder /go/bin/caddy /usr/bin/caddy
+COPY --from=builder /usr/bin/caddy /usr/bin/caddy
 RUN /usr/bin/caddy -version
 #RUN mkdir -p $TYGER_DATA && \
 #    chmod -R 0775 $TYGER_ROOT
