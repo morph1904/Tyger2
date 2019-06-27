@@ -1,11 +1,11 @@
-FROM golang:1.13-alpine3.10 as builder
+FROM golang:1.12-alpine3.10 as builder
 RUN apk add --no-cache curl git
 #RUN git clone https://github.com/mholt/caddy /go/src/github.com/mholt/caddy
 #RUN cd /go/src/github.com/mholt/caddy/caddy \
 #    && git checkout -f \
 #    && go run build.go \
 #    && mv caddy /go/bin
-#RUN export GO111MODULE=auto
+RUN export GO111MODULE=auto
 #RUN go get -u github.com/mholt/caddy 
 #go get github.com/caddyserver/builds
 #RUN cd $GOPATH/src/github.com/mholt/caddy/caddy
