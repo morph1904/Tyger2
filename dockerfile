@@ -55,8 +55,8 @@ ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
 LABEL org.label-schema.build-date=$BUILD_DATE \
-      org.label-schema.name="TygerCaddy" \
+      org.label-schema.name="Tyger2" \
       org.label-schema.description="Caddy based reverse proxy app with web GUI " \
       org.label-schema.vcs-ref=$VCS_REF \
       org.label-schema.version=$VERSION \
-      org.label-schema.vcs-url="https://github.com/morph1904/TygerCaddy"
+      org.label-schema.vcs-url="https://github.com/morph1904/Tyger2"
