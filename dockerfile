@@ -82,6 +82,7 @@ COPY --from=builder /go/bin/parent /bin/parent
 #caddy -log $TYGER_LOGS/caddy.txt -pidfile=$TYGER_DATA/caddypid.txt -agree=true -conf=$TYGER_DATA/caddyfile.conf -root=/var/tmp
 ######################
 COPY builder/checkresponse.sh /test/checkresponse.sh
+RUN chmod +x /apps/Tyger2/builder/entrypoint.sh
 ######################
 
 ARG BUILD_DATE
