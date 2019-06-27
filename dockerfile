@@ -18,7 +18,8 @@ RUN cp /go/bin/caddyextract/caddy /go/bin/caddy
 RUN rm caddy.tar.gz
 RUN rm -R /go/bin/caddyextract 
 RUN cd /go/bin/caddy && ls
-RUN chmod -R 0775 /go/bin/caddy_v1
+RUN chmod -R 0775 /go/bin/caddy
+
 FROM alpine:3.10
 LABEL maintainer "Morph1904 <morph1904@gmail.com>"
 
