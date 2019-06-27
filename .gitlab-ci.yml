@@ -34,8 +34,8 @@ test:
   script:
     - docker exec tyger2test /bin/bash /test/check-response.sh
   
-  deploy dev build:
-    stage: Deploy Dev Build
-    script:
-      - docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD $DOCKERHUB_REGISTRY
-      - docker push morph1904/tyger2:dev
+deploy dev build:
+  stage: Deploy Dev Build
+  script:
+    - docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD $DOCKERHUB_REGISTRY
+    - docker push morph1904/tyger2:dev
