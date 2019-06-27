@@ -14,7 +14,7 @@ RUN export GO111MODULE=auto
 RUN curl -L https://github.com/mholt/caddy/releases/download/v1.0.0/caddy_v1.0.0_linux_amd64.tar.gz --output caddy.tar.gz
 RUN mkdir -p /go/bin/caddy && mkdir -p /go/bin/caddyextract 
 RUN tar -zxf caddy.tar.gz --directory /go/bin/caddyextract
-RUN cp /go/bin/caddyextract/caddy/* /go/bin/caddy
+RUN cp /go/bin/caddyextract/caddy /go/bin/caddy
 RUN rm caddy.tar.gz
 RUN rm -R /go/bin/caddyextract 
 RUN cd /go/bin/caddy && ls
