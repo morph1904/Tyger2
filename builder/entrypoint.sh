@@ -21,11 +21,9 @@ TYGER_LOGS=$TYGER_ROOT/logs
 #fi
 #!/bin/bash
 set -e
-
-if [ "$1" = 'start' ]; then
     uwsgi -d --emperor $TYGER_ROOT/install/uwsgi.ini \
+    && echo "uwsgi started" \
     && caddy -log $TYGER_LOGS/caddyservice.log -pidfile=$TYGER_DATA/caddypid.txt -agree=true -conf=$TYGER_DATA/caddyfile.conf -root=/var/tmp
-    exec gosu start "$@"
-fi
-
+    && echo "caddy started" \
+    exec gosu start "$@"66
 exec "$@"
