@@ -94,7 +94,8 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.version=$VERSION \
       org.label-schema.vcs-url="https://github.com/morph1904/TygerCaddy"
 
-ENTRYPOINT ["/apps/Tyger2/builder/entrypoint.sh"]
-CMD ["/bin/bash", "/apps/Tyger2/builder/entrypoint.sh"]
+#ENTRYPOINT ["/apps/Tyger2/builder/entrypoint.sh"]
+WORKDIR /apps/Tyger2/builder
+CMD ["./entrypoint.sh"]
 #CMD ["uwsgi", "/apps/Tyger2/install/uwsgi.ini"]
 #CMD ["caddy", "-log=/apps/Tyger2/logs/caddyservice.log", "-pidfile=/apps/Tyger2/data/caddypid.txt", "-agree=true", "-conf=/apps/Tyger2/data/caddyfile.conf", "-root=/var/tmp"]
