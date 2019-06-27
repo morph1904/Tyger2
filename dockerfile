@@ -1,22 +1,15 @@
-#
-# Builder
-#
-FROM abiosoft/caddy:builder as builder
+FROM golang:1.12-alpine3.10 as builder
+RUN apk add --no-cache curl git
+RUN git clone https://github.com/mholt/caddy /go/src/github.com/mholt/caddy \
+    && cd /go/src/github.com/mholt/caddy
+RUN git clone https://github.com/caddyserver/builds /go/src/github.com/caddyserver/builds
+RUN cd /go/src/github.com/mholt/caddy/caddy \
+    && git checkout -f \
+    && go run build.go \
+    && mv caddy /go/bin
 
-ARG version="1.0.0"
-ARG plugins="git,cors,realip,expires,cache"
-ARG enable_telemetry="false"
-
-# process wrapper
-RUN go get -v github.com/abiosoft/parent
-
-RUN VERSION=${version} PLUGINS=${plugins} ENABLE_TELEMETRY=${enable_telemetry} /bin/sh /usr/bin/builder.sh
-
-#
-# Final stage
-#
 FROM alpine:3.10
-LABEL maintainer "Morph1904 <Morph1904@gmail.com>"
+LABEL maintainer "Morph1904 <morph1904@gmail.com>"
 
 ENV APPS_DIR=/apps
 ENV TYGER_ROOT=$APPS_DIR/Tyger2
@@ -24,22 +17,8 @@ ENV TYGER_DIR=$TYGER_ROOT/backend
 ENV TYGER_DATA=$TYGER_ROOT/data
 ENV TYGER_LOGS=$TYGER_ROOT/logs
 
-ARG version="1.0.0"
-LABEL caddy_version="$version"
-
-# Let's Encrypt Agreement
-ENV ACME_AGREE="true"
-
-# Telemetry Stats
-ENV ENABLE_TELEMETRY="$enable_telemetry"
-
 RUN apk add --no-cache \
-    ca-certificates \
     git \
-    mailcap \
-    openssh-client \
-    tzdata \
-    --no-cache \
     curl \
     python3 \
     python3-dev \
@@ -55,50 +34,26 @@ RUN apk add --no-cache \
     pip3 install --upgrade pip setuptools && \
     pip3 install uwsgi
 
-# install caddy
-COPY --from=builder /install/caddy /usr/bin/caddy
-
-# validate install
+RUN mkdir -p $APPS_DIR 
+COPY . $TYGER_ROOT
+RUN pip3 install -r $TYGER_ROOT/newrequirements.txt
+COPY --from=builder /go/bin/caddy /usr/bin/caddy
 RUN /usr/bin/caddy -version
-
-EXPOSE 80 443 9001 9090
-VOLUME /root/.caddy
-
-# Add any additional folders required, correct file permissions
 RUN mkdir -p $TYGER_DATA && \
     chmod -R 0775 $TYGER_ROOT
 
-COPY . /apps/Tyger2/
-RUN pip3 install -r /apps/Tyger2/newrequirements.txt
+EXPOSE 80 443 9090
 
-# install process wrapper
-COPY --from=builder /go/bin/parent /bin/parent
-
-
-#ENTRYPOINT ["/bin/parent", "caddy"]
-#CMD ["--conf", "/apps/Tyger2/data/caddyfile.conf", "--log", "stdout", "--agree=$ACME_AGREE"]
-
-#uwsgi --emperor $TYGER_ROOT/uwsgi.ini &
-#caddy -log $TYGER_LOGS/caddy.txt -pidfile=$TYGER_DATA/caddypid.txt -agree=true -conf=$TYGER_DATA/caddyfile.conf -root=/var/tmp
-######################
-COPY builder/checkresponse.sh /test/checkresponse.sh
-RUN chmod +x /apps/Tyger2/builder/entrypoint.sh
-######################
-
+VOLUME ["/apps/Tyger2/data", "/root/.caddy"]
+COPY builder/entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["run"]
 ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
 LABEL org.label-schema.build-date=$BUILD_DATE \
-      org.label-schema.name="Tyger2" \
+      org.label-schema.name="TygerCaddy" \
       org.label-schema.description="Caddy based reverse proxy app with web GUI " \
       org.label-schema.vcs-ref=$VCS_REF \
       org.label-schema.version=$VERSION \
-      org.label-schema.vcs-url="https://github.com/morph1904/Tyger2"
-
-#ENTRYPOINT ["/apps/Tyger2/builder/entrypoint.sh"]
-ENTRYPOINT ["/apps/Tyger2/builder/entrypoint.sh"]
-CMD ["start"]
-#WORKDIR /apps/Tyger2/builder
-#RUN ./entrypoint.sh
-#CMD ["uwsgi", "/apps/Tyger2/install/uwsgi.ini"]
-#CMD ["caddy", "-log=/apps/Tyger2/logs/caddyservice.log", "-pidfile=/apps/Tyger2/data/caddypid.txt", "-agree=true", "-conf=/apps/Tyger2/data/caddyfile.conf", "-root=/var/tmp"]
+      org.label-schema.vcs-url="https://github.com/morph1904/TygerCaddy"
