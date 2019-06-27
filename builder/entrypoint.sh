@@ -19,6 +19,13 @@ TYGER_LOGS=$TYGER_ROOT/logs
 #else
 #  cp $TYGER_DIR/caddyfile.conf $TYGER_DATA
 #fi
+#!/bin/bash
+set -e
 
-uwsgi -d --emperor $TYGER_ROOT/install/uwsgi.ini \
-&& caddy -log $TYGER_LOGS/caddyservice.log -pidfile=$TYGER_DATA/caddypid.txt -agree=true -conf=$TYGER_DATA/caddyfile.conf -root=/var/tmp
+if [ "$1" = 'start' ]; then
+    uwsgi -d --emperor $TYGER_ROOT/install/uwsgi.ini \
+    && caddy -log $TYGER_LOGS/caddyservice.log -pidfile=$TYGER_DATA/caddypid.txt -agree=true -conf=$TYGER_DATA/caddyfile.conf -root=/var/tmp
+    exec gosu start "$@"
+fi
+
+exec "$@"
