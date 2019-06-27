@@ -1,5 +1,5 @@
 FROM golang:1.12-alpine3.10 as builder
-RUN apk add --no-cache curl git
+RUN apk add --no-cache curl git tar
 #RUN git clone https://github.com/mholt/caddy /go/src/github.com/mholt/caddy
 #RUN cd /go/src/github.com/mholt/caddy/caddy \
 #    && git checkout -f \
@@ -11,8 +11,10 @@ RUN export GO111MODULE=auto
 #RUN cd $GOPATH/src/github.com/mholt/caddy/caddy
 #RUN go run build.go
 
-RUN curl https://github.com/mholt/caddy/releases/download/v1.0.0/caddy_v1.0.0_linux_amd64.tar.gz --output caddy.tar.gz
+RUN curl -L https://github.com/mholt/caddy/releases/download/v1.0.0/caddy_v1.0.0_linux_amd64.tar.gz --output caddy.tar.gz
 RUN mkdir -p /go/bin/caddy && tar -zxf caddy.tar.gz --directory /go/bin/caddy
+RUN rm caddy.tar.gz
+RUN cd /go/bin/caddy && ls
 
 FROM alpine:3.10
 LABEL maintainer "Morph1904 <morph1904@gmail.com>"
