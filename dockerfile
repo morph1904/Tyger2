@@ -22,8 +22,8 @@ RUN adduser -D developer
 WORKDIR /home/developer
 
 COPY /builder/caddy/ /home/developer/
-RUN chown --recursive developer /home/developer/main
-
+RUN chown --recursive developer /home/developer
+RUN chmod +x /home/developer/compile
 USER developer
 RUN /home/developer/compile
 
