@@ -69,6 +69,7 @@ RUN mkdir -p $TYGER_DATA && \
     chmod -R 0775 $TYGER_ROOT
 
 COPY . /apps/Tyger2/
+RUN pip3 -r /apps/Tyger2/newewquirements.txt
 
 # install process wrapper
 COPY --from=builder /go/bin/parent /bin/parent
@@ -76,8 +77,7 @@ COPY --from=builder /go/bin/parent /bin/parent
 
 #ENTRYPOINT ["/bin/parent", "caddy"]
 #CMD ["--conf", "/apps/Tyger2/data/caddyfile.conf", "--log", "stdout", "--agree=$ACME_AGREE"]
-ENTRYPOINT ["/bin/bash","/apps/Tyger2/builder/entrypoint.sh"]
-CMD ["run"]
+
 #uwsgi --emperor $TYGER_ROOT/uwsgi.ini &
 #caddy -log $TYGER_LOGS/caddy.txt -pidfile=$TYGER_DATA/caddypid.txt -agree=true -conf=$TYGER_DATA/caddyfile.conf -root=/var/tmp
 ######################
@@ -93,3 +93,6 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.vcs-ref=$VCS_REF \
       org.label-schema.version=$VERSION \
       org.label-schema.vcs-url="https://github.com/morph1904/TygerCaddy"
+
+ENTRYPOINT ["/bin/bash","/apps/Tyger2/builder/entrypoint.sh"]
+CMD ["run"]
