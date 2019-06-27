@@ -30,7 +30,7 @@ test:
     - docker stop tyger2test
     - docker rm tyger2test
     - docker rmi $CONTAINER_TEST_IMAGE
-    - docker run -d -p 80:80 -p 443:443 -p 9001:9001 --name tyger2test $CONTAINER_TEST_IMAGE
+    - docker run -d -p 80:81 -p 443:8443 -p 9001:9001 --name tyger2test $CONTAINER_TEST_IMAGE
 
   script:
     - docker exec tyger2test /bin/bash /test/check-response.sh
