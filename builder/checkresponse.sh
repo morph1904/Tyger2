@@ -5,7 +5,7 @@ sleep 2
 response=`curl -s -o /dev/null -I -w "%{http_code}" http://127.0.0.1:9091`
 
 #look for a response code of 301 or 302
-if [ $response -eq "301" ] || [ $response -eq "302" ] || [ $response -eq "200" ]; then
+ if [ $response -eq "301" ] || [ $response -eq "302" ] || [ $response -eq "200" ]; then
   echo "Site is live! HTTP Response $response OK"
   exit 0
 else
