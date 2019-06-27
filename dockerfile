@@ -69,7 +69,7 @@ RUN mkdir -p $TYGER_DATA && \
     chmod -R 0775 $TYGER_ROOT
 
 COPY . /apps/Tyger2/
-RUN pip3 install -r /apps/Tyger2/newewquirements.txt
+RUN pip3 install -r /apps/Tyger2/newrequirements.txt
 
 # install process wrapper
 COPY --from=builder /go/bin/parent /bin/parent
