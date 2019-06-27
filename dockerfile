@@ -1,11 +1,12 @@
 FROM golang:1.12-alpine3.10 as builder
 RUN apk add --no-cache curl git
-RUN git clone https://github.com/mholt/caddy /go/src/github.com/mholt/caddy
-RUN cd /go/src/github.com/mholt/caddy/caddy \
-    && git checkout -f \
-    && go run build.go \
-    && mv caddy /go/bin
-
+#RUN git clone https://github.com/mholt/caddy /go/src/github.com/mholt/caddy
+#RUN cd /go/src/github.com/mholt/caddy/caddy \
+#    && git checkout -f \
+#    && go run build.go \
+#    && mv caddy /go/bin
+RUN export GO111MODULE=on
+RUN go get github.com/mholt/caddy/caddy
 FROM alpine:3.10
 LABEL maintainer "Morph1904 <morph1904@gmail.com>"
 
