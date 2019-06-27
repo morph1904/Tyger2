@@ -1,48 +1,14 @@
-FROM golang:1.12.4-alpine as builder
-ENV GOPATH /home/developer
-ENV CGO_ENABLED 0
-ENV GOOS linux
-ENV GO111MODULE on
+FROM alpine:3.10 as builder
 
 RUN apk add --no-cache \
-      bash \
-      binutils \
-      file \
-      git \
-      openssl-dev \
-      musl-dev \
-      patch \
-      scanelf \
-      && :
-
-RUN apk add --no-cache -X http://dl-4.alpinelinux.org/alpine/edge/main \
-      'ca-certificates>=20190108-r0' \
-      && :
-RUN adduser -D developer
-WORKDIR /home/developer
-
-COPY /builder/caddy/ /home/developer/
-RUN chown --recursive developer /home/developer
-RUN chmod +x /home/developer/compile
-USER developer
-RUN /home/developer/compile
+        curl \
+        tar
+RUN curl -sLO https://github.com/mholt/caddy/releases/download/v1.0.0/caddy_v1.0.0_linux_amd64.tar.gz && tar -xzf caddy_v1.0.0_linux_amd64.tar.gz && mv caddy /usr/bin/caddy && chmod 755 /usr/bin/caddy && rm -rf caddy*
 
 
 FROM alpine:3.10
 LABEL maintainer "Morph1904 <morph1904@gmail.com>"
 
-ENV CASE_SENSITIVE_PATH=true
-
-COPY --from=builder /home/developer/bin/caddy /usr/bin/caddy
-
-RUN apk upgrade --no-cache --available \
-      && \
-    apk add --no-cache \
-      ca-certificates \
-      git \
-      openssl \
-      openssh-client \
-      && \
 #ENV APPS_DIR=/apps
 #ENV TYGER_ROOT=$APPS_DIR/Tyger2
 #ENV TYGER_DIR=$TYGER_ROOT/backend
@@ -69,7 +35,7 @@ RUN apk upgrade --no-cache --available \
 #RUN mkdir -p $APPS_DIR 
 #COPY . $TYGER_ROOT
 #RUN pip3 install -r $TYGER_ROOT/newrequirements.txt
-
+COPY --from=builder /go/bin/caddy /usr/bin/caddy
 RUN /usr/bin/caddy -version
 #RUN mkdir -p $TYGER_DATA && \
 #    chmod -R 0775 $TYGER_ROOT
