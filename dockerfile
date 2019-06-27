@@ -5,8 +5,11 @@ RUN apk add --no-cache curl git
 #    && git checkout -f \
 #    && go run build.go \
 #    && mv caddy /go/bin
-RUN export GO111MODULE=on
-RUN go get github.com/mholt/caddy/caddy
+RUN export GO111MODULE=auto
+RUN go get -u github.com/mholt/caddy && go get github.com/caddyserver/builds
+RUN cd $GOPATH/src/github.com/mholt/caddy/caddy
+RUN go run build.go
+
 FROM alpine:3.10
 LABEL maintainer "Morph1904 <morph1904@gmail.com>"
 
