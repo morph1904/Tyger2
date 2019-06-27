@@ -39,7 +39,7 @@ RUN pip3 install -r $TYGER_ROOT/newrequirements.txt
 RUN mkdir -p $TYGER_DATA && \
     chmod -R 0775 $TYGER_ROOT
 
-EXPOSE 80 443 9090 2015
+EXPOSE 80 443 9090 9091
 
 VOLUME ["/apps/Tyger2/data", "/root/.caddy"]
 
