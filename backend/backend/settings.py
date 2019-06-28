@@ -52,7 +52,8 @@ INSTALLED_APPS = [
     'addresses',
     'dns',
     'install',
-    'stats'
+    'stats',
+    'logs'
 ]
 
 MIDDLEWARE = [
