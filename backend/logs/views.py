@@ -12,13 +12,11 @@ import re
 import os
 
 def readfile(file, type):
-    filecontent = {}
-    index = 0
+    filecontent = []
 
     for line in fileinput.input(file):
-        index = index+1
         #if line != "\n": #don't read newlines
-        filecontent[index] = line2dict(line, type)
+        filecontent.append(line2dict(line, type))
     fileinput.close()
     #print('Filecontent:' + filecontent)
     return filecontent
@@ -72,6 +70,7 @@ def toJson(file, type):
     return entries
 
 class GetCaddyLogs(APIView):
+    renderer_classes = (JSONRenderer, )
     #permission_classes = (IsAuthenticated, )
     #authentication_classes = (JSONWebTokenAuthentication, )
     #renderer_classes = (JSONRenderer, )
@@ -82,8 +81,8 @@ class GetCaddyLogs(APIView):
         """
         Return a JSON version of the Caddy log
         """
-        parsed_log = toJson(log_file,'caddy')
-        return Response(parsed_log)
+        json = readfile(log_file,'caddy')
+        return Response(json)
 
 class GetHostLogs(APIView):
     #permission_classes = (IsAuthenticated, )
@@ -99,7 +98,7 @@ class GetHostLogs(APIView):
         """
         Return a JSON version of the Caddy log
         """
-        parsed_log = toJson(log_file,'caddyhost')
+        parsed_log = readfile(log_file,'caddyhost')
         return Response(parsed_log)
 
 class GetuWSGILogs(APIView):
@@ -113,5 +112,5 @@ class GetuWSGILogs(APIView):
         """
         Return a JSON version of the Caddy log
         """
-        parsed_log = toJson(log_file,'uwsgi')
+        parsed_log = readfile(log_file,'uwsgi')
         return Response(parsed_log)

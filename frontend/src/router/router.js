@@ -4,6 +4,7 @@ import Home from '../views/Home.vue';
 import Login from '../views/Login.vue';
 import Apps from '../views/Apps.vue';
 import Addresses from '../views/Addresses.vue';
+import Logs from '../views/Logs.vue';
 import PageNotFound from '../components/utility/PageNotFound.vue';
 
 
@@ -31,6 +32,12 @@ const router = new Router({
       path: '/addresses',
       name: 'Addresses',
       component: Addresses,
+      meta: {auth: true}
+    },
+    {
+      path: '/logs',
+      name: 'Logs',
+      component: Logs,
       meta: {auth: true}
     },
     {
