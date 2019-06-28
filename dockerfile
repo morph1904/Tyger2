@@ -18,7 +18,6 @@ RUN apk add --no-cache \
     git \
     curl \
     python3 \
-    python3-dev \
     bash \
    gcc \
    libc-dev \
