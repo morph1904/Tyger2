@@ -18,12 +18,13 @@ RUN apk add --no-cache \
     git \
     curl \
     python3 \
+    python3-dev \
     bash \
-   gcc \
-   libc-dev \
-  linux-headers \
-  openssl-dev \
-   libffi \
+    gcc \
+    libc-dev \
+    linux-headers \
+    openssl-dev \
+    libffi \
     ca-certificates && \
     python3 -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
