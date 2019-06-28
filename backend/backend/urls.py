@@ -98,5 +98,6 @@ urlpatterns = [
     path('install/', include('install.urls')),
     path('stats/', include('stats.urls')),
     path('', include(router.urls)),
-    path('generate/', build_caddyfile)
+    path('generate/', build_caddyfile),
+    path('logs/', include('logs.urls'))
 ]

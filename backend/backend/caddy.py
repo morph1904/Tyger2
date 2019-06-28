@@ -12,7 +12,7 @@ caddytext = ''
 
 root_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),'data')
 
-caddyfileconf = caddyfileconf = os.path.join(root_path, 'caddyfile.conf')
+caddyfileconf = os.path.join(root_path, 'caddyfile.conf')
 
 def reload_config():
     subprocess.call('pkill -USR1 caddy', shell=True)
@@ -21,8 +21,6 @@ def build_caddy_defaults():
     global caddytext
     global root_path
     global caddyfileconf
-
-    user = User.objects.get(pk=1)
     
     caddytext = ':9091/api { \n \tproxy / localhost:9090 { \n \t\ttransparent \n \t} \n } \n :9091 { \n \t root /apps/Tyger2/frontend/dist \n \t log /apps/Tyger2/data/logs/frontend.log \n \t rewrite { \n \t\t regexp .* \n \t\t to {path} / \n \t } \n }\n\n'
     
