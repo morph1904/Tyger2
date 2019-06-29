@@ -25,7 +25,7 @@ RUN apk add --no-cache \
     git \
     python3 \
     python3-dev \
-    bash \
+    bash && \
     python3 -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
     pip3 install --upgrade pip setuptools && \
