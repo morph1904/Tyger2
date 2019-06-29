@@ -23,6 +23,7 @@ ENV TYGER_DATA=$TYGER_ROOT/data
 
 RUN apk add --no-cache \
     git \
+    python3 \
     python3-dev \
     bash \
     pip3 install uwsgi
