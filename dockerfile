@@ -32,7 +32,7 @@ RUN apk add --no-cache \
     pip3 install --upgrade pip setuptools
 
 RUN mkdir -p $APPS_DIR
-COPY --from=builder /frontend/dist $TYGER_ROOT
+COPY --from=nodebuild /frontend/dist $TYGER_ROOT
 COPY ./backend $TYGER_ROOT
 COPY ./builder $TYGER_ROOT
 COPY ./certs $TYGER_ROOT
