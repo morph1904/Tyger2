@@ -25,8 +25,10 @@ RUN apk add --no-cache \
     git \
     python3 \
     python3-dev \
-    pip3 \
     bash \
+    python3 -m ensurepip && \
+    rm -r /usr/lib/python*/ensurepip && \
+    pip3 install --upgrade pip setuptools && \
     pip3 install uwsgi
 
 RUN mkdir -p $APPS_DIR
