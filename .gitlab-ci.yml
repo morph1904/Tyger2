@@ -32,7 +32,7 @@ test:
     - docker run -d -p 81:80 -p 8443:443 -p 9001:9001 --name tyger2test $CONTAINER_TEST_IMAGE
 
   script:
-    - docker exec tyger2test /bin/bash /apps/Tyger2/builder/checkresponse.sh
+    - docker exec tyger2test /bin/bash /apps/Tyger2/checkresponse.sh
   
 deploy dev build:
   stage: Deploy Dev Build

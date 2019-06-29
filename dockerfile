@@ -27,6 +27,7 @@ ENV TYGER_DATA=$TYGER_ROOT/data
 RUN apk add --no-cache \
     git \
     uwsgi-python3 \
+    curl \
     bash && \
     python3 -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
