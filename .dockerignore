@@ -1,9 +1,1 @@
 frontend/node_modules
-frontend/public
-frontend/src
-frontend/.env.dev
-frontend/.eslintrc.js
-frontend/babel.config.js
-frontend/package-lock.json
-frontend/package.json
-frontend/README.md

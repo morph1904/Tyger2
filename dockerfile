@@ -8,36 +8,37 @@ RUN curl -sLO https://github.com/mholt/caddy/releases/download/v1.0.0/caddy_v1.0
 
 RUN /usr/bin/caddy -version
 
+FROM node:8 as nodebuild
+COPY ./frontend /frontend
+WORKDIR /frontend
+RUN npm install
+RUN npm run build
+
+FROM alpine:latest as Tyger2
+
 ENV APPS_DIR=/apps
 ENV TYGER_ROOT=$APPS_DIR/Tyger2
 ENV TYGER_DIR=$TYGER_ROOT/backend
 ENV TYGER_DATA=$TYGER_ROOT/data
-ENV TYGER_LOGS=$TYGER_ROOT/logs
 
 RUN apk add --no-cache \
     git \
-    curl \
-    python3 \
     python3-dev \
     bash \
-    gcc \
-    libc-dev \
-    linux-headers \
-    openssl-dev \
-    libffi \
-    ca-certificates && \
-    python3 -m ensurepip && \
-    rm -r /usr/lib/python*/ensurepip && \
-    pip3 install --upgrade pip setuptools && \
     pip3 install uwsgi
 
-RUN mkdir -p $APPS_DIR 
-COPY . $TYGER_ROOT
+RUN mkdir -p $APPS_DIR
+COPY --from=builder /frontend/dist $TYGER_ROOT
+COPY ./backend $TYGER_ROOT
+COPY ./builder $TYGER_ROOT
+COPY ./certs $TYGER_ROOT
+COPY ./data $TYGER_ROOT
+COPY ./newrequirements.txt $TYGER_ROOT
+
 RUN pip3 install -r $TYGER_ROOT/newrequirements.txt
 
 
-RUN mkdir -p $TYGER_DATA && \
-    chmod -R 0775 $TYGER_ROOT
+RUN chmod -R 0775 $TYGER_ROOT
 
 EXPOSE 80 443 9090 9091
 
