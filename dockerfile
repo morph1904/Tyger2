@@ -22,6 +22,7 @@ FROM python:3.7-alpine as Tyger2
 ENV APPS_DIR=/apps
 ENV TYGER_ROOT=$APPS_DIR/Tyger2
 ENV TYGER_DIR=$TYGER_ROOT/backend
+ENV TYGER_FRONTEND=$TYGER_ROOT/frontend
 ENV TYGER_DATA=$TYGER_ROOT/data
 
 RUN apk add --no-cache \
@@ -39,12 +40,12 @@ RUN apk add --no-cache --virtual build-dependencies gcc libc-dev linux-headers p
 RUN mkdir -p $APPS_DIR
 
 # Bring in the compiled Vue frontend
-COPY --from=nodebuild /frontend/dist $TYGER_ROOT
+COPY --from=nodebuild /frontend/dist $TYGER_FRONTEND
 
-COPY ./backend $TYGER_ROOT
-COPY ./builder $TYGER_ROOT
-COPY ./certs $TYGER_ROOT
-COPY ./data $TYGER_ROOT
+COPY ./backend $TYGER_DIR
+COPY ./builder $TYGER_ROOT/builder
+COPY ./certs $TYGER_ROOT/certs
+COPY ./data $TYGER_DATA
 COPY ./newrequirements.txt $TYGER_ROOT
 
 #Install backend
