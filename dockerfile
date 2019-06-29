@@ -25,6 +25,7 @@ RUN apk add --no-cache \
     git \
     python3 \
     python3-dev \
+    pip3 \
     bash \
     pip3 install uwsgi
 
