@@ -40,7 +40,7 @@ RUN apk add --no-cache --virtual build-dependencies gcc libc-dev linux-headers p
 RUN mkdir -p $APPS_DIR
 
 # Bring in the compiled Vue frontend
-COPY --from=nodebuild /frontend/dist $TYGER_FRONTEND
+COPY --from=nodebuild /frontend/dist $TYGER_FRONTEND/dist
 
 COPY ./backend $TYGER_DIR
 COPY ./builder $TYGER_ROOT/builder
