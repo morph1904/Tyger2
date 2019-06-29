@@ -23,13 +23,13 @@ ENV TYGER_DATA=$TYGER_ROOT/data
 
 RUN apk add --no-cache \
     git \
+    uwsgi-python3 \
     python3 \
     python3-dev \
     bash && \
     python3 -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
-    pip3 install --upgrade pip setuptools && \
-    pip3 install uwsgi
+    pip3 install --upgrade pip setuptools
 
 RUN mkdir -p $APPS_DIR
 COPY --from=builder /frontend/dist $TYGER_ROOT
