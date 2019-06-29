@@ -5,7 +5,7 @@ import Login from '../views/Login.vue';
 import Apps from '../views/Apps.vue';
 import Addresses from '../views/Addresses.vue';
 import Logs from '../views/Logs.vue';
-import PageNotFound from '../components/utility/PageNotFound.vue';
+import PageNotFound from '../components/Utility/PageNotFound.vue';
 
 
 Vue.use(Router);

@@ -22,7 +22,7 @@
 <script>
 import Navbar from './views/partials/Navbar'
 import Footer from './views/partials/Footer'
-import Snackbar from './components/utility/Snackbar'
+import Snackbar from './components/Utility/Snackbar'
 export default {
   name: 'App',
   components: {

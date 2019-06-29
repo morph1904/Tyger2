@@ -14,7 +14,7 @@ WORKDIR /frontend
 RUN npm install
 RUN npm run build
 
-FROM alpine:latest as Tyger2
+FROM python:3.7-alpine as Tyger2
 
 ENV APPS_DIR=/apps
 ENV TYGER_ROOT=$APPS_DIR/Tyger2
@@ -24,11 +24,12 @@ ENV TYGER_DATA=$TYGER_ROOT/data
 RUN apk add --no-cache \
     git \
     uwsgi-python3 \
-    python3 \
-    python3-dev \
     bash && \
     python3 -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
+    pip3 install --upgrade pip setuptools 
+
+RUN apk add --no-cache --virtual build-dependencies gcc libc-dev linux-headers python3-dev && \
     pip3 install --upgrade pip setuptools
 
 RUN mkdir -p $APPS_DIR
@@ -41,6 +42,7 @@ COPY ./newrequirements.txt $TYGER_ROOT
 
 RUN pip3 install -r $TYGER_ROOT/newrequirements.txt
 
+RUN apk del build-dependencies
 
 RUN chmod -R 0775 $TYGER_ROOT
 
