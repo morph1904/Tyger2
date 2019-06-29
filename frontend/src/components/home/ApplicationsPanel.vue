@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import AppsDelete from "@/components/Apps/AppsDelete";
 import AppsEdit from "@/components/Apps/AppsEdit";
 import AddApp from "@/components/forms/AddApp";

@@ -62,7 +62,7 @@
   </div>
 </template>
 <script>
-import { mapGetters, mapActions, mapState} from 'vuex'
+import { mapGetters } from 'vuex'
 import AddAddress from "@/components/forms/AddAddress";
 import AddressDelete from "@/components/Addresses/AddressDelete";
 import AddressEdit from "@/components/Addresses/AddressEdit";
@@ -124,13 +124,11 @@ export default {
       },
 
       save () {
-        console.log(this.editedItem)
         this.$store.commit('UPDATE_ADDRESS', this.editedItem)
         this.close()
       },
 
       deleteadd () {
-        console.log(this.editedItem)
         this.$store.commit('DELETE_ADDRESS', this.editedItem)
         this.deleteclose()
       },

@@ -26,7 +26,7 @@
   </div>
 </template>
 <script>
-import { mapGetters, mapActions, mapState} from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   data() {

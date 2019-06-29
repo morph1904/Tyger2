@@ -8,7 +8,7 @@ RUN curl -sLO https://github.com/mholt/caddy/releases/download/v1.0.0/caddy_v1.0
 
 RUN /usr/bin/caddy -version
 
-FROM node:8 as nodebuild
+FROM node:8.16-alpine as nodebuild
 COPY ./frontend /frontend
 WORKDIR /frontend
 RUN npm install

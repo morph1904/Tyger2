@@ -10,7 +10,7 @@
             <v-container grid-list-md>
               <v-layout wrap>
                 Are you sure you want to delete this application?
-                </br>
+                <br>
                 This will also delete any associated addresses.....
               </v-layout>
             </v-container>

@@ -26,9 +26,8 @@ export const user = {
           username,
           password,
         }).then(({ data }) => {
-          console.log(data)
+  
           if (data.token) {
-            console.log(data)
             commit(USER_AUTH_SUCCESS, { user: username, token: data.token });
             resolve();
           } else {

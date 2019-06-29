@@ -4,7 +4,7 @@ export const snackbar = {
         color: ''
     },
     mutations: {
-        setSnack (state, {snack, color, btnColor}) {
+        setSnack (state, {snack, color}) {
             state.snack = snack
             state.color = color
           }
