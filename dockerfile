@@ -1,3 +1,4 @@
+#Build the Caddy exectuable
 FROM alpine:3.10 as builder
 LABEL maintainer "Morph1904 <morph1904@gmail.com>"
 
@@ -8,12 +9,14 @@ RUN curl -sLO https://github.com/mholt/caddy/releases/download/v1.0.0/caddy_v1.0
 
 RUN /usr/bin/caddy -version
 
+# Compile Vue into production
 FROM node:8.16-alpine as nodebuild
 COPY ./frontend /frontend
 WORKDIR /frontend
 RUN npm install
 RUN npm run build
 
+#Build final image
 FROM python:3.7-alpine as Tyger2
 
 ENV APPS_DIR=/apps
@@ -33,17 +36,22 @@ RUN apk add --no-cache --virtual build-dependencies gcc libc-dev linux-headers p
     pip3 install --upgrade pip setuptools
 
 RUN mkdir -p $APPS_DIR
+
+# Bring in the compiled Vue frontend
 COPY --from=nodebuild /frontend/dist $TYGER_ROOT
+
 COPY ./backend $TYGER_ROOT
 COPY ./builder $TYGER_ROOT
 COPY ./certs $TYGER_ROOT
 COPY ./data $TYGER_ROOT
 COPY ./newrequirements.txt $TYGER_ROOT
 
+#Install backend
 RUN pip3 install -r $TYGER_ROOT/newrequirements.txt
 
 RUN apk del build-dependencies
 
+COPY --from=builder /usr/bin/caddy /usr/bin/caddy
 RUN chmod -R 0775 $TYGER_ROOT
 
 EXPOSE 80 443 9090 9091
