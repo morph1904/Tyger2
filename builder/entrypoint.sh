@@ -24,7 +24,16 @@ if [ -e $TYGER_DATA/logs/uwsgi.log ]
 then
   printf "uwsgi log exists, doing nothing\n"
 else
-  touch $TYGER_DATA/logs/uwsgi.log
+    printf "Creating uwsgi.log\n"
+  touch $TYGER_DATA/logs/uwsgi.log 
+fi
+
+if [ -e $TYGER_DATA/logs/uwsgi-access.log ]
+then
+  printf "uwsgi log exists, doing nothing\n"
+else
+    printf "Creating uwsgi-access.log\n"
+  touch $TYGER_DATA/logs/uwsgi-access.log
 fi
 
 
