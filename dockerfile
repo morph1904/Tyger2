@@ -27,7 +27,8 @@ ENV TYGER_DATA=$TYGER_ROOT/data
 
 RUN apk add --no-cache \
     git \
-    uwsgi-python3 \
+    gcc \
+    #uwsgi-python3 \
     curl \
     bash && \
     python3 -m ensurepip && \
@@ -53,6 +54,7 @@ COPY ./newrequirements.txt $TYGER_ROOT
 
 #Install backend
 RUN pip3 install -r $TYGER_ROOT/newrequirements.txt
+RUN pip3 install uwsgi
 
 RUN apk del build-dependencies
 
