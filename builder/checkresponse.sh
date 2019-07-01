@@ -12,10 +12,6 @@ backend="false"
   frontend="true"
   if [ $backendresponse -eq "301" ] || [ $backendresponse -eq "302" ] || [ $backendresponse -eq "200" ]; then
   backend="true"
-  `cd /apps/Tyger2`
-  `ls -ls`
-  `cd /apps/Tyger2/data`
-  `ls -ls`
   exit 0
 else
   echo "Something went wrong! HTTP Response code was $response"
