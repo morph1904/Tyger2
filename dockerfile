@@ -45,6 +45,7 @@ COPY --from=nodebuild /frontend/dist $TYGER_FRONTEND/dist
 COPY ./backend $TYGER_DIR
 COPY ./builder $TYGER_ROOT/builder
 COPY ./install/caddyfile.conf $TYGER_ROOT/install/caddyfile.conf
+COPY ./install/uwsgi.ini $TYGER_ROOT/install/uwsgi.ini
 COPY ./certs $TYGER_ROOT/certs
 COPY ./data $TYGER_DATA
 COPY ./newrequirements.txt $TYGER_ROOT
