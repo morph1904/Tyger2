@@ -46,7 +46,7 @@ COPY ./backend $TYGER_DIR
 COPY ./builder $TYGER_ROOT/builder
 COPY ./install/caddyfile.conf $TYGER_ROOT/install/caddyfile.conf
 COPY ./install/uwsgi.ini $TYGER_ROOT/install/uwsgi.ini
-COPY ./install/logfile_plugin.so /usr/lib/uwsgi/logfile_plugin.so
+#COPY ./install/logfile_plugin.so /usr/lib/uwsgi/logfile_plugin.so
 COPY ./certs $TYGER_ROOT/certs
 COPY ./data $TYGER_DATA
 COPY ./newrequirements.txt $TYGER_ROOT
