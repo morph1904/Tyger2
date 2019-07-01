@@ -20,6 +20,12 @@ else
   cp $TYGER_ROOT/install/caddyfile.conf $TYGER_DATA
 fi
 
+if [ -e $TYGER_DATA/logs/uwsgi.log ]
+then
+  printf "uwsgi log exists, doing nothing\n"
+else
+  touch $TYGER_DATA/logs/uwsgi.log
+fi
 
 
 printf "Starting Services"
