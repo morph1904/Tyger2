@@ -39,5 +39,5 @@ fi
 
 printf "Starting Services"
 
-uwsgi $TYGER_ROOT/install/uwsgi.ini &
+uwsgi --emperor $TYGER_ROOT/install/uwsgi.ini &
 caddy -log $TYGER_LOGS/caddy.log -pidfile=$TYGER_DATA/caddypid.txt -agree=true -conf=$TYGER_DATA/caddyfile.conf -root=/var/tmp
