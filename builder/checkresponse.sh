@@ -2,16 +2,11 @@
 sleep 2
 
 #check to see if local webserver is serving pages
-frontendresponse=`curl -s -o /dev/null -I -w "%{http_code}" http://127.0.0.1:9091`
-backendresponse=`curl -s -o /dev/null -I -w "%{http_code}" http://127.0.0.1:9090`
-frontend="false"
-backend="false"
+response=`curl -s -o /dev/null -I -w "%{http_code}" http://127.0.0.1:9091`
+
 #look for a response code of 301 or 302
- if [ $frontendresponse -eq "301" ] || [ $frontendresponse -eq "302" ] || [ $frontendresponse -eq "200" ]; then
+ if [ $response -eq "301" ] || [ $response -eq "302" ] || [ $response -eq "200" ]; then
   echo "Site is live! HTTP Response $response OK"
-  frontend="true"
-  if [ $backendresponse -eq "301" ] || [ $backendresponse -eq "302" ] || [ $backendresponse -eq "200" ]; then
-  backend="true"
   exit 0
 else
   echo "Something went wrong! HTTP Response code was $response"
