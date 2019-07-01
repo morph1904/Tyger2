@@ -44,7 +44,7 @@
           v-model="item.app"
           :items="apps"
           item-text="name"
-          item-value="url"
+          item-value="name"
           label="Select a app to proxy to:"
         ></v-combobox>
               </v-layout>
@@ -113,9 +113,18 @@ export default {
           close (){
             this.show = false
       },
+    
       save () {
-                //console.log(this.item)
-        this.$store.dispatch('updateAddress', this.item)
+        let data = {
+          id: this.item.id,
+          address: this.item.address,
+          tls: this.item.tls,
+          staging: this.item.staging,
+          app: this.item.app.name,
+          provider: this.item.provider.provider_name,
+          dns_challenge: this.item.dns_challenge
+      }
+        this.$store.dispatch('updateAddress', data)
         this.close()
       },
      },

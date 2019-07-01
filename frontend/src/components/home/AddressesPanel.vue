@@ -16,12 +16,20 @@
       <v-card-title primary-title>
         <h2 class="blue-grey--text darken-4">Addresses</h2> 
         <v-spacer></v-spacer> 
+        <v-text-field
+        v-model="search"
+        append-icon="search"
+        label="Search"
+        single-line
+        hide-details
+      ></v-text-field>
         <v-btn round color="primary" dark @click.stop="addAddressForm=true"><v-icon>add</v-icon> Add Address</v-btn>
       </v-card-title>
       <v-data-table
       :headers="headers"
       :items="addresses"
       :loading="loading"
+      :search="search"
       class="elevation-1"
     >
 <template slot="items" slot-scope="props">
@@ -76,6 +84,7 @@ export default {
       editdialog: false,
         loading: true,
         pagination: {},
+        search: '',
         headers: [
           {
             text: 'Address ID',

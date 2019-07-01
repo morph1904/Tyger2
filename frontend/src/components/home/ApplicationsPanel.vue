@@ -16,10 +16,22 @@
       <v-card-title primary-title>
         <h2 class="blue-grey--text darken-4">Apps</h2>
         <v-spacer></v-spacer> 
+        <v-text-field
+        v-model="search"
+        append-icon="search"
+        label="Search"
+        single-line
+        hide-details
+      ></v-text-field>
         <v-btn round color="primary" dark @click.stop="addAppForm=true"><v-icon>add</v-icon> Add App</v-btn>
       </v-card-title>
 
-      <v-data-table :headers="headers" :items="apps" :loading="loading" class="elevation-1">
+      <v-data-table 
+        :headers="headers" 
+        :items="apps" 
+        :loading="loading" 
+        :search="search"
+        class="elevation-1">
         <template slot="items" slot-scope="props">
           <td>{{ props.item.id }}</td>
           <td>{{ props.item.name }}</td>
@@ -37,6 +49,11 @@
             <v-icon small @click="deleteItem(props.item)">delete</v-icon>
           </td>
         </template>
+        <template v-slot:no-results>
+        <v-alert :value="true" color="error" icon="warning">
+          Your search for "{{ search }}" found no results.
+        </v-alert>
+      </template>
       </v-data-table>
     </v-card>
   </div>
@@ -56,6 +73,7 @@ export default {
       deleteid: {},
       editdialog: false,
       pagination: {},
+      search: '',
       headers: [
         {
           text: "App ID",

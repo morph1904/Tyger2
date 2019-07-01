@@ -5,6 +5,9 @@ TYGER_ROOT=$APPS_DIR/Tyger2
 TYGER_DIR=$TYGER_ROOT/backend
 TYGER_DATA=$TYGER_ROOT/data
 TYGER_LOGS=$TYGER_DATA/logs
+TYGER_CERTS=$TYGER_DATA/certs
+
+export CADDYPATH=$TYGER_DATA/certs
 
 if [ -e $TYGER_DATA/db.sqlite3 ]
 then
