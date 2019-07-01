@@ -6,6 +6,21 @@ TYGER_DIR=$TYGER_ROOT/backend
 TYGER_DATA=$TYGER_ROOT/data
 TYGER_LOGS=$TYGER_DATA/logs
 
+if [ -e $TYGER_DATA/db.sqlite3 ]
+then
+  python3 $TYGER_DIR/manage.py migrate
+else
+  printf "Assuming new install\n"
+fi
+
+if [ -e $TYGER_DATA/caddyfile.conf ]
+then
+  printf "Looks installed, doing nothing\n"
+else
+  cp $TYGER_ROOT/install/caddyfile.conf $TYGER_DATA
+fi
+
+
 
 printf "Starting Services"
 
