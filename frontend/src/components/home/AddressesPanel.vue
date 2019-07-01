@@ -3,6 +3,8 @@
     <AddAddress v-model="addAddressForm"/>
     <AddressDelete v-model="deletedialog" :item="deleteid"/>
     <AddressEdit v-model="editdialog" :item="editedItem"/>
+    <AddressDetail v-model="detaildialog" :item="editedItem"/>>
+
     <v-toolbar color="deep-orange" dark flat>
       <v-toolbar-title>Addresses</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -30,11 +32,13 @@
       :items="addresses"
       :loading="loading"
       :search="search"
+      :rows-per-page-items="rowsPerPageItems"
+      :pagination.sync="pagination"
       class="elevation-1"
     >
 <template slot="items" slot-scope="props">
         <td>{{ props.item.id }}</td>
-        <td><a target="_blank" :href="props.item.address">{{ props.item.address }}</a></td>
+        <td><v-btn round small color="primary" dark @click.stop="detailItem(props.item)">{{ props.item.address }}</v-btn></td>
         <td>
           <v-icon medium v-if="props.item.tls">check</v-icon>
           <v-icon medium v-else>close</v-icon>
@@ -65,6 +69,11 @@
           </v-icon>
         </td>
       </template>
+      <template v-slot:no-results>
+        <v-alert :value="true" color="error" icon="warning">
+          Your search for "{{ search }}" found no results.
+        </v-alert>
+      </template>
 </v-data-table>
     </v-card>
   </div>
@@ -74,16 +83,21 @@ import { mapGetters } from 'vuex'
 import AddAddress from "@/components/forms/AddAddress";
 import AddressDelete from "@/components/Addresses/AddressDelete";
 import AddressEdit from "@/components/Addresses/AddressEdit";
+import AddressDetail from "@/components/Addresses/AddressDetail";
+
 export default {
   data() {
     return {
-
+      rowsPerPageItems: [10, 20, 30, 40, 50, 100],
+      pagination: {
+        rowsPerPage: 30
+      },
       addAddressForm: false,
       deletedialog: false,
+      detaildialog: false,
       deleteid: {},
       editdialog: false,
         loading: true,
-        pagination: {},
         search: '',
         headers: [
           {
@@ -114,7 +128,8 @@ export default {
   components:{
     AddAddress,
     AddressDelete,
-    AddressEdit
+    AddressEdit,
+    AddressDetail
   },
   methods: {
     close () {
@@ -146,6 +161,11 @@ export default {
         this.editedIndex = this.addresses.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.editdialog = true
+      },
+    detailItem (item) {
+        this.editedIndex = this.addresses.indexOf(item)
+        this.editedItem = Object.assign({}, item)
+        this.detaildialog = true
       },
     deleteItem (item) {
       this.deleteid = this.editedItem = Object.assign({}, item);

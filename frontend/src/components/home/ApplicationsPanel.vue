@@ -31,6 +31,8 @@
         :items="apps" 
         :loading="loading" 
         :search="search"
+        :rows-per-page-items="rowsPerPageItems"
+        :pagination.sync="pagination"
         class="elevation-1">
         <template slot="items" slot-scope="props">
           <td>{{ props.item.id }}</td>
@@ -67,12 +69,15 @@ import AddApp from "@/components/forms/AddApp";
 export default {
   data() {
     return {
+      rowsPerPageItems: [10, 20, 30, 40, 50, 100],
+      pagination: {
+        rowsPerPage: 30
+      },
       loading: true,
       addAppForm: false,
       deletedialog: false,
       deleteid: {},
       editdialog: false,
-      pagination: {},
       search: '',
       headers: [
         {
@@ -104,12 +109,6 @@ export default {
     AppsEdit
   },
   watch: {
-    pagination: {
-      handler() {
-        this.appList();
-      },
-      deep: true
-    },
     editdialog(val) {
       val || this.close();
     },

@@ -34,6 +34,7 @@ from addresses.views import CountAddresses
 from addresses.views import AddressViewset
 from dns.views import DNSViewset
 from stats.views import GetStats
+from endpoints.views import EndpointViewset
 
 from .caddy import build_caddyfile
 # Serializers define the API representation.
@@ -85,6 +86,7 @@ router.register(r'users', UserViewSet)
 router.register(r'addresses', AddressViewset)
 router.register(r'apps', AppsViewset)
 router.register(r'dns', DNSViewset)
+router.register(r'endpoint', EndpointViewset)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -99,5 +101,6 @@ urlpatterns = [
     path('stats/', include('stats.urls')),
     path('', include(router.urls)),
     path('generate/', build_caddyfile),
-    path('logs/', include('logs.urls'))
+    path('logs/', include('logs.urls')),
+    path('endpoint/', include('endpoints.urls'))
 ]

@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'dns',
     'install',
     'stats',
-    'logs'
+    'logs',
+    'endpoints'
 ]
 
 MIDDLEWARE = [
