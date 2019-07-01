@@ -27,13 +27,11 @@ ENV TYGER_DATA=$TYGER_ROOT/data
 
 RUN apk add --no-cache \
     git \
-    gcc \
+    #gcc \
     #uwsgi-python3 \
     curl \
     bash && \
-    python3 -m ensurepip && \
-    rm -r /usr/lib/python*/ensurepip && \
-    pip3 install --upgrade pip setuptools 
+    python3 -m ensurepip
 
 RUN apk add --no-cache --virtual build-dependencies gcc libc-dev linux-headers python3-dev && \
     pip3 install --upgrade pip setuptools
