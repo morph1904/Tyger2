@@ -47,8 +47,18 @@
           <td><v-icon medium v-if="props.item.transparent">check</v-icon>
           <v-icon medium v-else>close</v-icon></td>
           <td class="justify-center layout px-0">
-            <v-icon small class="mr-2" @click="editItem(props.item)">edit</v-icon>
-            <v-icon small @click="deleteItem(props.item)">delete</v-icon>
+            <v-tooltip top> 
+              <v-btn icon class="mr-0" color="primary" @click="editItem(props.item)" slot="activator"> 
+                <v-icon>edit</v-icon> 
+              </v-btn> 
+              <span>Edit App</span> 
+            </v-tooltip>
+            <v-tooltip top> 
+              <v-btn icon class="mr-0" color="primary" @click="deleteItem(props.item)" slot="activator"> 
+                <v-icon>delete</v-icon> 
+              </v-btn> 
+              <span>Delete App</span> 
+            </v-tooltip>
           </td>
         </template>
         <template v-slot:no-results>

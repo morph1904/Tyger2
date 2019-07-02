@@ -45,7 +45,7 @@
           :items="apps"
           item-text="name"
           item-value="name"
-          label="Select a app to proxy to:"
+          label="Select an app to proxy to:"
         ></v-combobox>
               </v-layout>
               <v-layout row justify-space-between>

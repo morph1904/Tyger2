@@ -3,7 +3,8 @@
     <AddAddress v-model="addAddressForm"/>
     <AddressDelete v-model="deletedialog" :item="deleteid"/>
     <AddressEdit v-model="editdialog" :item="editedItem"/>
-    <AddressDetail v-model="detaildialog" :item="editedItem"/>>
+    <AddressDetail v-model="detaildialog" :item="editedItem"/>
+    <AddressURLProxy v-model="urldialog" :item="editedItem" />
 
     <v-toolbar color="deep-orange" dark flat>
       <v-toolbar-title>Addresses</v-toolbar-title>
@@ -38,7 +39,9 @@
     >
 <template slot="items" slot-scope="props">
         <td>{{ props.item.id }}</td>
-        <td><v-btn round small color="primary" dark @click.stop="detailItem(props.item)">{{ props.item.address }}</v-btn></td>
+        <td>
+          <a :href="'http://' + props.item.address"> {{props.item.address}} </a>
+          <!--<v-btn round small color="primary" dark @click.stop="detailItem(props.item)">{{ props.item.address }}</v-btn></td>-->
         <td>
           <v-icon medium v-if="props.item.tls">check</v-icon>
           <v-icon medium v-else>close</v-icon>
@@ -54,19 +57,24 @@
           <v-icon medium v-else>close</v-icon>
         </td>
         <td class="justify-center layout px-0">
-          <v-icon
-            small
-            class="mr-2"
-            @click="editItem(props.item)"
-          >
-            edit
-          </v-icon>
-          <v-icon
-            small
-            @click="deleteItem(props.item)"
-          >
-            delete
-          </v-icon>
+          <v-tooltip top> 
+            <v-btn icon class="mr-0" color="primary" slot="activator" @click="urlproxy(props.item)"> 
+              <v-icon>domain_disabled</v-icon> 
+            </v-btn> 
+              <span>Add URL proxy</span> 
+            </v-tooltip> 
+            <v-tooltip top> 
+              <v-btn icon class="mr-0" color="primary" @click="editItem(props.item)" slot="activator"> 
+                <v-icon>edit</v-icon> 
+              </v-btn> 
+              <span>Edit Address</span> 
+            </v-tooltip>
+            <v-tooltip top> 
+              <v-btn icon class="mr-0" color="primary" @click="deleteItem(props.item)" slot="activator"> 
+                <v-icon>delete</v-icon> 
+              </v-btn> 
+              <span>Delete Address</span> 
+            </v-tooltip>
         </td>
       </template>
       <template v-slot:no-results>
@@ -84,6 +92,7 @@ import AddAddress from "@/components/forms/AddAddress";
 import AddressDelete from "@/components/Addresses/AddressDelete";
 import AddressEdit from "@/components/Addresses/AddressEdit";
 import AddressDetail from "@/components/Addresses/AddressDetail";
+import AddressURLProxy from "@/components/Addresses/AddressURLProxy";
 
 export default {
   data() {
@@ -95,6 +104,7 @@ export default {
       addAddressForm: false,
       deletedialog: false,
       detaildialog: false,
+      urldialog: false,
       deleteid: {},
       editdialog: false,
         loading: true,
@@ -129,7 +139,8 @@ export default {
     AddAddress,
     AddressDelete,
     AddressEdit,
-    AddressDetail
+    AddressDetail,
+    AddressURLProxy
   },
   methods: {
     close () {
@@ -170,6 +181,11 @@ export default {
     deleteItem (item) {
       this.deleteid = this.editedItem = Object.assign({}, item);
       this.deletedialog = true;
+    },
+    urlproxy (item) {
+      this.editedIndex = this.addresses.indexOf(item)
+        this.editedItem = Object.assign({}, item)
+        this.urldialog = true
     },
   },
   computed: {

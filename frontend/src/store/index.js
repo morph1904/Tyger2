@@ -11,6 +11,7 @@ import { dns } from './modules/dns';
 import { utility } from './modules/utility';
 import { snackbar } from './modules/snackbar';
 import { logs } from './modules/logs';
+import { endpoints } from './modules/endpoint';
 
 let initialState = {
   user: { ...user.state },
@@ -18,7 +19,8 @@ let initialState = {
   apps: {...apps.state},
   dns: {...dns.state},
   logs:{...logs.state},
-  snackbar: {...snackbar.state}
+  snackbar: {...snackbar.state},
+  endpoints: {...endpoints.state}
 }
 
 export default new Vuex.Store({
@@ -30,7 +32,8 @@ export default new Vuex.Store({
     dns,
     utility,
     logs,
-    snackbar
+    snackbar,
+    endpoints
 },
 mutations: {
   reset (state) {
