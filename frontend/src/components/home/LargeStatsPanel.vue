@@ -72,8 +72,8 @@
           <v-card-text class="headline font-weight-bold">
             <v-layout row wrap justify-center>
               <v-flex xs6>
-            <v-btn round color="primary" dark block>Reload Proxy</v-btn>
-            <v-btn round color="primary" dark block>View Logs</v-btn>
+            <<v-btn round color="primary" dark block @click="ReloadProxy()">Reload Proxy</v-btn>
+            <v-btn round color="primary" dark block to="/logs">View Logs</v-btn>
               </v-flex>
             </v-layout>
           </v-card-text>
