@@ -2,7 +2,7 @@
 <v-dialog v-model="show" max-width="700px">
      <v-card>
           <v-card-title class="primary" dark flat>
-            <span class="headline white--text">Add Address</span>
+            <span class="headline white--text">Edit Address</span>
           </v-card-title>
 
           <v-card-text>

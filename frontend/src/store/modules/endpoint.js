@@ -10,8 +10,8 @@ export const endpoints = {
   },
 
   actions: {
-    getEndpoints({ commit }) {
-      axios.get("endpoint/").then(({ data }) => {
+    getEndpoints({ commit }, data) {
+      axios.get("endpoint/?address="+ data.id).then(({ data }) => {
         if (data) {
           commit('GET_ENDPOINTS', data)
         }
@@ -20,30 +20,35 @@ export const endpoints = {
           commit('setSnack', {snack: "Could not communicate with the backend!", color: 'error'})
         })
     },
-    addEndpoint({ commit, dispatch }, data) {
+    
+    addEndpoint({ commit }, data) {
       axios
         .post("endpoint/", data)
         .then(({ data }) => {
           //dispatch('getEndpoints')
-          commit('setSnack', {snack: "Endpoint " + data.url + " was created!", color: 'success'})
+          commit('setSnack', {snack: "Endpoint " + data.endpoint + " was created!", color: 'success'})
         })
         .catch(() => {
           commit('setSnack', {snack: "Could not save the proxy! Please check your data and try again", color: 'error'})
         });
     },
     updateEndpoint({ commit, dispatch }, data) {
+      console.log(data)
       axios.patch("endpoint/" + data.id + "/", data)
-        .then(({ response }) => {
-          dispatch('getEndpoints')
-          commit('setSnack', {snack: "Endpoint " + data.url + " was updated!", color: 'success'})
+        .then(() => {
+          let addr = {
+            id: data.addrid
+          }
+          dispatch('getEndpoints', addr)
+          commit('setSnack', {snack: "Endpoint " + data.endpoint + " was updated!", color: 'success'})
         })
     },
-    deleteEndpoint({ commit, dispatch }, data) {
-      let endpoint = data
-      axios.delete("endpoint/" + data.id + "/", data)
-        .then(({ data }) => {
-          dispatch('getEndpoints')
-          commit('setSnack', { snack: "Endpoint " + data.url + " was deleted!", color: 'warning'})
+    deleteEndpoint({ commit }, data) {
+      console.log(data)
+      axios.delete("endpoint/" + data.id + "/")
+        .then(() => {
+
+          commit('setSnack', { snack: "Endpoint " + data.endpoint + " was deleted!", color: 'warning'})
         })
     },
   },

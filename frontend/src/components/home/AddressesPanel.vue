@@ -176,6 +176,11 @@ export default {
     detailItem (item) {
         this.editedIndex = this.addresses.indexOf(item)
         this.editedItem = Object.assign({}, item)
+         let data = {
+         id: this.editedItem.id
+       }
+
+       this.$store.dispatch('getEndpoints', data)
         this.detaildialog = true
       },
     deleteItem (item) {

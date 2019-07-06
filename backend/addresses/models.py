@@ -9,6 +9,5 @@ class Address(models.Model):
     app = models.ForeignKey(App, on_delete=models.CASCADE)
     provider = models.ForeignKey(DNS, on_delete=models.SET_NULL,blank=True, null=True)
     dns_challenge = models.BooleanField(default=False)
-    endpoints - models.One
     def __str__(self):
         return self.address

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.views import APIView
+from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
@@ -25,5 +26,16 @@ class CountEndpoints(APIView):
         return Response(endpointcount)
 
 class EndpointViewset(viewsets.ModelViewSet):
-    queryset = Endpoint.objects.all()
     serializer_class = EndpointSerializer
+    queryset = Endpoint.objects.all()
+    
+    def get_queryset(self):
+
+        queryset = Endpoint.objects.all()
+        address = self.request.query_params.get('address', None)
+
+        if address is not None:
+            #ids = ids.split(',') 
+            queryset = queryset.filter(address=address)
+        return queryset
+
