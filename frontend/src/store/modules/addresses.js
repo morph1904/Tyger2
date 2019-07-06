@@ -19,6 +19,7 @@ export const addresses = {
           commit('setSnack', {snack: "Could not communicate with the backend!", color: "error"})
       });
     },
+    
     addAddress({ commit, dispatch }, data) {
       let address = data
       axios.post("addresses/", data)

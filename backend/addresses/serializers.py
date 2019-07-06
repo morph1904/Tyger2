@@ -10,7 +10,7 @@ class AddressSerializer(serializers.ModelSerializer):
     provider = serializers.SlugRelatedField(slug_field='provider_name', queryset=DNS.objects.all())
     class Meta:
         model = Address
-        fields = ('id', 'address', 'tls', 'staging', 'app', 'provider', 'dns_challenge')
+        fields = ('id', 'address', 'tls', 'staging', 'app', 'provider', 'dns_challenge', 'endpoints')
 
     def update(self, instance, validated_data):
         instance.address = validated_data.get('address', instance.address)

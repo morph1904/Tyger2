@@ -7,7 +7,7 @@ from backend import caddy
 
 class EndpointSerializer(serializers.ModelSerializer):
     proxy_to = serializers.SlugRelatedField(slug_field='name', queryset=App.objects.all())
-    address = serializers.SlugRelatedField(slug_field='address', queryset=Address.objects.all())
+    address = serializers.SlugRelatedField(slug_field='address', related_name='endpoints', queryset=Address.objects.all())
     class Meta:
         model = Endpoint
         fields = ('id', 'endpoint', 'address', 'proxy_to')

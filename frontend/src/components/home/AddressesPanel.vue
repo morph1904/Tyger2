@@ -40,7 +40,7 @@
 <template slot="items" slot-scope="props">
         <td>{{ props.item.id }}</td>
         <td>
-          <a :href="'http://' + props.item.address"> {{props.item.address}} </a>
+          <a @click="detailItem(props.item)"> {{props.item.address}} </a>
           <!--<v-btn round small color="primary" dark @click.stop="detailItem(props.item)">{{ props.item.address }}</v-btn></td>-->
         <td>
           <v-icon medium v-if="props.item.tls">check</v-icon>
