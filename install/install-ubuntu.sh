@@ -9,7 +9,7 @@ LIME_YELLOW=$(tput setaf 190)
 APPS_DIR=/apps
 TYGER_ROOT=$APPS_DIR/Tyger2
 TYGER_DATA=$TYGER_ROOT/data
-TYGER_LOGS=$TYGER_ROOT/logs
+TYGER_LOGS=$TYGER_DATA/logs
 
 if [ "$(whoami)" != 'root' ]; then
   printf "${GREEN}This script must be run as root${NORMAL}\n"
