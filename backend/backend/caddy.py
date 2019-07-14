@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 from addresses.models import Address
 from apps.models import App
+from endpoints.models import Endpoint
 
 from django.http import JsonResponse, HttpResponse
 
@@ -46,11 +47,25 @@ def generate_block(add):
 
     if add.app.websocket:
         caddytext += '\t\t websocket \n'
-
+            
     if add.app.transparent:
         caddytext += '\t\t transparent \n'
 
     caddytext += '\t} \n\n'
+
+    #Get endpoints
+    endpoints = Endpoint.objects.filter(address=add.id)
+    if endpoints:
+        print (endpoints)
+        for block in endpoints:
+            caddytext += '\tproxy ' + block.endpoint + ' ' + block.proxy_to.url + ' { \n'
+            if add.app.insecure_skip_verify:
+                caddytext += '\t\t insecure_skip_verify \n'
+            if add.app.websocket:
+                caddytext += '\t\t websocket \n'
+            if add.app.transparent:
+                caddytext += '\t\t transparent \n'
+            caddytext += '\t} \n\n'
 
     if add.tls:
         if add.staging:

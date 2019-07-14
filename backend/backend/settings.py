@@ -32,7 +32,8 @@ ALLOWED_HOSTS = [
 ]
 
 CORS_ORIGIN_WHITELIST = (
-    'localhost:9091',
+    'http://localhost:9091',
+    'http://localhost:8080',
     'localhost:8080'
 )
 

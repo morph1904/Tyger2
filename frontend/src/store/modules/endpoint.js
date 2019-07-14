@@ -43,11 +43,14 @@ export const endpoints = {
           commit('setSnack', {snack: "Endpoint " + data.endpoint + " was updated!", color: 'success'})
         })
     },
-    deleteEndpoint({ commit }, data) {
+    deleteEndpoint({ commit, dispatch }, data) {
       console.log(data)
       axios.delete("endpoint/" + data.id + "/")
         .then(() => {
-
+          let addr = {
+            id: data.addrid
+          }
+          dispatch('getEndpoints', addr)
           commit('setSnack', { snack: "Endpoint " + data.endpoint + " was deleted!", color: 'warning'})
         })
     },

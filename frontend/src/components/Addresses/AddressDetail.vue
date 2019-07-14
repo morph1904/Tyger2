@@ -1,6 +1,7 @@
 <template>
 <div>
   <AddressEditEndpoint v-model="editEndpointShow" :item="endpoint" />
+  <AddressDeleteEndpoint v-model="deleteEndpointShow" :item="endpoint" />
     <v-dialog v-model="detailshow" max-width="700px">
 
      <v-card>
@@ -81,14 +82,17 @@
 <script>
 import { mapGetters } from 'vuex'
 import AddressEditEndpoint from "@/components/Addresses/AddressEditEndpoint"
+import AddressDeleteEndpoint from "@/components/Addresses/AddressDeleteEndpoint"
 
 export default {
   components:{
-    AddressEditEndpoint
+    AddressEditEndpoint,
+    AddressDeleteEndpoint
   },
  data() {
     return {
       editEndpointShow: false,
+      deleteEndpointShow: false,
       rowsPerPageItems: [10, 20, 30, 40, 50, 100],
       pagination: {
         rowsPerPage: 30
@@ -148,6 +152,12 @@ export default {
             this.endpoint = Object.assign({}, endpoint)
             this.endpoint.addrid = addrid
             this.editEndpointShow = true
+          },
+          deleteEndpoint (endpoint) {
+            let addrid = this.item.id
+            this.endpoint = Object.assign({}, endpoint)
+            this.endpoint.addrid = addrid
+            this.deleteEndpointShow = true
           }
      },
 }
