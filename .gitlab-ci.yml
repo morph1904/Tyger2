@@ -7,6 +7,7 @@ stages:
   - Build Image
   - Test Dev Image
   - Deploy Dev Build
+  - Deploy BETA Build
 
 variables:
   CONTAINER_TEST_IMAGE: $CI_REGISTRY/morph1904/tyger2:dev
@@ -39,3 +40,9 @@ deploy dev build:
   script:
     - docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD $DOCKERHUB_REGISTRY
     - docker push morph1904/tyger2:dev
+
+deploy BETA build:
+  stage: Deploy Dev Build
+  script:
+    - docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD $DOCKERHUB_REGISTRY
+    - docker push morph1904/tyger2:beta
