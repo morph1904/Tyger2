@@ -41,10 +41,10 @@ http://<ip-of-your-docker-server>:9090/install/
 ```
 Fill in the form with the relevant details:
 
-username: the username of the admin user
-password: password for the admin user
-email: this is used for the letsencrypt certificate signing, they will send you expiry notifications
-server ip: this is the internal ip address of your docker server
+username: the username of the admin user  
+password: password for the admin user  
+email: this is used for the letsencrypt certificate signing, they will send you expiry notifications  
+server ip: this is the internal ip address of your docker server  
 
 When complete visit your UI at
 ```
