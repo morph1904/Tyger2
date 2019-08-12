@@ -5,9 +5,9 @@ A Reverse Proxy Application
 ## Description
 This is a a bundled application using Caddy as a reverse proxy server and Django/VueJS as a web GUI. This is currently BETA and not a finished product. Use in a live environment at your own risk! (Though it seems stable at the moment.)
 
-##Installation
-###Docker (recommended)
-####Docker Compose
+## Installation
+### Docker (recommended)
+#### Docker Compose
 See a sample docker-compose.yml block below. 
 ```
 version: "3.6"                                                                                                          
@@ -25,16 +25,16 @@ services:
       - 9091:9091
     restart: unless-stopped
 ```
-#####Storage
+##### Storage
 For storage persistance of the database and certificates etc please ensure that you map the volumes to a directory. If you backup your docker server these directories are used by Tyger2 to keep your certificates and proxy data, as well as your logs and caddyfile. 
 
-#####Ports
+##### Ports
 To allow Tyger2 to proxy your requests correctly, you will need to forward port 443 and 80 from your router to your docker server's internal IP address. Tyger2 also uses ports 9090 and 9091. There is currently no easy way to change these however using docker, you can map them to alternative ports on your docker host. E.g 8123:9090 and 8124:9091
 
-####Portainer etc
+#### Portainer etc
 Tyger2 works well with Portainer (thats what I use) just use the docker-compose config above to add your container. 
 
-####Post-Install
+#### Post-Install
 Once your docker container is up and running for the first time, go to 
 ```
 http://<ip-of-your-docker-server>:9090/install/ 
@@ -51,5 +51,5 @@ When complete visit your UI at
 http://<ip-of-your-docker-server>:9091/
 ```
 log in, and enjoy!
-###Ubuntu Server
+### Ubuntu Server
 
