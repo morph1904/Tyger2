@@ -18,7 +18,7 @@ docker build:
   - docker info
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   - docker build -t $CI_REGISTRY/morph1904/tyger2:dev -t morph1904/tyger2:dev .
-  docker build -t $CI_REGISTRY/morph1904/tyger2:dev -t morph1904/tyger2:beta .
+  - docker build -t $CI_REGISTRY/morph1904/tyger2:dev -t morph1904/tyger2:beta .
   - docker push $CI_REGISTRY/morph1904/tyger2:dev
   
 
