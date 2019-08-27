@@ -29,6 +29,7 @@ then
 fi
 
 printf "${GREEN}Installing dependencies...${NORMAL}\n"
+sudo add-apt-repository universe
 apt-get update && apt-get -y upgrade && apt-get -y install --no-install-recommends \
   python3 \
   python3-pip \
@@ -97,5 +98,6 @@ pip3 install uwsgi
 printf "${GREEN}Starting TygerCaddy... Almost there!${NORMAL}\n"
 systemctl start uwsgi
 systemctl start caddy
+IP=`hostname -I`
 
-printf "${GREEN}Install complete! Enter the server IP in your chosen browser complete the install wizard.${NORMAL}\n"
+printf "${GREEN}Install complete! visit http://${IP}:9090/install in your chosen browser complete the install wizard.${NORMAL}\n"
