@@ -92,6 +92,7 @@ systemctl enable uwsgi.service
 
 printf "${GREEN}Setting up initial install...${NORMAL}\n"
 pip3 install -r $TYGER_ROOT/newrequirements.txt
+pip3 install uwsgi
 
 printf "${GREEN}Starting TygerCaddy... Almost there!${NORMAL}\n"
 systemctl start uwsgi
