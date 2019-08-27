@@ -52,4 +52,31 @@ http://<ip-of-your-docker-server>:9091/
 ```
 log in, and enjoy!
 ### Ubuntu Server
+#### Download install script
+Download the install script at [install-ubuntu.sh](https://raw.githubusercontent.com/morph1904/Tyger2/master/install/install-ubuntu.sh) and run it as sudo
+```
+cd /tmp  
+wget https://raw.githubusercontent.com/morph1904/Tyger2/master/install/install-ubuntu.sh  
+sudo ./install-ubuntu.sh  
 
+```
+The script will download and install the dependencies and set up the file structure and permissions etc.  
+Once complete use the post install steps below to get up and running.  
+
+#### Post-Install
+Once the installer scripts is completed, go to 
+```
+http://<ip-of-your-ubuntu-server>:9090/install/ 
+```
+Fill in the form with the relevant details:
+
+username: the username of the admin user  
+password: password for the admin user  
+email: this is used for the letsencrypt certificate signing, they will send you expiry notifications  
+server ip: this is the internal ip address of your ubuntu server  
+
+When complete visit your UI at
+```
+http://<ip-of-your-ubuntu-server>:9091/
+```
+log in, and enjoy!
