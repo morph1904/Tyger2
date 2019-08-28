@@ -11,7 +11,7 @@ class AddressSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Address
-        fields = ('id', 'address', 'tls', 'staging', 'app', 'provider', 'dns_challenge', 'endpoints')
+        fields = ('id', 'address', 'tls', 'staging', 'app', 'provider', 'dns_challenge')
 
     def update(self, instance, validated_data):
         instance.address = validated_data.get('address', instance.address)
