@@ -11,6 +11,7 @@ class AddressSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Address
+        #Removed endpoint field from serializer
         fields = ('id', 'address', 'tls', 'staging', 'app', 'provider', 'dns_challenge')
 
     def update(self, instance, validated_data):
