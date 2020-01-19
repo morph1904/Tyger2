@@ -34,8 +34,10 @@ def generate_block(add):
     global caddyfileconf
 
     user = User.objects.get(pk=1)
-    logfile = os.path.join(root_path, os.path.join(add.app.name, add.app.name + '.log'))
-    logfolder = os.path.join(root_path, add.app.name)
+    ApplicationName = add.app.name.repalce(" ","")
+
+    logfile = os.path.join(root_path, os.path.join(ApplicationName, ApplicationName + '.log'))
+    logfolder = os.path.join(root_path, ApplicationName)
     if not os.path.exists(logfile):
         subprocess.call('mkdir ' + logfolder, shell=True)
         subprocess.call('touch ' + logfile, shell=True)
