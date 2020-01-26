@@ -34,7 +34,7 @@ def generate_block(add):
     global caddyfileconf
 
     user = User.objects.get(pk=1)
-    ApplicationName = add.app.name.repalce(" ","")
+    ApplicationName = add.app.name.replace(" ","")
 
     logfile = os.path.join(root_path, os.path.join(ApplicationName, ApplicationName + '.log'))
     logfolder = os.path.join(root_path, ApplicationName)
