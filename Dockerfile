@@ -5,7 +5,7 @@ LABEL maintainer "Morph1904 <morph1904@gmail.com>"
 RUN apk add --no-cache \
         curl \
         tar
-RUN curl -sLO https://github.com/mholt/caddy/releases/download/v1.0.0/caddy_v1.0.0_linux_amd64.tar.gz && tar -xzf caddy_v1.0.0_linux_amd64.tar.gz && mv caddy /usr/bin/caddy && chmod 755 /usr/bin/caddy && rm -rf caddy*
+RUN curl -sLO https://github.com/mholt/caddy/releases/download/v1.0.4/caddy_v1.0.0_linux_amd64.tar.gz && tar -xzf caddy_v1.0.0_linux_amd64.tar.gz && mv caddy /usr/bin/caddy && chmod 755 /usr/bin/caddy && rm -rf caddy*
 
 RUN /usr/bin/caddy -version
 
