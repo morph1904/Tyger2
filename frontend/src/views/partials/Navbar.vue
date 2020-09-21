@@ -76,7 +76,8 @@ export default {
     links: [
       { route: "/", text: "Home", icon: "home" },
       { route: "apps", text: "Applications", icon: "apps" },
-      { route: "addresses", text: "Addresses", icon: "domain" }
+      { route: "addresses", text: "Addresses", icon: "domain" },
+      { route: "export", text: "Export Config", icon: "application-export" }
     ]
   }),
   computed: {

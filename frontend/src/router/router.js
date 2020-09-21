@@ -5,6 +5,7 @@ import Login from '../views/Login.vue';
 import Apps from '../views/Apps.vue';
 import Addresses from '../views/Addresses.vue';
 import Logs from '../views/Logs.vue';
+import Export from '../views/Export.vue';
 import PageNotFound from '../components/Utility/PageNotFound.vue';
 
 
@@ -38,6 +39,12 @@ const router = new Router({
       path: '/logs',
       name: 'Logs',
       component: Logs,
+      meta: {auth: true}
+    },
+    {
+      path: '/export',
+      name: 'Export',
+      component: Export,
       meta: {auth: true}
     },
     {
