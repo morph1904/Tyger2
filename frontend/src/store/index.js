@@ -9,6 +9,7 @@ import { user } from './modules/user';
 import { apps } from './modules/apps';
 import { dns } from './modules/dns';
 import { utility } from './modules/utility';
+import { backup } from './modules/export';
 import { snackbar } from './modules/snackbar';
 import { logs } from './modules/logs';
 import { endpoints } from './modules/endpoint';
@@ -19,6 +20,7 @@ let initialState = {
   apps: {...apps.state},
   dns: {...dns.state},
   logs:{...logs.state},
+  backup:{...backup.state},
   snackbar: {...snackbar.state},
   endpoints: {...endpoints.state}
 }
@@ -31,6 +33,7 @@ export default new Vuex.Store({
     apps,
     dns,
     utility,
+    backup,
     logs,
     snackbar,
     endpoints
