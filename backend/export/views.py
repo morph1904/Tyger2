@@ -22,7 +22,7 @@ class ExportAll(viewsets.ViewSet):
         """
         Return all records and relationships in JSON format
         """
-        Addresses = Address.objects.values()
+        Addresses = Address.objects.values('id', 'address', 'tls', 'staging', 'app__name')
         Apps = App.objects.values()
         Endpoints = Endpoint.objects.values()
 
