@@ -24,7 +24,7 @@ class ExportAll(viewsets.ViewSet):
         """
         Addresses = Address.objects.values('id', 'address', 'tls', 'staging', 'app__name')
         Apps = App.objects.values()
-        Endpoints = Endpoint.objects.values()
+        Endpoints = Endpoint.objects.values('id', 'endpoint', 'address__address', 'app__name')
 
         #AllAddresses = serializers.serialize('json', Addresses)
         #AllApps = serializers.serialize('json', Apps)
