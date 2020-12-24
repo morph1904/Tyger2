@@ -1,6 +1,6 @@
 [![pipeline status](https://gitlab.bytesense.biz/morph1904/Tyger2/badges/master/pipeline.svg)](https://gitlab.bytesense.biz/morph1904/Tyger2/commits/master)
-# TESTERS NEEDED FOR LATEST VERSION
-I need a few peeps to test out a pre-release version of the new TygerCaddy. It will be in Docker, and will be made with Caddy2. You will just need to setup the testing version of the Docker build, and report any problems with as much detail as possible. 
+# TygerCaddy Now Available
+https://tygercaddy.co.uk
 
 If you are interested please email, morph1904<at>gmail.com, this will only be open until the 20th of October. 
 
