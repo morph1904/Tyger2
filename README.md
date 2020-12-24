@@ -1,11 +1,10 @@
 [![pipeline status](https://gitlab.bytesense.biz/morph1904/Tyger2/badges/master/pipeline.svg)](https://gitlab.bytesense.biz/morph1904/Tyger2/commits/master)
 # TygerCaddy Now Available
 https://tygercaddy.co.uk
-
-If you are interested please email, morph1904<at>gmail.com, this will only be open until the 20th of October. 
+ 
 
 # Tyger2
-A Reverse Proxy Application 
+A Reverse Proxy Application THIS IS NO LONGER SUPPORTED
 
 ## Description
 This is a a bundled application using Caddy as a reverse proxy server and Django/VueJS as a web GUI. This is currently BETA and not a finished product. Use in a live environment at your own risk! (Though it seems stable at the moment.)
